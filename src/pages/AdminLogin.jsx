@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { supabase } from "../SupaBase";
 import { Container, Button, Form, Row, Col } from "react-bootstrap";
-import diat_logo from "../assests/DIAT 20240307_213038.jpg";
-// import 'dotenv/config'
+
 
 const AdminLogin = () => {
     const [username, setusername] = useState("")
