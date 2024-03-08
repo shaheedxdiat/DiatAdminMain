@@ -1,37 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
-import { supabase } from "./SupaBase";
+import { supabase } from './SupaBase';
 
 const AuthListener = () => {
-  const navigate = useNavigate();
-
+  const navigate=useNavigate()
   useEffect(() => {
-    const { data: initialData, error: initialError } = supabase.auth.session();
-    if (initialData && initialData.user) {
-      console.log(initialError)
-      navigate("/dashboard");
-    } else {
-      navigate("/");
+    
+  const {data,error}=supabase.auth.onAuthStateChange((event,session)=>{
+    if (event==='SIGNED_IN') {
+      navigate("/dashboard")
+      console.log("sign-in success ",data,error)
+      console.log("session",session);
     }
+    else if (event==='SIGNED_OUT') {
+      navigate("/")
+      console.log("sign-out success ",data,error)
+      console.log("session",session);
+    }
+  })
+   
+  }, [navigate])
+  
+  return (
+    <div>
+      
+    </div>
+  )
+}
 
-    const subscription = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        if (event === "SIGNED_IN") {
-          navigate("/dashboard");
-          console.log("Signed in successfully", session);
-        } else if (event === "SIGNED_OUT") {
-          navigate("/");
-          console.log("Signed out successfully", session);
-        }
-      }
-    );
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [navigate]);
-
-  return <div></div>;
-};
-
-export default AuthListener;
+export default AuthListener
