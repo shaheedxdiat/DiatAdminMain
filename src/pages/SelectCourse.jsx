@@ -1,6 +1,5 @@
-import { Button } from 'react-bootstrap'
+
 import React from 'react'
-import { supabase } from '../SupaBase'
 
 const SelectCourse = () => {
 
@@ -14,6 +13,6 @@ const SelectCourse = () => {
     
     </div>
   )
-}
+} 
 
 export default SelectCourse

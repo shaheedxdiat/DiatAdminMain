@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import NavBar from "../components/NavBar";
 import CourseOpt from "./CourseOpt";
 import SelectCourse from "./SelectCourse";
+import { Button } from 'react-bootstrap'
 
 const AdminDashBoard = () => {
   const [currentPage, setCurrentPage] = useState("courseSelection");
@@ -38,9 +39,13 @@ const AdminDashBoard = () => {
         return <SelectCourse />;
       case "optionSelection":
         return <CourseOpt />;
+         
+    default:
+        
     }
   };
 
+  
   return (
     <div>
       <NavBar />
@@ -51,8 +56,8 @@ const AdminDashBoard = () => {
       >
         {renderPage()}
       </div>
-      <button onClick={prevPage}>Back</button>
-      <button onClick={nextPage}>Next</button>
+      <Button onClick={prevPage}>Back</Button>
+      <Button onClick={nextPage}>Next</Button>
     </div>
   );
 };

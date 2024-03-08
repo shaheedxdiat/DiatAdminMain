@@ -7,7 +7,7 @@ import { supabase } from "../SupaBase";
 const NavBar = () => {
   
   const [session, setSession] = useState(null)
-  
+  console.log(session)
 
     useEffect(() => {
       supabase.auth.getSession().then(({ data: { session } }) => {
