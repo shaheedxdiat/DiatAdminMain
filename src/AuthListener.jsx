@@ -4,22 +4,31 @@ import { supabase } from "./SupaBase";
 
 const AuthListener = () => {
   const navigate = useNavigate();
+
   useEffect(() => {
-    const { data, error } = supabase.auth.onAuthStateChange(
+    const { data: initialData, error: initialError } = supabase.auth.session();
+    if (initialData && initialData.user) {
+      console.log(initialError)
+      navigate("/dashboard");
+    } else {
+      navigate("/");
+    }
+
+    const subscription = supabase.auth.onAuthStateChange(
       (event, session) => {
         if (event === "SIGNED_IN") {
           navigate("/dashboard");
-          console.log(data, error);
-
-          // console.log("user data",session.user)
+          console.log("Signed in successfully", session);
         } else if (event === "SIGNED_OUT") {
           navigate("/");
-          console.log("log out session", session);
-          console.log("log out data", data);
-          console.log("log out data", error);
+          console.log("Signed out successfully", session);
         }
       }
     );
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, [navigate]);
 
   return <div></div>;
