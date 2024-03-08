@@ -8,7 +8,7 @@ const AuthListener = () => {
     const { data, error } = supabase.auth.onAuthStateChange(
       (event, session) => {
         if (event === "SIGNED_IN") {
-          navigate("/course");
+          navigate("/dashboard");
           console.log(data, error);
 
           // console.log("user data",session.user)
