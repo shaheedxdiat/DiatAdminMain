@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { supabase } from "../SupaBase";
 import { genarateStudentId } from "../genarateID";
 import states from "../states&dists/data.json";
-import { isDisabled } from "@testing-library/user-event/dist/utils";
 
 const StudentRegistration = () => {
   const navigate = useNavigate();
