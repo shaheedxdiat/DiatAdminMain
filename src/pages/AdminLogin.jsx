@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { supabase } from "../SupaBase";
 import { Button, Form } from "react-bootstrap";
 import { BeatLoader } from "react-spinners"; 
@@ -15,22 +15,7 @@ const AdminLogin = () => {
   const [loading, setLoading] = useState(false);
   const navigate=useNavigate()
 
-  useEffect(() => {
-    
-    const {data,error}=supabase.auth.onAuthStateChange((event,session)=>{
-      if (event==='SIGNED_IN') {
-        // navigate("/course")
-      
-        
-      }
-      else if (event==='SIGNED_OUT') {
-        navigate("/")
-        console.log("sign-out success ",data,error)
-       
-      }
-    })
-     
-    }, [navigate])
+
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);

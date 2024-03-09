@@ -1,31 +1,44 @@
-import React, { useEffect } from 'react'
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from './SupaBase';
 
 const AuthListener = () => {
-  const navigate=useNavigate()
-  useEffect(() => {
-    
-  const {data,error}=supabase.auth.onAuthStateChange((event,session)=>{
-    if (event==='SIGNED_IN') {
-      // navigate("/dashboard")
-    
-      
-    }
-    else if (event==='SIGNED_OUT') {
-      navigate("/")
-      console.log("sign-out success ",data,error)
-     
-    }
-  })
-   
-  }, [navigate])
-  
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  const navigate = useNavigate();
+  const [timeoutId, setTimeoutId] = useState(null);
 
-export default AuthListener
+  useEffect(() => {
+    const handleSignOut = async () => {
+      await supabase.auth.signOut();
+      navigate('/');
+    };
+
+    const handleActivity = () => {
+    
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+
+      
+      const newTimeoutId = setTimeout(handleSignOut, 3 * 60 * 1000);
+      setTimeoutId(newTimeoutId);
+    };
+
+    
+    document.addEventListener('mousemove', handleActivity);
+    document.addEventListener('keypress', handleActivity);
+
+  
+    handleActivity();
+
+    
+    return () => {
+      document.removeEventListener('mousemove', handleActivity);
+      document.removeEventListener('keypress', handleActivity);
+      clearTimeout(timeoutId);
+    };
+  }, [navigate, timeoutId]);
+
+  return <div></div>;
+};
+
+export default AuthListener;

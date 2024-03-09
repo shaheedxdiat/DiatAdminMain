@@ -273,7 +273,7 @@ const StudentRegistration = () => {
                   <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
                 </svg></>
                 ) : (
-                  <>Upload
+                  <>Upload 
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
