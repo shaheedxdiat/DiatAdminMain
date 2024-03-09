@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { supabase } from "../SupaBase";
 import { Button, Form } from "react-bootstrap";
-import { BeatLoader } from "react-spinners"; // Import the BeatLoader component
+import { BeatLoader } from "react-spinners"; 
 import logo from "../assests/images/DIAT_20240307_213038-removebg-preview.png";
+import { useNavigate } from "react-router-dom";
 
 const AdminLogin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate=useNavigate()
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -27,18 +29,20 @@ const AdminLogin = () => {
         email: username,
         password: password,
       });
-      if (error) {
+      if (error) { 
         throw error;
       }
-      console.log("Login successful", data);
-      // Reset error state if login successful
+      console.log("Login successful",data.user.email);
       setError("");
+      navigate("/course")
+      
+
     } catch (error) {
       console.error("Login failed", error.message);
-      // Set error state with the error message
+  
       setError("Incorrect username or password.");
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false); 
     }
   };
 
@@ -82,7 +86,7 @@ const AdminLogin = () => {
               onChange={handlePasswordChange}
             />
             <Button type="submit" disabled={!isFormValid()} style={{width:"100px"}}>
-              {loading ? <BeatLoader size={8} color="white" /> : "LOGIN"} {/* Conditional rendering of the spinner */}
+              {loading ? <BeatLoader size={8} color="white" /> : "LOGIN"}
             </Button>
             {error && <p style={{ color: "red" }}>{error}</p>}
           </form>

@@ -2,9 +2,13 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import AdminLogin from "./pages/AdminLogin";
+import StudentRegistration from "./pages/StudentRegistration";
 import AuthListener from "./AuthListener";
 
-import AdminDashBoard from "./pages/AdminDashBoard";
+// import AdminDashBoard from "./pages/AdminDashBoard";
+import SelectCourse from "./pages/SelectCourse";
+import CourseOpt from "./pages/CourseOpt";
+import StudentDetails from "./pages/StudentDetails";
 
 const DiatRouter = () => {
   return (
@@ -22,10 +26,36 @@ const DiatRouter = () => {
             }
           />
           <Route
-            path="/dashboard"
+            path="/course"
             element={
               <>
-                <AdminDashBoard />
+                <SelectCourse />
+              </>
+            }
+          />
+
+          <Route
+            path="/course/:c_id"
+            element={
+              <>
+                <CourseOpt/>
+              </>
+            }
+          />
+
+          <Route
+            path="/course/:c_id/register"
+            element={
+              <>
+                <StudentRegistration/>
+              </>
+            }
+          />
+          <Route
+            path="student/:s_id"
+            element={
+              <>
+                <StudentDetails/>
               </>
             }
           />
