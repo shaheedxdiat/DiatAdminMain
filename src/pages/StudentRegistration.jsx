@@ -12,7 +12,6 @@ const StudentRegistration = () => {
 
   const stateNames = states.states.map((stateObj) => stateObj.state);
 
-
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
@@ -27,10 +26,12 @@ const StudentRegistration = () => {
   const [hostlite, sethostlite] = useState(false);
   const [photoURL, setphotoURL] = useState("");
   const [GenaratedID, setGenaratedID] = useState("");
+  const [File, setFile] = useState()
+
+  const [photoUploadWarning, setphotoUploadWarning] = useState(false)
   console.log(GenaratedID);
 
   const distObj = states.states.find((data) => data.state === state);
-
 
   //   console.log(
   //     course.c_id,
@@ -63,10 +64,28 @@ const StudentRegistration = () => {
   const handlebackClick = () => {
     navigate(-1);
   };
+  const handleUpload = async (e) => {
+    if (name==="") {
+      setphotoUploadWarning(true)
+      return
+    }
+    
+
+    const { data, error } = await supabase.storage
+      .from("student_photos")
+      .upload(`${name}_${Date.now()}.jpeg`, File);
+      if (error) {
+          console.error(error)
+          return
+      }
+      setphotoURL(`https://qlterlkavzxidliounaa.supabase.co/storage/v1/object/public/${data.fullPath}`)
+      console.log("uploaded",data)
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
+   
 
     const { data, error } = await supabase
       .from("students")
@@ -96,12 +115,12 @@ const StudentRegistration = () => {
       ])
       .select();
     if (error) {
-        alert(error.message)
+      alert(error.message);
       console.log("error in registration", error);
     }
     console.log("added", data);
-    alert("student added")
-    navigate(`/course/${course.c_id}`)
+    alert("student added");
+    navigate(`/course/${course.c_id}`);
   };
 
   return (
@@ -128,23 +147,23 @@ const StudentRegistration = () => {
           Back
         </Button>
       </div>
-      <h5>NEW REGISTRATION</h5>
+      <h4 style={{ color: "orangered" }}>NEW ADMISSION</h4>
 
       <div style={{ padding: "30px" }}>
         <Form onSubmit={handleSubmit}>
           <Row className="mb-3">
             <Form.Group as={Col} md="4" controlId="validationCustom01">
-              <Form.Label>NAME</Form.Label>
+              <Form.Label></Form.Label>
               <Form.Control
                 required
                 type="text"
                 placeholder="Name"
                 value={name}
-                onChange={(e) => setName(e.target.value.toUpperCase())}
+                onChange={(e) => {setName(e.target.value.toUpperCase());setphotoUploadWarning(false)}}
               />
             </Form.Group>
             <Form.Group as={Col} md="4" controlId="validationCustom02">
-              <Form.Label>Mobile No</Form.Label>
+              <Form.Label></Form.Label>
               <Form.Control
                 required
                 type="text"
@@ -154,7 +173,7 @@ const StudentRegistration = () => {
               />
             </Form.Group>
             <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-              <Form.Label>Email</Form.Label>
+              <Form.Label></Form.Label>
               <InputGroup hasValidation>
                 <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
                 <Form.Control
@@ -180,7 +199,7 @@ const StudentRegistration = () => {
               />
             </Form.Group>
             <Form.Group as={Col} md="3" controlId="validationCustom02">
-              <Form.Label>State</Form.Label>
+              <Form.Label></Form.Label>
               <Form.Select
                 required
                 aria-label="State"
@@ -192,12 +211,14 @@ const StudentRegistration = () => {
                 <option>Select State</option>
                 <option value={"Kerala"}>Kerala</option>
                 {stateNames.map((state) => (
-                  <option key={state} value={state}>{state}</option>
+                  <option key={state} value={state}>
+                    {state}
+                  </option>
                 ))}
               </Form.Select>
             </Form.Group>
             <Form.Group as={Col} md="3" controlId="validationCustom02">
-              <Form.Label>District</Form.Label>
+              <Form.Label> </Form.Label>
               <Form.Select
                 required
                 aria-label="District"
@@ -250,14 +271,18 @@ const StudentRegistration = () => {
 
           <Row>
             <Form.Group>
-              <Form.Label>student Photo</Form.Label>
+              <Form.Label>Student Photo</Form.Label>
               <Form.Control
                 required
                 type="file"
                 placeholder="Photo"
-                // value={photoURL}
-                onChange={(e) => setphotoURL(e.target.value)}
+           
+                onChange={(e)=>{setFile(e.target.files[0])}}
               />
+              <br />
+
+              {photoUploadWarning?<><br /><p style={{color:"orangered",fontSize:"12px"}}>Enter student's name to upload photo</p></>:<></>}
+              <Button onClick={handleUpload}>Upload</Button>
             </Form.Group>
           </Row>
           <br />
@@ -265,10 +290,10 @@ const StudentRegistration = () => {
           <br />
           <Row className="mb-3">
             <Form.Group as={Col} md="4" controlId="validationCustom01">
-              <Form.Label>Higher Education Qualification</Form.Label>
+              <Form.Label> Education Qualification</Form.Label>
               <Form.Select
                 required
-                aria-label="Higher Education Qualification"
+                aria-label=" Education Qualification"
                 value={qualification}
                 onChange={(e) => setQualification(e.target.value.toUpperCase())}
               >
@@ -300,7 +325,7 @@ const StudentRegistration = () => {
           <br />
           <Row className="mb-3">
             <Form.Group as={Col} md="4" controlId="validationCustom01">
-              <Form.Label>Guardian Name</Form.Label>
+              <Form.Label></Form.Label>
               <Form.Control
                 required
                 type="text"
@@ -313,19 +338,19 @@ const StudentRegistration = () => {
             </Form.Group>
 
             <Form.Group as={Col} md="4" controlId="validationCustom02">
-              <Form.Label>Mobile No</Form.Label>
+              <Form.Label></Form.Label>
               <Form.Control
                 onChange={(e) => {
                   setGuardianMobile(e.target.value);
                 }}
                 required
-                type="text"
+                type="mobile"
                 placeholder="mobile"
               />
             </Form.Group>
           </Row>
 
-          <Button type="submit">Submit form</Button>
+          <Button type="submit">Save</Button>
         </Form>
       </div>
     </div>
