@@ -27,7 +27,7 @@ const SelectCourse = () => {
   }, []);
 
   const handleNextClick = () => {
-    if (selectedCourse === "") {
+    if (selectedCourse === ""||selectedCourse==="Select a course") {
       setShowWarning(true);
     } else {
       setShowWarning(false);
@@ -48,6 +48,19 @@ const SelectCourse = () => {
     const handlebackClick=()=>{
       navigate(-1)
     }
+    useEffect(() => {
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        // setSession(session)
+      })
+
+      const {
+        data: { subscription },
+      } = supabase.auth.onAuthStateChange((_event, session) => {
+        // setSession(session)
+      })
+
+      return () => subscription.unsubscribe()
+    }, [])
 
 
   return (

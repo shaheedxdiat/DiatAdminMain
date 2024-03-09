@@ -1,44 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { supabase } from './SupaBase';
 
 const AuthListener = () => {
   const navigate = useNavigate();
-  const [timeoutId, setTimeoutId] = useState(null);
+  const [logoutTimeout, setLogoutTimeout] = useState(null);
 
   useEffect(() => {
-    const handleSignOut = async () => {
-      await supabase.auth.signOut();
-      navigate('/');
-    };
-
-    const handleActivity = () => {
-    
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
+    const { data, error } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN') {
+       
+        navigate("/course");
 
       
-      const newTimeoutId = setTimeout(handleSignOut, 3 * 60 * 1000);
-      setTimeoutId(newTimeoutId);
-    };
+        setLogoutTimeout(setTimeout(() => {
+          supabase.auth.signOut();
+        }, 20 * 60 * 1000)); // 20 minutes in milliseconds
+      } else if (event === 'SIGNED_OUT') {
+        navigate("/");
+        console.log("sign-out success ", data, error);
 
-    
-    document.addEventListener('mousemove', handleActivity);
-    document.addEventListener('keypress', handleActivity);
+       
+        clearTimeout(logoutTimeout);
+        setLogoutTimeout(null);
+      }
+    });
 
-  
-    handleActivity();
 
-    
     return () => {
-      document.removeEventListener('mousemove', handleActivity);
-      document.removeEventListener('keypress', handleActivity);
-      clearTimeout(timeoutId);
+      clearTimeout(logoutTimeout);
     };
-  }, [navigate, timeoutId]);
+  }, [navigate,logoutTimeout]);
 
-  return <div></div>;
+  return (
+    <div>
+     
+    </div>
+  );
 };
 
 export default AuthListener;
