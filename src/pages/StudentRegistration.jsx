@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Row, Button, Col, InputGroup } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
+import { supabase } from "../SupaBase";
+import { genarateStudentId } from "../genarateID";
+import states from "../states&dists/data.json";
 
 const StudentRegistration = () => {
   const navigate = useNavigate();
 
   const course = useParams();
+
+  const stateNames = states.states.map((stateObj) => stateObj.state);
+
+
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
@@ -18,33 +25,83 @@ const StudentRegistration = () => {
   const [guardianMobile, setGuardianMobile] = useState("");
   const [placementNeeded, setPlacementNeeded] = useState(true);
   const [hostlite, sethostlite] = useState(false);
+  const [photoURL, setphotoURL] = useState("");
+  const [GenaratedID, setGenaratedID] = useState("");
+  console.log(GenaratedID);
 
-  console.log(
-    course.c_id,
-    name,
-    mobile,
-    email,
-    dob,
-    state,
-    district,
-    qualification,
-    passOutYear,
-    guardianName,
-    guardianMobile,
-    "placement",
-    placementNeeded,
-    "hostle",
-    hostlite
-  );
+  const distObj = states.states.find((data) => data.state === state);
+
+
+  //   console.log(
+  //     course.c_id,
+  //     name,
+  //     mobile,
+  //     email,
+  //     dob,
+  //     state,
+  //     district,
+  //     qualification,
+  //     passOutYear,
+  //     guardianName,
+  //     guardianMobile,
+  //     "placement",
+  //     placementNeeded,
+  //     "hostle",
+  //     hostlite
+  //   );
+
+  useEffect(() => {
+    genarateStudentId(course)
+      .then(({ id }) => {
+        setGenaratedID(id);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, [course]);
 
   const handlebackClick = () => {
     navigate(-1);
   };
 
-  const handleSubmit = (event) => {
-    // Handle form submission
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // You can access form data here using state variables
+    
+
+    const { data, error } = await supabase
+      .from("students")
+      .insert([
+        {
+          student_id: GenaratedID,
+          full_name: name,
+          mobile: mobile,
+          email: email,
+          state: state,
+          district: district,
+          //   post:post,
+          // place:place,
+          //   house_name:house_name,
+          photo_url: photoURL,
+          dob: dob,
+          qualification: qualification,
+          year: passOutYear,
+          quardian: guardianName,
+          quardian_mobile: guardianMobile,
+          placement: placementNeeded,
+          hosteler: hostlite,
+          //   discount:discount,
+          admissions_officer: "diat",
+          course_id: course.c_id,
+        },
+      ])
+      .select();
+    if (error) {
+        alert(error.message)
+      console.log("error in registration", error);
+    }
+    console.log("added", data);
+    alert("student added")
+    navigate(`/course/${course.c_id}`)
   };
 
   return (
@@ -77,7 +134,7 @@ const StudentRegistration = () => {
         <Form onSubmit={handleSubmit}>
           <Row className="mb-3">
             <Form.Group as={Col} md="4" controlId="validationCustom01">
-              <Form.Label>Name</Form.Label>
+              <Form.Label>NAME</Form.Label>
               <Form.Control
                 required
                 type="text"
@@ -124,123 +181,19 @@ const StudentRegistration = () => {
             </Form.Group>
             <Form.Group as={Col} md="3" controlId="validationCustom02">
               <Form.Label>State</Form.Label>
-              <Form.Select required aria-label="State" value={state}>
+              <Form.Select
+                required
+                aria-label="State"
+                value={state}
+                onChange={(e) => {
+                  setState(e.target.value);
+                }}
+              >
                 <option>Select State</option>
-                <option value="Kerala">Kerala</option>
-                <option value="Tamil Nadu" disabled={state !== "Kerala"}>
-                  Tamil Nadu
-                </option>
-                <option value="Karnataka" disabled={state !== "Kerala"}>
-                  Karnataka
-                </option>
-                <option value="Telangana" disabled={state !== "Kerala"}>
-                  Telangana
-                </option>
-                <option value="Andhra Pradesh" disabled={state !== "Kerala"}>
-                  Andhra Pradesh
-                </option>
-                <option value="Puducherry" disabled={state !== "Kerala"}>
-                  Puducherry
-                </option>
-                <option value="Lakshadweep" disabled={state !== "Kerala"}>
-                  Lakshadweep
-                </option>
-                <option
-                  value="Andaman and Nicobar Islands"
-                  disabled={state !== "Kerala"}
-                >
-                  Andaman and Nicobar Islands
-                </option>
-                <option value="Arunachal Pradesh" disabled={state !== "Kerala"}>
-                  Arunachal Pradesh
-                </option>
-                <option value="Assam" disabled={state !== "Kerala"}>
-                  Assam
-                </option>
-                <option value="Bihar" disabled={state !== "Kerala"}>
-                  Bihar
-                </option>
-                <option value="Chhattisgarh" disabled={state !== "Kerala"}>
-                  Chhattisgarh
-                </option>
-                <option value="Goa" disabled={state !== "Kerala"}>
-                  Goa
-                </option>
-                <option value="Gujarat" disabled={state !== "Kerala"}>
-                  Gujarat
-                </option>
-                <option value="Haryana" disabled={state !== "Kerala"}>
-                  Haryana
-                </option>
-                <option value="Himachal Pradesh" disabled={state !== "Kerala"}>
-                  Himachal Pradesh
-                </option>
-                <option value="Jharkhand" disabled={state !== "Kerala"}>
-                  Jharkhand
-                </option>
-                <option value="Madhya Pradesh" disabled={state !== "Kerala"}>
-                  Madhya Pradesh
-                </option>
-                <option value="Maharashtra" disabled={state !== "Kerala"}>
-                  Maharashtra
-                </option>
-                <option value="Manipur" disabled={state !== "Kerala"}>
-                  Manipur
-                </option>
-                <option value="Meghalaya" disabled={state !== "Kerala"}>
-                  Meghalaya
-                </option>
-                <option value="Mizoram" disabled={state !== "Kerala"}>
-                  Mizoram
-                </option>
-                <option value="Nagaland" disabled={state !== "Kerala"}>
-                  Nagaland
-                </option>
-                <option value="Odisha" disabled={state !== "Kerala"}>
-                  Odisha
-                </option>
-                <option value="Punjab" disabled={state !== "Kerala"}>
-                  Punjab
-                </option>
-                <option value="Rajasthan" disabled={state !== "Kerala"}>
-                  Rajasthan
-                </option>
-                <option value="Sikkim" disabled={state !== "Kerala"}>
-                  Sikkim
-                </option>
-                <option value="Tripura" disabled={state !== "Kerala"}>
-                  Tripura
-                </option>
-                <option value="Uttar Pradesh" disabled={state !== "Kerala"}>
-                  Uttar Pradesh
-                </option>
-                <option value="Uttarakhand" disabled={state !== "Kerala"}>
-                  Uttarakhand
-                </option>
-                <option value="West Bengal" disabled={state !== "Kerala"}>
-                  West Bengal
-                </option>
-                <option value="Chandigarh" disabled={state !== "Kerala"}>
-                  Chandigarh
-                </option>
-                <option
-                  value="Dadra and Nagar Haveli and Daman and Diu"
-                  disabled={state !== "Kerala"}
-                >
-                  Dadra and Nagar Haveli and Daman and Diu
-                </option>
-                <option value="Delhi" disabled={state !== "Kerala"}>
-                  Delhi
-                </option>
-                <option value="Ladakh" disabled={state !== "Kerala"}>
-                  Ladakh
-                </option>
-                <option value="Lakshadweep" disabled={state !== "Kerala"}>
-                  Lakshadweep
-                </option>
-                <option value="Puducherry" disabled={state !== "Kerala"}>
-                  Puducherry
-                </option>
+                <option value={"Kerala"}>Kerala</option>
+                {stateNames.map((state) => (
+                  <option key={state} value={state}>{state}</option>
+                ))}
               </Form.Select>
             </Form.Group>
             <Form.Group as={Col} md="3" controlId="validationCustom02">
@@ -252,20 +205,9 @@ const StudentRegistration = () => {
                 onChange={(e) => setDistrict(e.target.value)}
               >
                 <option>Select District</option>
-                <option value="Alappuzha">Alappuzha</option>
-                <option value="Ernakulam">Ernakulam</option>
-                <option value="Idukki">Idukki</option>
-                <option value="Kannur">Kannur</option>
-                <option value="Kasaragod">Kasaragod</option>
-                <option value="Kollam">Kollam</option>
-                <option value="Kottayam">Kottayam</option>
-                <option value="Kozhikode">Kozhikode</option>
-                <option value="Malappuram">Malappuram</option>
-                <option value="Palakkad">Palakkad</option>
-                <option value="Pathanamthitta">Pathanamthitta</option>
-                <option value="Thiruvananthapuram">Thiruvananthapuram</option>
-                <option value="Thrissur">Thrissur</option>
-                <option value="Wayanad">Wayanad</option>
+                {distObj.districts.map((data) => (
+                  <option>{data}</option>
+                ))}
               </Form.Select>
             </Form.Group>
             <Form.Group as={Col} md="3" controlId="validationCustom01">
@@ -305,6 +247,19 @@ const StudentRegistration = () => {
               </div>
             </Form.Group>
           </Row>
+
+          <Row>
+            <Form.Group>
+              <Form.Label>student Photo</Form.Label>
+              <Form.Control
+                required
+                type="file"
+                placeholder="Photo"
+                // value={photoURL}
+                onChange={(e) => setphotoURL(e.target.value)}
+              />
+            </Form.Group>
+          </Row>
           <br />
           <hr />
           <br />
@@ -333,7 +288,7 @@ const StudentRegistration = () => {
               <Form.Label>Pass Out Year</Form.Label>
               <Form.Control
                 required
-                type="text"
+                type="number"
                 placeholder="Pass Out Year"
                 value={passOutYear}
                 onChange={(e) => setPassOutYear(e.target.value)}
