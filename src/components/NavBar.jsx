@@ -12,7 +12,7 @@ const NavBar = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   
-  // const [session, setSession] = useState(null)
+  
 
     useEffect(() => {
       supabase.auth.getSession().then(({ data: { session } }) => {
