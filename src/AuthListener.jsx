@@ -8,15 +8,7 @@ const AuthListener = () => {
 
   useEffect(() => {
     const { data, error } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_IN') {
-       
-        navigate("/course");
-
-      
-        setLogoutTimeout(setTimeout(() => {
-          supabase.auth.signOut();
-        }, 20 * 60 * 1000)); // 20 minutes in milliseconds
-      } else if (event === 'SIGNED_OUT') {
+    if (event === 'SIGNED_OUT') {
         navigate("/");
         console.log("sign-out success ", data, error);
 
