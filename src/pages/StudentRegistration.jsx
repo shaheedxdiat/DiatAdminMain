@@ -115,43 +115,50 @@ const StudentRegistration = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
-    const { data, error } = await supabase
-      .from("students")
-      .insert([
-        {
-          student_id: GenaratedID,
-          full_name: name,
-          mobile: mobile,
-          email: email,
-          state: state.toUpperCase(),
-          adhar_number: adhar,
-          district: district.toUpperCase(),
-          post: postoffice.toUpperCase(),
-          place: place.toUpperCase(),
-          house_name: housename.toUpperCase(),
-          dob: dob,
-          qualification: qualification.toUpperCase(),
-          year: passOutYear,
-          quardian: guardianName.toUpperCase(),
-          quardian_mobile: guardianMobile,
-          placement: placementNeeded,
-          hosteler: hostlite,
-          discount: discount,
-          fee_due: feedue,
-          admissions_officer: "diat",
-          course_id: course.c_id,
-          photo_url: photoURL,
-        },
-      ])
-      .select();
-    if (error) {
-      alert(error.message);
-      console.log("error in registration", error);
+    if (File&&!uploaded) {
+      alert("upload the photo to sava details")
+      return
     }
-    console.log("added", data);
-    alert("student added");
-    navigate(`/course/${course.c_id}`);
+    const { data, error } = await supabase
+    .from("students")
+    .insert([
+      {
+        student_id: GenaratedID,
+        full_name: name,
+        mobile: mobile,
+        email: email,
+        state: state.toUpperCase(),
+        adhar_number: adhar,
+        district: district.toUpperCase(),
+        post: postoffice.toUpperCase(),
+        place: place.toUpperCase(),
+        house_name: housename.toUpperCase(),
+        dob: dob,
+        qualification: qualification.toUpperCase(),
+        year: passOutYear,
+        quardian: guardianName.toUpperCase(),
+        quardian_mobile: guardianMobile,
+        placement: placementNeeded,
+        hosteler: hostlite,
+        discount: discount,
+        fee_due: feedue,
+        admissions_officer: "diat",
+        course_id: course.c_id,
+        photo_url: photoURL,
+      },
+    ])
+    .select();
+
+    
+  if (error) {
+    alert(error.message);
+    console.log("error in registration", error);
+    return
+  }
+  console.log("added", data);
+  alert("student added");
+  navigate(`/course/${course.c_id}`);
+  
   };
 
   return (

@@ -27,7 +27,7 @@ const DiatRouter = () => {
           />
           <Route
             path="/course"
-            element={
+            exact element={
               <>
                 <SelectCourse />
               </>
@@ -52,7 +52,7 @@ const DiatRouter = () => {
             }
           />
           <Route
-            path="student/:s_id"
+            path="/student/:s_id"
             element={
               <>
                 <StudentDetails/>
