@@ -39,6 +39,7 @@ const AdminLogin = () => {
 
     useEffect(() => {
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log(data.subscription.id)
       if (event === "SIGNED_IN") {
         navigate("/course");
       }
