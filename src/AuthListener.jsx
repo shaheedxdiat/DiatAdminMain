@@ -7,8 +7,32 @@ const AuthListener = () => {
   const [logoutTimeout, setLogoutTimeout] = useState(null);
 
   useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      console.log(authListener)
+    const handleLogout = async () => {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error('Error logging out:', error.message);
+      } else {
+        navigate("/");
+      }
+    };
+
+    const handleBeforeUnload = () => {
+      // Logout the user when the tab is closed or refreshed
+      handleLogout();
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      if (logoutTimeout) {
+        clearTimeout(logoutTimeout);
+      }
+    };
+  }, [navigate, logoutTimeout]);
+
+  useEffect(() => {
+    const { data } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_OUT') {
         navigate("/");
         console.log("sign-out success ", session);
@@ -38,4 +62,3 @@ const AuthListener = () => {
 };
 
 export default AuthListener;
- 
