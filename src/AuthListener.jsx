@@ -8,6 +8,7 @@ const AuthListener = () => {
 
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log(authListener)
       if (event === 'SIGNED_OUT') {
         navigate("/");
         console.log("sign-out success ", session);
