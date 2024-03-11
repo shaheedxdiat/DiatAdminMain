@@ -293,7 +293,7 @@ const StudentRegistration = () => {
             >
               <Form.Label>Student Photo</Form.Label>
               <Form.Control
-                required
+                // required
                 type="file"
                 placeholder="Photo"
                 onChange={(e) => {
