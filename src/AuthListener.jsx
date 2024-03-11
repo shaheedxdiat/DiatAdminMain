@@ -7,26 +7,31 @@ const AuthListener = () => {
   const [logoutTimeout, setLogoutTimeout] = useState(null);
 
   useEffect(() => {
-    const { data, error } = supabase.auth.onAuthStateChange((event, session) => {
-    if (event === 'SIGNED_OUT') {
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT') {
         navigate("/");
-        console.log("sign-out success ", data, error);
-
-       
-        clearTimeout(logoutTimeout);
-        setLogoutTimeout(null);
+        console.log("sign-out success ", session);
+        if (logoutTimeout) {
+          clearTimeout(logoutTimeout);
+          setLogoutTimeout(null);
+        }
+      }
+      if (!session) {
+        navigate("/");
       }
     });
 
-
     return () => {
-      clearTimeout(logoutTimeout);
+      if (logoutTimeout) {
+        clearTimeout(logoutTimeout);
+      }
+      // authListener.unsubscribe();
     };
-  }, [navigate,logoutTimeout]);
+  }, [navigate, logoutTimeout]);
 
   return (
     <div>
-     
+      {/* You can add any UI elements related to authentication here */}
     </div>
   );
 };
