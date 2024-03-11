@@ -37,21 +37,21 @@ const AdminLogin = () => {
   
   // }, []);
 
-    useEffect(() => {
-    const { data } = supabase.auth.onAuthStateChange((event, session) => {
-      console.log(data.subscription.id)
-      if (event === "SIGNED_IN") {
-        navigate("/course");
-      }
-      if (!session) {
-        navigate("/");
-      }
-    });
+  //   useEffect(() => {
+  //   const { data } = supabase.auth.onAuthStateChange((event, session) => {
+  //     console.log(data.subscription.id)
+  //     if (event === "SIGNED_IN") {
+  //       navigate("/course");
+  //     }
+  //     if (!session) {
+  //       navigate("/");
+  //     }
+  //   });
 
-    return () => {
-      // authListener.unsubscribe();
-    };
-  }, [navigate]);
+  //   return () => {
+  //     // authListener.unsubscribe();
+  //   };
+  // }, [navigate]);
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
