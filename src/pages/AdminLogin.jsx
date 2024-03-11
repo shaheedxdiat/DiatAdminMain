@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { supabase } from "../SupaBase";
 import { Button, Form } from "react-bootstrap";
 import { BeatLoader } from "react-spinners";
