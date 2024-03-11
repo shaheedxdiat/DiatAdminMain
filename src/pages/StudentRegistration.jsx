@@ -151,7 +151,7 @@ const StudentRegistration = () => {
           quardian_mobile: guardianMobile,
           placement: placementNeeded,
           hosteler: hostlite,
-          discount: discount,
+          discount: discount||0,
           fee_due: feedue,
           admissions_officer: "diat",
           course_id: course.c_id,
@@ -601,7 +601,7 @@ const StudentRegistration = () => {
                   padding: "10px",
                   border: "1px solid yellow",
                 }}
-                required
+                
                 type="integer"
                 value={discount}
                 placeholder="Discount / Fee Concession"
