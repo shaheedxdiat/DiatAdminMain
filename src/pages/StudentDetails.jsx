@@ -19,7 +19,7 @@ const StudentDetails = () => {
   const [adhar, setAdhar] = useState("");
   const [discount, setdiscount] = useState("");
   const [fee_due, setfee_due] = useState("");
-  const [admissions_officer, setadmissions_officer] = useState("");
+  // const [admissions_officer, setadmissions_officer] = useState("");
   const [qualification, setqualification] = useState("");
 
   const [state, setState] = useState("");
@@ -34,7 +34,7 @@ const StudentDetails = () => {
   const [placement, setplacement] = useState("");
   // console.log("placement:",placement,"hostler :",hostler)
 
-  const alterURL = "https://images.app.goo.gl/tFyC7Ma4avJFSiuL8";
+  // const alterURL = "https://images.app.goo.gl/tFyC7Ma4avJFSiuL8";
 
   useEffect(() => {
     const getStudent = async () => {
@@ -58,7 +58,7 @@ const StudentDetails = () => {
         setAdhar(studentData.adhar_number);
         setqualification(studentData.qualification);
         setfee_due(studentData.fee_due);
-        setadmissions_officer(studentData.admissions_officer);
+        // setadmissions_officer(studentData.admissions_officer);
         setState(studentData.state);
         setDistrict(studentData.district);
         setPostOffice(studentData.post);
@@ -83,11 +83,11 @@ const StudentDetails = () => {
     getStudent();
   }, [s_id, c_id, navigate]);
 
-  const handleshowModal = (e) => {
-    // Add your form submission logic here
-    e.preventDefault();
-    // Example: console.log(name, mobile, email, dob, adhar, passOutYear, state, district, postoffice, place, housename, guardianName, guardianMobile);
-  };
+  // const handleshowModal = (e) => {
+  //   // Add your form submission logic here
+  //   e.preventDefault();
+  //   // Example: console.log(name, mobile, email, dob, adhar, passOutYear, state, district, postoffice, place, housename, guardianName, guardianMobile);
+  // };
 
   return (
     <div>
