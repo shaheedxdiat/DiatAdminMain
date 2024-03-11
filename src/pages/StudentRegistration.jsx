@@ -146,7 +146,7 @@ const StudentRegistration = () => {
           house_name: housename.toUpperCase(),
           dob: dob,
           qualification: qualification.toUpperCase(),
-          // year: passOutYear,
+          // year: "1000",
           quardian: guardianName.toUpperCase(),
           quardian_mobile: guardianMobile,
           placement: placementNeeded,
@@ -475,7 +475,10 @@ const StudentRegistration = () => {
                 type="text"
                 placeholder="Post Office"
                 value={postoffice}
-                onChange={(e) => setpostoffice(e.target.value)}
+                onChange={(e) => {
+                  setpostoffice(e.target.value.toUpperCase());
+                  
+                }}
               />
             </Form.Group>
           </Row>
@@ -489,7 +492,7 @@ const StudentRegistration = () => {
                 type="text"
                 placeholder="Place"
                 value={place}
-                onChange={(e) => setplace(e.target.value)}
+                onChange={(e) => setplace(e.target.value.toUpperCase())}
               />
             </Form.Group>
             <Form.Group as={Col} md="3" controlId="validationCustom02">
@@ -499,7 +502,7 @@ const StudentRegistration = () => {
                 type="text"
                 placeholder="House Name / No"
                 value={housename}
-                onChange={(e) => sethousename(e.target.value)}
+                onChange={(e) => sethousename(e.target.value.toUpperCase())}
               />
             </Form.Group>
           </Row>
@@ -522,7 +525,7 @@ const StudentRegistration = () => {
                 placeholder="Guardian Name"
                 value={guardianName}
                 onChange={(e) =>
-                  setGuardianName(e.target.value.toLocaleUpperCase())
+                  setGuardianName(e.target.value.toUpperCase())
                 }
               />
             </Form.Group>

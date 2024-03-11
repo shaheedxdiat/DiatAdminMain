@@ -55,10 +55,10 @@ const generatePDF = async (id) => {
   doc.addImage(
     imgURL,
     "JPEG",
-    doc.internal.pageSize.width / 2 - logoWidth / 2,
+    doc.internal.pageSize.width / 3 - logoWidth / 3,
     y,
     logoWidth,
-    logoWidth * 0.6
+    logoWidth * 0.9
   );
 
   // Add student image at the right top corner

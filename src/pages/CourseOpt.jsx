@@ -61,11 +61,15 @@ const CourseOpt = () => {
               // value={studentId}
               defaultValue={c_id}
               onChange={handleSearchInput}
+              onKeyPress={(e) => {
+                e.key === "Enter" && handleSearchClick();
+              }}
             />
             <Button
               variant="primary"
               id="button-addon2"
               onClick={handleSearchClick}
+              
             >
               Search
             </Button>
