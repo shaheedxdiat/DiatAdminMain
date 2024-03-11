@@ -1,0 +1,197 @@
+*{margin: 0;
+  padding: 0;
+}
+.subNav {
+  /* position: fixed; */
+  width: 100%;
+  height: 6vh;
+  background-color: rgb(243, 244, 252);
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 10px;
+  padding: 0px 30px;
+}
+.subNav p {
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.377);
+}
+.subNav div {
+  width: 2px;
+  background-color: rgba(0, 0, 0, 0.277);
+  height: 20px;
+}
+
+/* .................................................. */
+
+.mainConatiner {
+  /* background-color: rgba(225, 230, 255, 0.679); */
+  padding: 0px 50px;
+}
+
+.headContainer {
+  /* background-color: rgb(255, 207, 207); */
+  padding: 25px;
+  display: flex;
+  gap: 70px;
+}
+
+.photoContainer {
+  overflow: hidden;
+  /* border-radius: 7px;
+  /* padding: 3px; *
+  background-color: rgb(158, 175, 209); */
+}
+.photoContainer img {
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px rgba(100, 103, 146, 0.371) solid;
+}
+
+.CardConatainer {
+  text-align: left;
+  padding-left: 30px;
+}
+
+.CardConatainer p {
+  font-size: 18px;
+  font-weight: 500;
+  color: rgb(95, 94, 94);
+}
+/* ..................................................... */
+
+.listContainer {
+  margin-top: 10px;
+  padding-top: 10px;
+  /* background-color: rgb(212, 241, 154); */
+  display: flex;
+  flex-direction: column;
+}
+
+.listRow {
+  padding-top: 5px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: rgb(243, 244, 252);
+  box-shadow: -7px 1px  10px rgba(26, 23, 102, 0.086);
+  box-shadow: 7px 1px  10px rgba(26, 23, 102, 0.086);
+}
+
+#paymentRow{
+  background-color: rgb(235, 231, 226);
+  /* display: flex; */
+  margin-top: 20px;
+  align-items: center;
+  padding: 15px 0px;
+  border-radius: 10px;
+}
+#paymentRow .listColL{
+  /* background-color: rgb(124, 198, 19); */
+  width: 62%;
+}
+#paymentRow .listColR {
+  justify-content: center;
+ 
+  /* background-color: rgb(193, 25, 239); */
+}
+
+#optionRow{
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin: 30px 50px  ;
+  padding: 20px;
+  /* background-color: rgba(255, 0, 0, 0.147); */
+
+  
+}
+
+
+
+
+.listRow p {
+  font-size: 17px;
+  font-weight: 400;
+}
+.listColL {
+  padding-left: 250px;
+  text-align: start;
+  width: 40%;
+  color: gray;
+  /* background-color: red; */
+}
+.listColR {
+  width: 60%;
+  padding-left:-500px;
+  /* background-color: blue; */
+  text-align: start;
+}
+
+
+#footer{
+  margin-top:20px ;
+  padding: 30px 20px;
+}
+
+@media screen and (max-width: 600px) {
+  .headContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .mainConatiner {
+    padding: 0px 10px;
+  }
+  .CardConatainer {
+    text-align: center;
+    padding-left: 30px;
+  }
+
+  .CardConatainer div{
+    padding-left: 50px;
+  }
+
+  /* ............................... */
+
+ 
+  .listRow{
+    display: block;
+    padding: 10px 10px;
+  }
+
+  .listColL {
+    padding-left: 25px;
+    
+    text-align: center;
+    width: 100%;
+
+    /* background-color: red; */
+  }
+  .listColR {
+    padding-left: 25px;
+    
+    text-align: center;
+    width: 100%;
+    /* background-color: red; */
+  }
+  #paymentRow .listColL{
+    /* background-color: rgb(124, 198, 19); */
+    width: 100%;
+  }
+
+  #optionRow{
+    
+    gap: 20px;
+  
+    
+    
+  }
+  
+  
+  
+}

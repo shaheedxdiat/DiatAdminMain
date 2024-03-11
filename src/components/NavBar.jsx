@@ -32,6 +32,10 @@ const NavBar = () => {
     navigate(-1);
   };
 
+  const handleHomeClick = () => {
+    navigate("/course");
+  };
+
   return (
     <div className="nav_container">
       <Modal show={show} onHide={handleClose}>
@@ -53,7 +57,7 @@ const NavBar = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <button
+      <div><button
         className="NavBackBtn"
         onClick={handlebackClick}
         style={{ border: "none", color: "wheat" }}
@@ -73,17 +77,35 @@ const NavBar = () => {
         </svg>
         Back
       </button>
+      <button
+          className="NavBackBtn"
+          onClick={handleHomeClick}
+          style={{
+            border: "none",
+            color: "wheat",
+            padding:"12px"
+          //  width:"1"
+          }}
+        >
+          Home
+        </button>
+        
+        </div>
       <img src={logo} height="50px" alt="" />
       {/* <h6 style={{ color: "gray" }}>name</h6> */}
-      <Button
-        variant="danger"
-        // onClick={async () => {
-        //   supabase.auth.signOut();console.log("logout clicked");;
-        // }}
-        onClick={handleShow}
-      >
-        Logout
-      </Button>
+      <div>
+
+
+        <Button
+          variant="danger"
+          // onClick={async () => {
+          //   supabase.auth.signOut();console.log("logout clicked");;
+          // }}
+          onClick={handleShow}
+        >
+          Logout
+        </Button>
+      </div>
     </div>
   );
 };

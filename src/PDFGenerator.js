@@ -97,7 +97,7 @@ const generatePDF = async (id) => {
     y += lineHeight;
   });
 
-  doc.save(`${data[0].full_name}_${Date.now()}_download.pdf`);
+  doc.save(`${data[0].full_name}_DIAT.pdf`);
 };
 
 export default generatePDF;

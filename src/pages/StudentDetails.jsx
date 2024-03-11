@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-// import { Button, Form, Row, Col,InputGroup } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { supabase } from "../SupaBase";
-import  "../assests/styles/fromStyle.css";
+import "../assests/styles/StudentDetails.css";
 
+import alterIMG from "../assests/images/alterIMG.jpeg";
 const StudentDetails = () => {
   const navigate = useNavigate();
   const { c_id, s_id } = useParams();
-  console.log(c_id, s_id);
+  // console.log(c_id, s_id);
 
   // State variables for form fields
   const [name, setName] = useState("");
@@ -16,7 +17,11 @@ const StudentDetails = () => {
   const [email, setEmail] = useState("");
   const [dob, setDob] = useState("");
   const [adhar, setAdhar] = useState("");
-  const [passOutYear, setPassOutYear] = useState("");
+  const [discount, setdiscount] = useState("");
+  const [fee_due, setfee_due] = useState("");
+  const [admissions_officer, setadmissions_officer] = useState("");
+  const [qualification, setqualification] = useState("");
+
   const [state, setState] = useState("");
   const [district, setDistrict] = useState("");
   const [postoffice, setPostOffice] = useState("");
@@ -24,8 +29,12 @@ const StudentDetails = () => {
   const [housename, setHouseName] = useState("");
   const [guardianName, setGuardianName] = useState("");
   const [guardianMobile, setGuardianMobile] = useState("");
-  const [photoURL, setphotoURL] = useState("")
-  
+  const [photoURL, setphotoURL] = useState("");
+  const [hostler, sethostler] = useState("");
+  const [placement, setplacement] = useState("");
+  // console.log("placement:",placement,"hostler :",hostler)
+
+  const alterURL = "https://images.app.goo.gl/tFyC7Ma4avJFSiuL8";
 
   useEffect(() => {
     const getStudent = async () => {
@@ -39,23 +48,36 @@ const StudentDetails = () => {
         alert("Invalid Student ID");
         navigate(`/course/${c_id}`);
       } else {
+        console.log(data[0]);
         // Update state with fetched data
         const studentData = data[0]; // Assuming there's only one student with given ID
         setName(studentData.full_name);
         setMobile(studentData.mobile);
         setEmail(studentData.email);
         setDob(studentData.dob);
-        setAdhar(studentData.adhar);
-        setPassOutYear(studentData.passOutYear);
+        setAdhar(studentData.adhar_number);
+        setqualification(studentData.qualification);
+        setfee_due(studentData.fee_due);
+        setadmissions_officer(studentData.admissions_officer);
         setState(studentData.state);
         setDistrict(studentData.district);
-        setPostOffice(studentData.postoffice);
+        setPostOffice(studentData.post);
         setPlace(studentData.place);
-        setHouseName(studentData.housename);
-        setGuardianName(studentData.guardianName);
-        setGuardianMobile(studentData.guardianMobile);
-        setphotoURL(studentData.photo_url)
-        
+        setHouseName(studentData.house_name);
+        setGuardianName(studentData.quardian);
+        setGuardianMobile(studentData.quardian_mobile);
+        setphotoURL(studentData.photo_url);
+        sethostler(() => {
+          if (studentData.hostler) {
+            return "YES";
+          } else return "NO";
+        });
+        setplacement(() => {
+          if (studentData.placement) {
+            return "YES";
+          } else return "NO";
+        });
+        setdiscount(studentData.discount);
       }
     };
     getStudent();
@@ -67,122 +89,196 @@ const StudentDetails = () => {
     // Example: console.log(name, mobile, email, dob, adhar, passOutYear, state, district, postoffice, place, housename, guardianName, guardianMobile);
   };
 
-  
   return (
     <div>
-    <NavBar/>
-    <div>
-    <form onSubmit={handleshowModal}>
-      <div className="row-margin mb-4">
-        <div>
-          <label htmlFor="name" className="bold-label">Name:</label>
-          <span className="value-span">{name}</span>
+      <NavBar />
+      <div className="subNav">
+        <p>Student info</p>
+        <div></div>
+        <p>Profile</p>
+      </div>
+
+      {/* ------------------------------------------- */}
+
+      <div className="mainConatiner">
+        <div className="headContainer">
+          <div className="photoContainer">
+            <img
+              src={photoURL === "" || null ? alterIMG : photoURL}
+              alt="Student_photo"
+              height={160}
+              width={125}
+            />
+            {/* <img src={alterIMG} alt="Student_photo" height={160} width={125}/> */}
+          </div>
+          <div className="CardConatainer">
+            <p>{name}</p>
+            <p> DIAT IT PROFESSIONAL PACKAGE</p>
+            <div style={{ display: "flex", gap: "10PX" }}>
+              <p>STUDENT ID : </p>
+              <p> {s_id}</p>
+            </div>
+          </div>
         </div>
-        <div>
-          <label htmlFor="mobile" className="bold-label">Mobile:</label>
-          <span className="value-span">{mobile}</span>
-        </div>
-        <div>
-          <label htmlFor="email" className="bold-label">Email:</label>
-          <span className="value-span">{email}</span>
-        </div>
-        <div>
-          <label htmlFor="dob" className="bold-label">Date of Birth:</label>
-          <span className="value-span">{dob}</span>
+
+        {/* ........................................................ */}
+
+        <div className="listContainer">
+          <div className="listRow">
+            <div className="listColL">
+              <p> Mobile </p>
+            </div>
+            <div className="listColR">
+              <p> {mobile} </p>
+            </div>
+          </div>
+
+          <div className="listRow">
+            <div className="listColL">
+              <p>Email </p>
+            </div>
+            <div className="listColR">
+              <p> {email}</p>
+            </div>
+          </div>
+
+          <div className="listRow">
+            <div className="listColL">
+              <p>Date Of Birth </p>
+            </div>
+            <div className="listColR">
+              <p>{dob} </p>
+            </div>
+          </div>
+
+          <div className="listRow">
+            <div className="listColL">
+              <p>Adhar No </p>
+            </div>
+            <div className="listColR">
+              <p>{adhar} </p>
+            </div>
+          </div>
+
+          <div className="listRow">
+            <div className="listColL">
+              <p>Address </p>
+            </div>
+            <div className="listColR">
+              <p>
+                {housename}(H) ,{place}, {postoffice}(PO), {district},{state}{" "}
+              </p>
+            </div>
+          </div>
+
+          <div className="listRow">
+            <div className="listColL">
+              <p>Qualification </p>
+            </div>
+            <div className="listColR">
+              <p>{qualification} </p>
+            </div>
+          </div>
+
+          <div style={{ marginTop: "15px" }} className="listRow">
+            <div className="listColL">
+              <p> Guardian</p>
+            </div>
+            <div className="listColR">
+              <p>{guardianName} </p>
+            </div>
+          </div>
+          <div className="listRow">
+            <div className="listColL">
+              <p>Guardian's Contact </p>
+            </div>
+            <div className="listColR">
+              <p> {guardianMobile}</p>
+            </div>
+          </div>
+
+          <div style={{ marginTop: "15px" }} className="listRow">
+            <div className="listColL">
+              <p>Admission Date</p>
+            </div>
+            <div className="listColR">
+              <p>21/05/2024</p>
+            </div>
+          </div>
+
+          <div className="listRow">
+            <div className="listColL">
+              <p>Class start </p>
+            </div>
+            <div className="listColR">
+              <p>01/06/2024</p>
+            </div>
+          </div>
+
+          <div className="listRow">
+            <div className="listColL">
+              <p>Hostler </p>
+            </div>
+            <div className="listColR">
+              <p>{hostler}</p>
+            </div>
+          </div>
+
+          <div className="listRow">
+            <div className="listColL">
+              <p>Placement </p>
+            </div>
+            <div className="listColR">
+              <p>{placement}</p>
+            </div>
+          </div>
+
+          <div style={{ marginTop: "15px" }} className="listRow">
+            <div className="listColL">
+              <p>Total Course Fee </p>
+            </div>
+            <div className="listColR">
+              <p>{96000}</p>
+            </div>
+          </div>
+
+          <div className="listRow">
+            <div className="listColL">
+              <p>Discount/Fee consession </p>
+            </div>
+            <div className="listColR">
+              <p>{discount}</p>
+            </div>
+          </div>
+
+          <div id="paymentRow" className="listRow">
+            <div className="listColL">
+              <p style={{ color: "red" }}>Fee Due </p>
+            </div>
+            <div className="listColR">
+              <p>{fee_due}</p>
+            </div>
+            <div id="listColE" className="listColR">
+              <Button variant="success">Payment</Button>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* ----------------------------------------------- */}
+      <div id="optionRow" className="">
+            <div className="">
+             <Button disabled>Edit Details</Button>
+            </div>
+            <div className="">
+             <Button disabled variant="danger">Delete Student</Button>
+            </div>
+          </div>
 
-      <div className="row-margin">
-        <div>
-          <label htmlFor="adhar" className="bold-label">UID No:</label>
-          <span className="value-span">{adhar}</span>
-        </div>
-        <div>
-          <label htmlFor="photoURL" className="bold-label">Student Photo:</label>
-          <img src={photoURL} alt="" height={250} width={200} />
-        </div>
-        <div>
-          <label htmlFor="educationQualification" className="bold-label">Education Qualification:</label>
-          {/* <span className="value-span">{educationQualification}</span> */}
-        </div>
-        <div>
-          <label htmlFor="passOutYear" className="bold-label">Pass Out Year:</label>
-          <span className="value-span">{passOutYear}</span>
-        </div>
+      <div className="subNav" id="footer">
+        <p>DIAT</p>
+        <div></div>
+        {/* <p>Admin</p> */}
       </div>
-
-      <br />
-      <hr />
-      <br />
-
-      {/* --------------------------------------------------------------------------------------- */}
-
-      <div className="row-margin mb-3">
-        <div>
-          <label htmlFor="state" className="bold-label">State:</label>
-          <span className="value-span">{state}</span>
-        </div>
-        <div>
-          <label htmlFor="district" className="bold-label">District:</label>
-          <span className="value-span">{district}</span>
-        </div>
-        <div>
-          <label htmlFor="postoffice" className="bold-label">Post Office:</label>
-          <span className="value-span">{postoffice}</span>
-        </div>
-      </div>
-
-      {/* ---------------------------------------------- */}
-      <div className="row-margin">
-        <div>
-          <label htmlFor="place" className="bold-label">Place:</label>
-          <span className="value-span">{place}</span>
-        </div>
-        <div>
-          <label htmlFor="housename" className="bold-label">House Name / No:</label>
-          <span className="value-span">{housename}</span>
-        </div>
-      </div>
-
-      {/* ---------------------------------------------- */}
-
-      {/* ----------------------------------------------------------- */}
-      {/* <Row className="mb-3"></Row> */}
-
-      {/* ------------------------------------------------------------ */}
-      <br />
-      <hr />
-      <br />
-      <div className="row-margin mb-3">
-        <div>
-          <label htmlFor="guardianName" className="bold-label">Guardian Name:</label>
-          <span className="value-span">{guardianName}</span>
-        </div>
-
-        <div>
-          <label htmlFor="guardianMobile" className="bold-label">Guardian Mobile:</label>
-          <span className="value-span">{guardianMobile}</span>
-        </div>
-      </div>
-      <br />
-      <hr />
-    </form>
-
-
-
-
-
-
-
-
-  {/* ---------------------------------------------------- */}
-
- 
-   
-    </div>
-
     </div>
   );
 };

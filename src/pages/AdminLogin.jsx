@@ -1,16 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { supabase } from "../SupaBase";
 import { Button, Form } from "react-bootstrap";
 import { BeatLoader } from "react-spinners";
 import logo from "../assests/images/DIAT_20240307_213038-removebg-preview.png";
 import { useNavigate } from "react-router-dom";
+// import SearchBar from "./SearchBar";
 
 const AdminLogin = () => {
+  // useEffect(() => {
+  //   const { data } = supabase.auth.onAuthStateChange((event, session) => {
+  //     if (event === "SIGNED_IN") {
+  //       navigate("/course");
+  //     }
+  //     if (!session) {
+  //       navigate("/");
+  //     }
+  //   });
+
+  //   return () => {
+  //     // authListener.unsubscribe();
+  //   };
+  // }, [navigate]);
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  // useEffect(() => {
+  //  const {data}=supabase.auth.getSession()
+  //  if (data) {
+  //     console.log("data:",data)
+  //  }
+
+  
+  // }, []);
+
+    useEffect(() => {
+    const { data } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_IN") {
+        navigate("/course");
+      }
+      if (!session) {
+        navigate("/");
+      }
+    });
+
+    return () => {
+      // authListener.unsubscribe();
+    };
+  }, [navigate]);
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -50,6 +90,7 @@ const AdminLogin = () => {
 
   return (
     <div>
+      {/* <SearchBar/> */}
       <div>
         <div style={{ marginTop: "100px", marginBottom: "50px" }}>
           <img src={logo} alt="diat logo" height={100} />
