@@ -39,7 +39,7 @@ const StudentRegistration = () => {
   const [place, setplace] = useState("");
   const [housename, sethousename] = useState("");
   const [qualification, setQualification] = useState("");
-  const [passOutYear, setPassOutYear] = useState("");
+  // const [passOutYear, setPassOutYear] = useState("");
   const [guardianName, setGuardianName] = useState("");
   const [guardianMobile, setGuardianMobile] = useState("");
   const [placementNeeded, setPlacementNeeded] = useState(true);
@@ -146,7 +146,7 @@ const StudentRegistration = () => {
           house_name: housename.toUpperCase(),
           dob: dob,
           qualification: qualification.toUpperCase(),
-          year: passOutYear,
+          // year: passOutYear,
           quardian: guardianName.toUpperCase(),
           quardian_mobile: guardianMobile,
           placement: placementNeeded,
@@ -404,7 +404,7 @@ const StudentRegistration = () => {
                 <option value="Other">Other</option>
               </Form.Select>
             </Form.Group>
-            <Form.Group
+            {/* <Form.Group
               className="mt-3"
               as={Col}
               md="2"
@@ -425,7 +425,7 @@ const StudentRegistration = () => {
                   }
                 }}
               />
-            </Form.Group>
+            </Form.Group> */}
           </Row>
 
           <br />

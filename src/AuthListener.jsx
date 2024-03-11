@@ -35,7 +35,7 @@ const AuthListener = () => {
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_OUT') {
         navigate("/");
-        console.log("sign-out success ", session);
+        console.log("sign-out success ",data.subscription.unsubscribe.name );
         if (logoutTimeout) {
           clearTimeout(logoutTimeout);
           setLogoutTimeout(null);
