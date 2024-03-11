@@ -5,7 +5,7 @@ const generatePDF = async (id) => {
   var data=null
 
 
-  alert("genarating pdf");
+  alert("PDF is downloading");
 
   try {
     const { data:studentdata, error } = await supabase

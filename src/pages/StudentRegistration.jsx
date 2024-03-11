@@ -166,7 +166,6 @@ const StudentRegistration = () => {
       return;
     }
     console.log("added", data);
-    alert("student added");
    if (data) {
     generatePDF(GenaratedID)
    }
@@ -186,7 +185,7 @@ const StudentRegistration = () => {
       <NavBar />
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Login Out</Modal.Title>
+          <Modal.Title>Registration</Modal.Title>
         </Modal.Header>
         <Modal.Body>Registering New Student</Modal.Body>
         <Modal.Footer>
@@ -194,7 +193,7 @@ const StudentRegistration = () => {
             Cancel
           </Button>
           <Button
-            variant="danger"
+            variant="success"
             onClick={handleSubmit}
           >
             Register
