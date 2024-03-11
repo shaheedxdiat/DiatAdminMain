@@ -52,7 +52,7 @@ const DiatRouter = () => {
             }
           />
           <Route
-            path="/student/:s_id"
+            path="/course/:c_id/student/:s_id"
             element={
               <>
                 <StudentDetails/>

@@ -22,7 +22,7 @@ const CourseOpt = () => {
     if (studentId.trim() === "") {
       setShowWarning(true);
     } else {
-      navigate(`/student/${studentId}`);
+      navigate(`/course/${c_id}/student/${studentId}`);
     }
   };
 
@@ -58,7 +58,8 @@ const CourseOpt = () => {
             <Form.Control
               placeholder="Student id"
               aria-describedby="basic-addon2"
-              value={studentId}
+              // value={studentId}
+              defaultValue={c_id}
               onChange={handleSearchInput}
             />
             <Button

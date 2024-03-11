@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Row, Button, Col, InputGroup } from "react-bootstrap";
+import { Form, Row, Button, Col, InputGroup,Modal } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { supabase } from "../SupaBase";
 import { genarateStudentId } from "../genarateID";
@@ -9,8 +9,19 @@ import "react-image-crop/dist/ReactCrop.css";
 import states from "../states&dists/data.json";
 import NavBar from "../components/NavBar";
 import generatePDF from "../PDFGenerator";
+// import DisappearingMessage from "../components/DisappearingMessage";
 
 const StudentRegistration = () => {
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const handleshowModal=(e)=>{
+      e.preventDefault()
+      handleShow()
+  }
+
 
   const navigate = useNavigate();
   const course = useParams();
@@ -112,7 +123,9 @@ const StudentRegistration = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
    
+      
     if (File && !uploaded) {
       alert("upload the photo to sava details");
       return;
@@ -158,16 +171,41 @@ const StudentRegistration = () => {
     generatePDF(GenaratedID)
    }
     navigate(`/course/${course.c_id}`);
+    
+    
+   
   };
 
   return (
     <div>
+      {/* <Button onClick={handleShow}>show</Button> */}
+      {/* <button onClick={() => DisappearingMessage('This message will disappear in 1 second!')}>
+        Show Message
+      </button> */}
+      
       <NavBar />
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Login Out</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Registering New Student</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button
+            variant="danger"
+            onClick={handleSubmit}
+          >
+            Register
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <br />
       <h4 style={{ color: "orange" }}>NEW ADMISSION</h4>
 
       <div style={{ padding: "40px" }}>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleshowModal}>
           <Row className="mb-4">
             <Form.Group as={Col} md="3" controlId="validationCustom01">
               <Form.Label style={{ marginTop: "29px" }}></Form.Label>
