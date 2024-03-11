@@ -3,12 +3,16 @@ import { Form, Row, Button, Col, InputGroup } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { supabase } from "../SupaBase";
 import { genarateStudentId } from "../genarateID";
+
+import "react-image-crop/dist/ReactCrop.css";
+
 import states from "../states&dists/data.json";
 import NavBar from "../components/NavBar";
+import generatePDF from "../PDFGenerator";
 
 const StudentRegistration = () => {
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const course = useParams();
 
   const stateNames = states.states.map((stateObj) => stateObj.state);
@@ -34,14 +38,12 @@ const StudentRegistration = () => {
   const [GenaratedID, setGenaratedID] = useState("");
   const [File, setFile] = useState();
   const [feedue, setfeedue] = useState();
-  const [coursefee, setcoursefee] = useState()
-  console.log("photoURL",photoURL)
+  const [coursefee, setcoursefee] = useState();
+ 
 
   useEffect(() => {
-    setfeedue(coursefee-discount)
-    
-  }, [discount,coursefee])
-  
+    setfeedue(coursefee - discount);
+  }, [discount, coursefee]);
 
   const [photoUploadWarning, setphotoUploadWarning] = useState(false);
   const [uploaded, setuploaded] = useState(false);
@@ -55,26 +57,21 @@ const StudentRegistration = () => {
           .from("courses")
           .select("fee")
           .eq("courses_id", course.c_id);
-  
+
         if (error) {
           console.error("Error fetching course fee:", error.message);
           return;
         }
-  
+
         if (data.length > 0) {
-          
-          setcoursefee(data[0].fee)}
+          setcoursefee(data[0].fee);
+        }
       } catch (error) {
         console.error("Error fetching course fee:", error.message);
       }
     };
-     getFee();
-  }, [course.c_id])
-  
-
-  
-
-  
+    getFee();
+  }, [course.c_id]);
 
   useEffect(() => {
     genarateStudentId(course)
@@ -109,56 +106,58 @@ const StudentRegistration = () => {
     );
     setFile(null);
     setuploaded(true);
-    
+
     console.log("uploaded", data);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (File&&!uploaded) {
-      alert("upload the photo to sava details")
-      return
+   
+    if (File && !uploaded) {
+      alert("upload the photo to sava details");
+      return;
     }
     const { data, error } = await supabase
-    .from("students")
-    .insert([
-      {
-        student_id: GenaratedID,
-        full_name: name,
-        mobile: mobile,
-        email: email,
-        state: state.toUpperCase(),
-        adhar_number: adhar,
-        district: district.toUpperCase(),
-        post: postoffice.toUpperCase(),
-        place: place.toUpperCase(),
-        house_name: housename.toUpperCase(),
-        dob: dob,
-        qualification: qualification.toUpperCase(),
-        year: passOutYear,
-        quardian: guardianName.toUpperCase(),
-        quardian_mobile: guardianMobile,
-        placement: placementNeeded,
-        hosteler: hostlite,
-        discount: discount,
-        fee_due: feedue,
-        admissions_officer: "diat",
-        course_id: course.c_id,
-        photo_url: photoURL,
-      },
-    ])
-    .select();
+      .from("students")
+      .insert([
+        {
+          student_id: GenaratedID,
+          full_name: name,
+          mobile: mobile,
+          email: email,
+          state: state.toUpperCase(),
+          adhar_number: adhar,
+          district: district.toUpperCase(),
+          post: postoffice.toUpperCase(),
+          place: place.toUpperCase(),
+          house_name: housename.toUpperCase(),
+          dob: dob,
+          qualification: qualification.toUpperCase(),
+          year: passOutYear,
+          quardian: guardianName.toUpperCase(),
+          quardian_mobile: guardianMobile,
+          placement: placementNeeded,
+          hosteler: hostlite,
+          discount: discount,
+          fee_due: feedue,
+          admissions_officer: "diat",
+          course_id: course.c_id,
+          photo_url: photoURL,
+        },
+      ])
+      .select();
 
-    
-  if (error) {
-    alert(error.message);
-    console.log("error in registration", error);
-    return
-  }
-  console.log("added", data);
-  alert("student added");
-  navigate(`/course/${course.c_id}`);
-  
+    if (error) {
+      alert(error.message);
+      console.log("error in registration", error);
+      return;
+    }
+    console.log("added", data);
+    alert("student added");
+   if (data) {
+    generatePDF(GenaratedID)
+   }
+    navigate(`/course/${course.c_id}`);
   };
 
   return (
@@ -264,6 +263,30 @@ const StudentRegistration = () => {
                   setFile(e.target.files[0]);
                 }}
               />
+
+              {/* __________________________________________________________ */}
+              {/* {file && (
+                <div>
+                  <ReactCrop
+                    src={F}
+                    crop={crop}
+                    onImageLoaded={handleCropChange}
+                    onComplete={handleCropComplete}
+                    onChange={handleCropChange}
+                  />
+                  <button onClick={handleCropImage}>Crop Image</button>
+                </div>
+              )}
+
+              {croppedImage && (
+                <div>
+                  <h2>Cropped Image</h2>
+                  <img src={croppedImage} alt="Cropped" />
+                </div>
+              )} */}
+
+              {/* _________________________________________________________________________ */}
+
               <br />
 
               {photoUploadWarning ? (
@@ -326,8 +349,9 @@ const StudentRegistration = () => {
               <Form.Label> Education Qualification</Form.Label>
               <Form.Select
                 required
+
                 aria-label=" Education Qualification"
-                value={qualification}
+                // value={qualification}
                 onChange={(e) => setQualification(e.target.value.toUpperCase())}
               >
                 <option>Select Qualification</option>
@@ -544,10 +568,8 @@ const StudentRegistration = () => {
                 onChange={(e) => {
                   const value = parseInt(e.target.value); // Parse input value as integer
                   if (!isNaN(value)) {
-                    
                     // Check if it's a valid number
                     setdiscount(value);
-                  
                   } else {
                     setdiscount(""); // If not a valid number, set the state to an empty string
                   }
@@ -555,8 +577,9 @@ const StudentRegistration = () => {
               />
             </Form.Group>
           </Row>
-
+                  {/* <Button onClick={handlePDFClick}>pdf</Button> */}
           <Button type="submit">Save</Button>
+          {/* <PDFGenerator generatedID={GenaratedID} /> */}
         </Form>
       </div>
     </div>
