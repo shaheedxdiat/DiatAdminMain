@@ -11,7 +11,8 @@ const StudentDetails = () => {
   const navigate = useNavigate();
   const { c_id, s_id } = useParams();
   // console.log(c_id, s_id);
-
+  const [reloader, setreloader] = useState(false)
+  console.log(reloader)
   // State variables for form fields
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
@@ -41,6 +42,7 @@ const StudentDetails = () => {
   
   useEffect(() => {
     const getFee = async () => {
+      
       try {
         const { data, error } = await supabase
           .from("courses")
@@ -74,7 +76,8 @@ const StudentDetails = () => {
         alert("Invalid Student ID");
         navigate(`/course/${c_id}`);
       } else {
-        console.log(data[0]);
+        setreloader(false) 
+        // console.log(data[0]);
         // Update state with fetched data
         const studentData = data[0]; // Assuming there's only one student with given ID
         setName(studentData.full_name);
@@ -107,7 +110,7 @@ const StudentDetails = () => {
       }
     };
     getStudent();
-  }, [s_id, c_id, navigate]);
+  }, [s_id, c_id, navigate,reloader]);
 
   // const handleshowModal = (e) => {
   //   // Add your form submission logic here
@@ -140,7 +143,9 @@ const StudentDetails = () => {
           <div className="CardConatainer">
             <p>{name}</p>
             <p> DIAT IT PROFESSIONAL PACKAGE</p>
-            <div style={{ display: "flex", gap: "10PX" }}>
+            <div 
+            style={{ display: "flex", gap: "10px" }}
+            >
               <p>STUDENT ID : </p>
               <p> {s_id}</p>
             </div>
@@ -286,7 +291,7 @@ const StudentDetails = () => {
             </div>
             <div id="listColE" className="listColR">
               
-              <Payment student_id={s_id} due={fee_due}/>
+              <Payment student_id={s_id} due={fee_due} c_id={c_id} setreloader={setreloader}/>
             </div>
           </div>
         </div>

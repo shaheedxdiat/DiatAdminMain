@@ -1,4 +1,5 @@
-*{margin: 0;
+* {
+  margin: 0;
   padding: 0;
 }
 .subNav {
@@ -27,13 +28,13 @@
 /* .................................................. */
 
 .mainConatiner {
-  /* background-color: rgba(225, 230, 255, 0.679); */
+  background-color: rgba(225, 230, 255, 0.679);
   padding: 0px 50px;
 }
 
 .headContainer {
   /* background-color: rgb(255, 207, 207); */
-  padding: 25px;
+  padding: 25px 200px;
   display: flex;
   gap: 70px;
 }
@@ -76,11 +77,11 @@
   align-items: center;
   width: 100%;
   background-color: rgb(243, 244, 252);
-  box-shadow: -7px 1px  10px rgba(26, 23, 102, 0.086);
-  box-shadow: 7px 1px  10px rgba(26, 23, 102, 0.086);
+  box-shadow: -7px 1px 10px rgba(26, 23, 102, 0.086);
+  box-shadow: 7px 1px 10px rgba(26, 23, 102, 0.086);
 }
 
-#paymentRow{
+#paymentRow {
   background-color: rgb(235, 231, 226);
   /* display: flex; */
   margin-top: 20px;
@@ -88,36 +89,31 @@
   padding: 15px 0px;
   border-radius: 10px;
 }
-#paymentRow .listColL{
+#paymentRow .listColL {
   /* background-color: rgb(124, 198, 19); */
   width: 62%;
 }
 #paymentRow .listColR {
   justify-content: center;
- 
+
   /* background-color: rgb(193, 25, 239); */
 }
 
-#optionRow{
+#optionRow {
   display: flex;
   justify-content: center;
   gap: 50px;
-  margin: 30px 50px  ;
+  margin: 30px 50px;
   padding: 20px;
   /* background-color: rgba(255, 0, 0, 0.147); */
-
-  
 }
-
-
-
 
 .listRow p {
   font-size: 17px;
   font-weight: 400;
 }
 .listColL {
-  padding-left: 250px;
+  padding-left: 200px;
   text-align: start;
   width: 40%;
   color: gray;
@@ -125,14 +121,13 @@
 }
 .listColR {
   width: 60%;
-  padding-left:-500px;
+  padding-left: -500px;
   /* background-color: blue; */
   text-align: start;
 }
 
-
-#footer{
-  margin-top:20px ;
+#footer {
+  margin-top: 20px;
   padding: 30px 20px;
 }
 
@@ -142,6 +137,7 @@
     flex-direction: column;
     gap: 40px;
     text-align: center;
+    padding: 0;
   }
 
   .mainConatiner {
@@ -152,21 +148,20 @@
     padding-left: 30px;
   }
 
-  .CardConatainer div{
+  .CardConatainer div {
     padding-left: 50px;
   }
 
   /* ............................... */
 
- 
-  .listRow{
+  .listRow {
     display: block;
     padding: 10px 10px;
   }
 
   .listColL {
     padding-left: 25px;
-    
+
     text-align: center;
     width: 100%;
 
@@ -174,24 +169,27 @@
   }
   .listColR {
     padding-left: 25px;
-    
+
     text-align: center;
     width: 100%;
     /* background-color: red; */
   }
-  #paymentRow .listColL{
+  #paymentRow .listColL {
     /* background-color: rgb(124, 198, 19); */
     width: 100%;
   }
 
-  #optionRow{
-    
+  #optionRow {
     gap: 20px;
-  
-    
-    
   }
-  
-  
-  
+}
+
+@media screen and (max-width: 850px) {
+  .headContainer {
+ 
+    padding: 0;
+  }
+  .listColL {
+    padding-left: 25px;
+  }
 }
