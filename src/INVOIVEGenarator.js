@@ -1,7 +1,7 @@
 import { jsPDF } from "jspdf";
 // import { supabase } from "./SupaBase";
 
-const generateINVOICE = async (student_data,payment_data) => {
+const generateINVOICE = async (payment_data,student_data) => {
   // var data=null
   console.log("invoice initialized")
   console.log("paymentLog",payment_data)

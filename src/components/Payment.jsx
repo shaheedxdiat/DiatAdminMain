@@ -7,6 +7,8 @@ const Payment = ({ student_id, due, setreloader }) => {
   const [admin, setadmin] = useState("");
   const [amount, setamount] = useState();
   const [remark, setremark] = useState("Fee Installment");
+  // const [latestStudentData, setlatestStudentData] = useState()
+  // const [set, setset] = useState(false)
 
   // console.log("amount", amount);
 
@@ -21,21 +23,21 @@ const Payment = ({ student_id, due, setreloader }) => {
     getAdmin();
   }, [student_id]);
 
-  const handlePayment = async (event) => {
-    event.preventDefault();
+  const handlePayment = async () => {
+   
     if (!amount) {
       alert("inputs requuired");
       return;
     }
     console.log(amount, admin, student_id);
-    const {data: payment_data, error } = await supabase
+    const { data: payment_data, error } = await supabase
       .from("payment_log")
       .insert([
         {
           payedby: student_id,
           amount: parseInt(amount),
           cashier: admin,
-          remark:remark
+          remark: remark,
         },
       ])
       .select("*");
@@ -56,17 +58,24 @@ const Payment = ({ student_id, due, setreloader }) => {
       return;
     }
     console.log("due updated data", student_data);
-    generateINVOICE(student_data,payment_data)
+    generateINVOICE( payment_data,student_data);
     setreloader(true);
     handleClose();
     return;
   };
+// ---------------------------------------------------------
+const [showConfirm, setshowConfirm] = useState(false)
+const handleSubmit=(event)=>{
+  event.preventDefault();
+  setshowConfirm(true)
+}
 
-  // console.log(student_id);
-  // console.log(due);
+// ----------------------------------------------------------
   const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
+  const handleClose = () =>{
+    setShow(false)
+    setshowConfirm(false)
+  }
   const handleShow = () => setShow(true);
   return (
     <div>
@@ -75,15 +84,15 @@ const Payment = ({ student_id, due, setreloader }) => {
       </Button>
 
       <Modal
-        style={{ marginTop: "150px"  }}
+        style={{ marginTop: "150px" }}
         show={show}
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
       >
-        <Modal.Header >
+        <Modal.Header>
           <Modal.Title style={{ color: "green" }}>
-            Fee Payment{" "}
+            Fee Payment{" "} 
             <div
               style={{
                 display: "flex",
@@ -98,17 +107,18 @@ const Payment = ({ student_id, due, setreloader }) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ fontSize: "17px", fontWeight: "500" }}>
-          <Form onSubmit={handlePayment}>
+          <Form onSubmit={handleSubmit}>
             <div style={{ display: "flex" }}>
               <Form.Label style={{ marginTop: "10px" }}>
                 paying Amount
               </Form.Label>
               <Form.Control
-                style={{ color: "orangered",fontSize:"20px" }}
+                style={{ color: "orangered", fontSize: "20px" }}
                 required
                 // defaultValue={10}
                 onChange={(e) => {
                   setamount(e.target.value);
+                 
                 }}
                 type="number"
                 placeholder="Rs."
@@ -130,9 +140,9 @@ const Payment = ({ student_id, due, setreloader }) => {
               <Button variant="outline-secondary" onClick={handleClose}>
                 Cancel
               </Button>
-              <Button variant="success" type="submit">
+              {!showConfirm?<Button variant="success" type="submit">
                 Recieved
-              </Button>
+              </Button>:<Button variant="danger" onClick={handlePayment}>Confirm And Get PDF</Button>}
             </div>
           </Form>
           {student_id.student_id}
@@ -145,6 +155,32 @@ const Payment = ({ student_id, due, setreloader }) => {
           
         </Modal.Footer> */}
       </Modal>
+
+
+{/* 
+      {set?<Modal 
+         show={showConfirm}
+         onHide={handleCloseConfirm}
+         backdrop="static"
+         keyboard={false}
+      >
+          <Modal.Header>
+          <Modal.Title style={{ color: "orange" }}>
+            Confirm Payment
+            
+           
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseConfirm}>
+            Cancel
+          </Button>
+          <Button variant="secondary" onClick={handlePayment}>
+            Confirm
+          </Button>
+          
+        </Modal.Footer>
+      </Modal>:<></>} */}
     </div>
   );
 };
