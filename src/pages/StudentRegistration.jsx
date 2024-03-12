@@ -50,7 +50,7 @@ const StudentRegistration = () => {
   const [File, setFile] = useState();
   const [feedue, setfeedue] = useState();
   const [coursefee, setcoursefee] = useState();
-  const [class_start, setclass_start] = useState()
+  const [class_start, setclass_start] = useState("")
   // console.log("GenaratedID",GenaratedID)
  
 
