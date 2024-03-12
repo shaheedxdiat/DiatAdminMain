@@ -12,7 +12,7 @@ const StudentDetails = () => {
   const { c_id, s_id } = useParams();
   // console.log(c_id, s_id);
   const [reloader, setreloader] = useState(false)
-  console.log(reloader)
+  // console.log(reloader)
   // State variables for form fields
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");

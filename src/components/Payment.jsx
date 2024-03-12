@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { supabase } from "../SupaBase";
+import generateINVOICE from "../INVOIVEGenarator";
 
 const Payment = ({ student_id, due, setreloader }) => {
   const [admin, setadmin] = useState("");
-  const [amount, setamount] = useState(0);
+  const [amount, setamount] = useState();
   const [remark, setremark] = useState("Fee Installment");
 
-  console.log("amount", amount);
+  // console.log("amount", amount);
 
   useEffect(() => {
     const getAdmin = async () => {
       const { data, error } = await supabase.auth.getUser();
       if (error) {
-        console.log("erroe:", error);
+        console.log("error:", error);
       }
       setadmin(data.user?.email);
     };
@@ -27,7 +28,7 @@ const Payment = ({ student_id, due, setreloader }) => {
       return;
     }
     console.log(amount, admin, student_id);
-    const { data, error } = await supabase
+    const {data: payment_data, error } = await supabase
       .from("payment_log")
       .insert([
         {
@@ -43,19 +44,19 @@ const Payment = ({ student_id, due, setreloader }) => {
       console.log("error in adding payment", error);
       return;
     }
-    console.log("payment log updated data", data);
+    console.log("payment log updated data", payment_data);
 
-    const { data: data1, error: error1 } = await supabase
+    const { data: student_data, error: error1 } = await supabase
       .from("students")
       .update({ fee_due: due - amount })
       .eq("student_id", student_id)
-      .select("fee_due");
+      .select("*");
     if (error) {
       console.log("error updating due", error1);
       return;
     }
-    console.log("due updated data", data1);
-
+    console.log("due updated data", student_data);
+    generateINVOICE(student_data,payment_data)
     setreloader(true);
     handleClose();
     return;
@@ -105,6 +106,7 @@ const Payment = ({ student_id, due, setreloader }) => {
               <Form.Control
                 style={{ color: "orangered",fontSize:"20px" }}
                 required
+                // defaultValue={10}
                 onChange={(e) => {
                   setamount(e.target.value);
                 }}
