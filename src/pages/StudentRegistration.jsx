@@ -50,6 +50,7 @@ const StudentRegistration = () => {
   const [File, setFile] = useState();
   const [feedue, setfeedue] = useState();
   const [coursefee, setcoursefee] = useState();
+  // console.log("GenaratedID",GenaratedID)
  
 
   useEffect(() => {
@@ -85,9 +86,11 @@ const StudentRegistration = () => {
   }, [course.c_id]);
 
   useEffect(() => {
+    // console.log("initiating ig geanaration")
     genarateStudentId(course)
       .then(({ id }) => {
         setGenaratedID(id);
+        console.log("New ID Genarated ",id)
       })
       .catch((error) => {
         console.error("Error:", error);
