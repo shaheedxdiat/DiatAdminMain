@@ -50,6 +50,7 @@ const StudentRegistration = () => {
   const [File, setFile] = useState();
   const [feedue, setfeedue] = useState();
   const [coursefee, setcoursefee] = useState();
+  const [class_start, setclass_start] = useState()
   // console.log("GenaratedID",GenaratedID)
  
 
@@ -149,7 +150,9 @@ const StudentRegistration = () => {
           house_name: housename.toUpperCase(),
           dob: dob,
           qualification: qualification.toUpperCase(),
+          admission_date: new Date().toLocaleDateString('en-GB'),
           // year: "1000",
+          class_start:class_start,
           quardian: guardianName.toUpperCase(),
           quardian_mobile: guardianMobile,
           placement: placementNeeded,
@@ -204,7 +207,7 @@ const StudentRegistration = () => {
         </Modal.Footer>
       </Modal>
       <br />
-      <h4 style={{ color: "orange" }}>NEW ADMISSION</h4>
+      <h4 style={{ color: "orange" ,marginTop:"30px",marginBottom:"-20px"}}>NEW ADMISSION</h4>
 
       <div style={{ padding: "40px" }}>
         <Form onSubmit={handleshowModal}>
@@ -563,6 +566,7 @@ const StudentRegistration = () => {
                 boxShadow: "1px 2px 5px rgb(228, 227, 227)",
                 borderRadius: "10px",
                 margin: "10px",
+                marginTop:"35px",
                 padding: "10px 20px",
                 display: "flex",
                 alignItems: "center",
@@ -578,6 +582,7 @@ const StudentRegistration = () => {
               <br />
             </Form.Group>
             <Form.Group
+            className="mt-4"
               as={Col}
               md="2"
               style={{
@@ -597,12 +602,18 @@ const StudentRegistration = () => {
               />
             </Form.Group>
 
-            <Form.Group className="mt-2" as={Col} md="3">
+
+          
+
+            <Form.Group as={Col} md="3">
               <Form.Control
                 style={{
                   boxShadow: "1px 2px 5px rgba(234, 25, 25, 0.225)",
                   padding: "10px",
                   border: "1px solid yellow",
+                  marginTop:"35px",
+                  color:"red",
+                  fontWeight:"400"
                 }}
                 
                 type="integer"
@@ -619,9 +630,27 @@ const StudentRegistration = () => {
                 }}
               />
             </Form.Group>
+
+            <Form.Group as={Col} md="3" controlId="validationCustom01">
+              <Form.Label style={{ marginTop: "10px" }}>
+                Class Start At
+              </Form.Label>
+              <Form.Control
+                required
+                type="date"
+                placeholder="Ad"
+                value={class_start}
+                onChange={(e) => setclass_start(e.target.value)}
+              />
+            </Form.Group>
+
           </Row>
+          <br />
+          <hr />
+          <br />
+
                   {/* <Button onClick={handlePDFClick}>pdf</Button> */}
-          <Button type="submit">Save</Button>
+          <Button style={{padding:"12px 50px", fontSize:"18px",fontWeight:"400",marginTop:"20px",marginBottom:"30px"}} variant="success" type="submit">REGISTER</Button>
           {/* <PDFGenerator generatedID={GenaratedID} /> */}
         </Form>
       </div>

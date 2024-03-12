@@ -6,6 +6,7 @@ import { supabase } from "../SupaBase";
 import "../assests/styles/StudentDetails.css";
 
 import alterIMG from "../assests/images/alterIMG.jpeg";
+import Payment from "../components/Payment";
 const StudentDetails = () => {
   const navigate = useNavigate();
   const { c_id, s_id } = useParams();
@@ -32,9 +33,34 @@ const StudentDetails = () => {
   const [photoURL, setphotoURL] = useState("");
   const [hostler, sethostler] = useState("");
   const [placement, setplacement] = useState("");
+  const [coursefee, setcoursefee] = useState("")
   // console.log("placement:",placement,"hostler :",hostler)
 
   // const alterURL = "https://images.app.goo.gl/tFyC7Ma4avJFSiuL8";
+
+  
+  useEffect(() => {
+    const getFee = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("courses")
+          .select("fee")
+          .eq("courses_id", c_id);
+
+        if (error) {
+          console.error("Error fetching course fee:", error.message);
+          return;
+        }
+
+        if (data.length > 0) {
+          setcoursefee(data[0].fee);
+        }
+      } catch (error) {
+        console.error("Error fetching course fee:", error.message);
+      }
+    };
+    getFee();
+  }, [c_id]);
 
   useEffect(() => {
     const getStudent = async () => {
@@ -238,13 +264,13 @@ const StudentDetails = () => {
               <p>Total Course Fee </p>
             </div>
             <div className="listColR">
-              <p>{96000}</p>
+              <p>{coursefee}</p>
             </div>
           </div>
 
           <div className="listRow">
             <div className="listColL">
-              <p>Discount/Fee consession </p>
+              <p>Discount/Fee concession </p>
             </div>
             <div className="listColR">
               <p>{discount}</p>
@@ -259,7 +285,8 @@ const StudentDetails = () => {
               <p>{fee_due}</p>
             </div>
             <div id="listColE" className="listColR">
-              <Button variant="success">Payment</Button>
+              
+              <Payment student_id={s_id} due={fee_due}/>
             </div>
           </div>
         </div>
@@ -267,10 +294,10 @@ const StudentDetails = () => {
 
       <div id="optionRow" className="">
             <div className="">
-             <Button disabled>Edit Details</Button>
+             <Button disabled variant="outline-primary">Edit Details</Button>
             </div>
             <div className="">
-             <Button disabled variant="danger">Delete Student</Button>
+             <Button disabled variant="outline-danger">Delete Student</Button>
             </div>
           </div>
 
