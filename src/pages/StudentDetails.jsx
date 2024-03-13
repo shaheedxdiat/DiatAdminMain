@@ -15,7 +15,7 @@ const StudentDetails = () => {
   // console.log(c_id, s_id);
   const [reloader, setreloader] = useState(false)
   // console.log(reloader)
-  // State variables for form fields
+
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
@@ -82,7 +82,7 @@ const StudentDetails = () => {
       } else {
         setreloader(false) 
         // console.log(data[0]);
-        // Update state with fetched data
+        
         const studentData = data[0]; // Assuming there's only one student with given ID
         setName(studentData.full_name);
         setMobile(studentData.mobile);
