@@ -46,9 +46,9 @@ const SelectCourse = () => {
 
   
 
-    const handlebackClick=()=>{
-      navigate(-1)
-    }
+    // const handlebackClick=()=>{
+    //   navigate(-1)
+    // }
     useEffect(() => {
       supabase.auth.getSession().then(({ data: { session } }) => {
         // setSession(session)
