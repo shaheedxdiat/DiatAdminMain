@@ -9,7 +9,7 @@ import "react-image-crop/dist/ReactCrop.css";
 import states from "../states&dists/data.json";
 import NavBar from "../components/NavBar";
 import generatePDF from "../PDFGenerator";
-// import DisappearingMessage from "../components/DisappearingMessage";
+
 
 const StudentRegistration = () => {
 
@@ -39,7 +39,6 @@ const StudentRegistration = () => {
   const [place, setplace] = useState("");
   const [housename, sethousename] = useState("");
   const [qualification, setQualification] = useState("");
-  // const [passOutYear, setPassOutYear] = useState("");
   const [guardianName, setGuardianName] = useState("");
   const [guardianMobile, setGuardianMobile] = useState("");
   const [placementNeeded, setPlacementNeeded] = useState(true);
@@ -151,7 +150,6 @@ console.log(admission_date.toLocaleDateString('en-GB'))
           dob: dob,
           qualification: qualification.toUpperCase(),
           admission_date: admission_date,
-          // year: "1000",
           class_start:class_start,
           quardian: guardianName.toUpperCase(),
           quardian_mobile: guardianMobile,
