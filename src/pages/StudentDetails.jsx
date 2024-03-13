@@ -35,6 +35,8 @@ const StudentDetails = () => {
   const [hostler, sethostler] = useState("");
   const [placement, setplacement] = useState("");
   const [coursefee, setcoursefee] = useState("")
+  const [admission_date,setadmission_date]=useState("")
+  const [class_start,setaclass_start]=useState("")
   // console.log("placement:",placement,"hostler :",hostler)
 
   // const alterURL = "https://images.app.goo.gl/tFyC7Ma4avJFSiuL8";
@@ -96,6 +98,8 @@ const StudentDetails = () => {
         setGuardianName(studentData.quardian);
         setGuardianMobile(studentData.quardian_mobile);
         setphotoURL(studentData.photo_url);
+        setadmission_date(studentData.admission_date)
+        setaclass_start(studentData.class_start)
         sethostler(() => {
           if (studentData.hostler) {
             return "YES";
@@ -233,16 +237,16 @@ const StudentDetails = () => {
               <p>Admission Date</p>
             </div>
             <div className="listColR">
-              <p>21/05/2024</p>
+              <p>{admission_date}</p>
             </div>
           </div>
 
           <div className="listRow">
             <div className="listColL">
-              <p>Class start </p>
+              <p>Class Start  </p>
             </div>
             <div className="listColR">
-              <p>01/06/2024</p>
+              <p>{class_start}</p>
             </div>
           </div>
 
