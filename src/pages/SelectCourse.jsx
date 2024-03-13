@@ -5,7 +5,7 @@ import {  useNavigate } from "react-router-dom";
 import { Form,  Row, Col,  Button,Modal } from "react-bootstrap";
 import logo from "../assests/images/DIAT_LOGO_1.png";
 import lxlogo from "../assests/images/DIAT_20240307_213038-removebg-preview.png";
-// import NavBar from "../components/NavBar";
+
 
 const SelectCourse = () => {
   const [course, setcourse] = useState([]);
@@ -51,7 +51,7 @@ const SelectCourse = () => {
     // }
     useEffect(() => {
       supabase.auth.getSession().then(({ data: { session } }) => {
-        // setSession(session)
+       
       })
 
       const {
@@ -85,10 +85,7 @@ const SelectCourse = () => {
         </Modal.Footer>
       </Modal>
       <div style={{width:"100px"}}></div>
-      {/* <button disabled className="NavBackBtn" onClick={handlebackClick} ><svg xmlns="http://www.w3.org/2000/svg" width="26" height="36" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
-  <path fillRule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
-</svg>
- Back</button> */}
+     
       <img src={logo} height="80px" alt="" />
       {/* <h6 style={{ color: "gray" }}>name</h6> */}
       <Button variant="danger"
@@ -124,7 +121,7 @@ const SelectCourse = () => {
           <Form.Select
             onChange={(e) => {
               setselectedCourse(e.target.value);
-              setShowWarning(false); // Hide warning when selecting an option
+              setShowWarning(false); 
             }}
             aria-label="Default select example"
             style={{ maxWidth: "300px" }}
