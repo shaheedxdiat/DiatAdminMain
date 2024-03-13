@@ -152,7 +152,7 @@ const StudentRegistration = () => {
           qualification: qualification.toUpperCase(),
           admission_date: new Date().toLocaleDateString('en-GB'),
           // year: "1000",
-          class_start:class_start,
+          // class_start:class_start,
           quardian: guardianName.toUpperCase(),
           quardian_mobile: guardianMobile,
           placement: placementNeeded,
@@ -638,7 +638,7 @@ const StudentRegistration = () => {
               <Form.Control
                 required
                 type="date"
-                placeholder="Ad"
+                placeholder="class starting date"
                 value={class_start}
                 onChange={(e) => setclass_start(e.target.value)}
               />
