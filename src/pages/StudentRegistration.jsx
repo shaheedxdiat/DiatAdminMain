@@ -181,6 +181,7 @@ console.log(admission_date.toLocaleDateString('en-GB'))
    
   };
 
+
   return (
     <div>
       {/* <Button onClick={handleShow}>show</Button> */}
@@ -189,6 +190,7 @@ console.log(admission_date.toLocaleDateString('en-GB'))
       </button> */}
       
       <NavBar />
+     
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Registration</Modal.Title>

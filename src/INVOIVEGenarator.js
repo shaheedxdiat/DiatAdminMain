@@ -17,7 +17,7 @@ const generateINVOICE = async (payment_data,student_data) => {
   // const lineHeight = 1;
   let y = 10;
 
-  const companyName = "DIALOGUE INSTITUTE AND TECHNOLOGY";
+  const companyName = "DIALOGUE INSTITUTE OF ADVANCED TECHNOLOGY";
   const companyAddress = "Maharani shopping complex,";
   const companyAddress2 = " Karadi, Thamarassery, Pincode: 673573";
   const companyContact = "Phone: +91 8960886633, ";
@@ -107,7 +107,7 @@ doc.text(`: ${student_data[0].fee_due} .00`, 120,10*y)
 
 
 
-  doc.save(`${payment_data[0].payedby}_DIAT.pdf`);
+  doc.save(`DIAT_000${payment_data[0].id}.pdf`);
 };
 
 export default generateINVOICE;

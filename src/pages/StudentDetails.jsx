@@ -4,9 +4,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { supabase } from "../SupaBase";
 import "../assests/styles/StudentDetails.css";
+import  pdfIcon  from "../assests/images/pdf_icon.png";
 
 import alterIMG from "../assests/images/alterIMG.jpeg";
 import Payment from "../components/Payment";
+import generatePDF from "../PDFGenerator";
 const StudentDetails = () => {
   const navigate = useNavigate();
   const { c_id, s_id } = useParams();
@@ -115,6 +117,9 @@ const StudentDetails = () => {
     };
     getStudent();
   }, [s_id, c_id, navigate,reloader]);
+  const downloadPDF=()=>{
+    generatePDF(s_id)
+  }
 
   // const handleshowModal = (e) => {
   //   // Add your form submission logic here
@@ -153,7 +158,10 @@ const StudentDetails = () => {
               <p>STUDENT ID : </p>
               <p> {s_id}</p>
             </div>
+            
+            <img title="download pdf" id="pdfBTN" src={pdfIcon} onClick={downloadPDF} alt="" height={30}/>
           </div>
+          
         </div>
 
         {/* ........................................................ */}
@@ -303,10 +311,10 @@ const StudentDetails = () => {
 
       <div id="optionRow" className="">
             <div className="">
-             <Button disabled variant="outline-primary">Edit Details</Button>
+             <Button title="Disabled for now"  variant="outline-secondary">Edit Details</Button>
             </div>
             <div className="">
-             <Button disabled variant="outline-danger">Delete Student</Button>
+             <Button title="Disabled for now"  variant="outline-secondary">Delete Student</Button>
             </div>
           </div>
 

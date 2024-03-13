@@ -25,6 +25,9 @@
   height: 20px;
 }
 
+#pdfBTN:hover{
+  cursor: pointer;
+}
 /* .................................................. */
 
 .mainConatiner {
@@ -144,8 +147,13 @@
     padding: 0px 10px;
   }
   .CardConatainer {
+   
     text-align: center;
     padding-left: 30px;
+  }
+  .CardConatainer div{
+  /* background-color: red; */
+  margin-left: 30px;
   }
 
   .CardConatainer div {

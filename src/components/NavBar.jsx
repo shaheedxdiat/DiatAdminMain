@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../assests/styles/NavBar.css";
-import logo from "../assests/images/DIAT_20240307_213038-removebg-preview.png";
+import logo from "../assests/images/DIAT_LOGO_1.png";
 import { Button, Modal } from "react-bootstrap";
 import { supabase } from "../SupaBase";
 import { useNavigate } from "react-router-dom";
@@ -60,7 +60,7 @@ const NavBar = () => {
       <div><button
         className="NavBackBtn"
         onClick={handlebackClick}
-        style={{ border: "none", color: "wheat" }}
+        style={{ border: "none",  padding:"0px 12px" }}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +82,7 @@ const NavBar = () => {
           onClick={handleHomeClick}
           style={{
             border: "none",
-            color: "wheat",
+            // color: "wheat",
             padding:"12px"
           //  width:"1"
           }}
@@ -91,7 +91,7 @@ const NavBar = () => {
         </button>
         
         </div>
-      <img src={logo} height="50px" alt="" />
+      <img src={logo} height="80px" alt="" />
       {/* <h6 style={{ color: "gray" }}>name</h6> */}
       <div>
 
