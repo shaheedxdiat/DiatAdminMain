@@ -74,6 +74,8 @@ doc.text(`: ${payment_data[0].created_at.toString().split('T')[0]}`, doc.interna
 doc.text("Course", doc.internal.pageSize.width -50, 7*y, { align: "left" });
 doc.text(`: ${student_data[0].course_id.toString()}`, doc.internal.pageSize.width-35, 7*y, { align: "left" });
 
+doc.text(` ${payment_data[0].remark.toString()}`, 50, 9*y, { align: "left" });
+
 
 
 doc.text(`Paid`, 100,9*y)

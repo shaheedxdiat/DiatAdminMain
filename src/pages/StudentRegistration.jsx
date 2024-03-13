@@ -51,8 +51,8 @@ const StudentRegistration = () => {
   const [feedue, setfeedue] = useState();
   const [coursefee, setcoursefee] = useState();
   const [class_start, setclass_start] = useState("")
-  // console.log("GenaratedID",GenaratedID)
- 
+  const admission_date=new Date()
+console.log(admission_date.toLocaleDateString('en-GB')) 
 
   useEffect(() => {
     setfeedue(coursefee - discount);
@@ -150,9 +150,9 @@ const StudentRegistration = () => {
           house_name: housename.toUpperCase(),
           dob: dob,
           qualification: qualification.toUpperCase(),
-          admission_date: new Date().toLocaleDateString('en-GB'),
+          admission_date: admission_date,
           // year: "1000",
-          // class_start:class_start,
+          class_start:class_start,
           quardian: guardianName.toUpperCase(),
           quardian_mobile: guardianMobile,
           placement: placementNeeded,
@@ -164,7 +164,7 @@ const StudentRegistration = () => {
           photo_url: photoURL,
         },
       ])
-      .select();
+      .select(); 
 
     if (error) {
       alert(error.message);
