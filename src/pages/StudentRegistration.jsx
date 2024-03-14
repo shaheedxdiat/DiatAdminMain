@@ -654,9 +654,7 @@ console.log(admission_date.toLocaleDateString('en-GB'))
           <hr />
           <br />
 
-                  {/* <Button onClick={handlePDFClick}>pdf</Button> */}
           <Button style={{padding:"12px 50px", fontSize:"18px",fontWeight:"400",marginTop:"20px",marginBottom:"30px"}} variant="success" type="submit">REGISTER</Button>
-          {/* <PDFGenerator generatedID={GenaratedID} /> */}
         </Form>
       </div>
     </div>
