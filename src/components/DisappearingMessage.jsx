@@ -8,9 +8,8 @@ const DisappearingMessage = ({ message }) => {
       setIsVisible(false);
     }, 1000);
 
-    // Clear the timeout when the component unmounts
     return () => clearTimeout(timer);
-  }, []); // Empty dependency array ensures the effect runs only once on mount
+  }, []); 
 
   return (
     <div>
