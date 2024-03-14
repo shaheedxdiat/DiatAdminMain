@@ -7,10 +7,7 @@ const Payment = ({ student_id, due, setreloader }) => {
   const [admin, setadmin] = useState("");
   const [amount, setamount] = useState();
   const [remark, setremark] = useState("Fee Installment");
-  // const [latestStudentData, setlatestStudentData] = useState()
-  // const [set, setset] = useState(false)
-
-  // console.log("amount", amount);
+  
 
   useEffect(() => {
     const getAdmin = async () => {
@@ -148,12 +145,7 @@ const handleSubmit=(event)=>{
           {student_id.student_id}
         </Modal.Body>
 
-        {/* <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          
-        </Modal.Footer> */}
+       
       </Modal>
 
 
