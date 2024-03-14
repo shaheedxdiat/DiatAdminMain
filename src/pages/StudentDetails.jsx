@@ -121,11 +121,7 @@ const StudentDetails = () => {
     generatePDF(s_id)
   }
 
-  // const handleshowModal = (e) => {
-  //   // Add your form submission logic here
-  //   e.preventDefault();
-  //   // Example: console.log(name, mobile, email, dob, adhar, passOutYear, state, district, postoffice, place, housename, guardianName, guardianMobile);
-  // };
+
 
   return (
     <div>
