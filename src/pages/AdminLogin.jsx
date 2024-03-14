@@ -4,7 +4,6 @@ import { Button, Form } from "react-bootstrap";
 import { BeatLoader } from "react-spinners";
 import logo from "../assests/images/DIAT_20240307_213038-removebg-preview.png";
 import { useNavigate } from "react-router-dom";
-// import SearchBar from "./SearchBar";
 
 const AdminLogin = () => {
   // useEffect(() => {
