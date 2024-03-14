@@ -47,6 +47,13 @@
   /* border-radius: 7px;
   /* padding: 3px; *
   background-color: rgb(158, 175, 209); */
+
+}.photoContainer {
+  overflow: hidden;
+  /* border-radius: 7px;
+  /* padding: 3px; *
+  background-color: rgb(158, 175, 209); */
+
 }
 .photoContainer img {
   object-fit: cover;
@@ -159,7 +166,10 @@
   .CardConatainer div {
     padding-left: 50px;
   }
-
+  .photoContainer {
+   padding-top: 15px;
+  
+  }
   /* ............................... */
 
   .listRow {

@@ -86,7 +86,7 @@ console.log(admission_date.toLocaleDateString('en-GB'))
   }, [course.c_id]);
 
   useEffect(() => {
-    // console.log("initiating ig geanaration")
+    // console.log("initiating id geanaration")
     genarateStudentId(course)
       .then(({ id }) => {
         setGenaratedID(id);
@@ -188,6 +188,11 @@ console.log(admission_date.toLocaleDateString('en-GB'))
       </button> */}
       
       <NavBar />
+      <div className="subNav">
+        <p>New Admission</p>
+        <div></div>
+        <p>{course.c_id}</p>
+      </div>
      
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

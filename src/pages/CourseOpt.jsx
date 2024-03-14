@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Button, InputGroup, Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import NavBar from "../components/NavBar";
+import lxlogo from "../assests/images/DIAT_20240307_213038-removebg-preview.png";
+
 
 const CourseOpt = () => {
   const navigate = useNavigate();
@@ -36,10 +38,10 @@ const CourseOpt = () => {
           width: "100%",
           padding: "40px",
           display: "flex",
-          justifyContent: "start",
+          justifyContent: "center",
         }}
       >
-        
+        <img src={lxlogo} alt="" height={120}/>
       </div>
       <br />
       <br />
@@ -56,6 +58,7 @@ const CourseOpt = () => {
         <div style={{ maxWidth: "350px" }}>
           <InputGroup size="lg" className="mb-3">
             <Form.Control
+            style={{border:"2px solid rgb(71, 99, 255"}}
               placeholder="Student id"
               aria-describedby="basic-addon2"
               // value={studentId}
@@ -70,6 +73,7 @@ const CourseOpt = () => {
               id="button-addon2"
               onClick={handleSearchClick}
               
+              
             >
               Search
             </Button>
@@ -78,7 +82,7 @@ const CourseOpt = () => {
             <p style={{ color: "red" }}>Please enter a student id for search</p>
           )}
         </div>
-        <Button variant="success" onClick={handleNewRegistrationclick}>
+        <Button variant="success" style={{padding:"10px 100px"}} onClick={handleNewRegistrationclick}>
           New Registration{" "}
           <svg
             xmlns="http://www.w3.org/2000/svg"
