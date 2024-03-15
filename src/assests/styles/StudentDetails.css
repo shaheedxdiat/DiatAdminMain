@@ -40,6 +40,7 @@
   padding: 25px 200px;
   display: flex;
   gap: 70px;
+  
 }
 
 .photoContainer {
@@ -63,13 +64,18 @@
 
 .CardConatainer {
   text-align: left;
-  padding-left: 30px;
+  /* padding-left: 30px; */
 }
 
 .CardConatainer p {
+
   font-size: 18px;
   font-weight: 500;
   color: rgb(95, 94, 94);
+}
+.CardConatainer div{
+  display: flex;
+  justify-content: left;
 }
 /* ..................................................... */
 
@@ -141,35 +147,39 @@
   padding: 30px 20px;
 }
 
+
 @media screen and (max-width: 600px) {
   .headContainer {
     display: flex;
     flex-direction: column;
     gap: 40px;
     text-align: center;
-    padding: 0;
+    /* padding: 100px; */
+    /* background-color: red; */
+    /* padding: 20px; */
+  
   }
-
+  .photoContainer {
+    padding-top: 15px;
+   
+   }
   .mainConatiner {
     padding: 0px 10px;
   }
   .CardConatainer {
    
     text-align: center;
-    padding-left: 30px;
+    padding-left: 0px;
   }
   .CardConatainer div{
-  /* background-color: red; */
-  margin-left: 30px;
+   justify-content: center;
+   margin-right: 50px;
   }
 
   .CardConatainer div {
     padding-left: 50px;
   }
-  .photoContainer {
-   padding-top: 15px;
-  
-  }
+ 
   /* ............................... */
 
   .listRow {

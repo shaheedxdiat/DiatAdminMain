@@ -9,6 +9,7 @@ import AuthListener from "./AuthListener";
 import SelectCourse from "./pages/SelectCourse";
 import CourseOpt from "./pages/CourseOpt";
 import StudentDetails from "./pages/StudentDetails";
+import StudentTable from "./pages/StudentTable";
 
 const DiatRouter = () => {
   return (
@@ -48,6 +49,14 @@ const DiatRouter = () => {
             element={
               <>
                 <StudentRegistration/>
+              </>
+            }
+          />
+          <Route
+            path="/course/:c_id/list"
+            element={
+              <>
+                <StudentTable/>
               </>
             }
           />

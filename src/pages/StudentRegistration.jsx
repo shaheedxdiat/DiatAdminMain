@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Row, Button, Col, InputGroup,Modal } from "react-bootstrap";
+import { Form, Row, Button, Col, InputGroup, Modal } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { supabase } from "../SupaBase";
 import { genarateStudentId } from "../genarateID";
@@ -8,20 +8,17 @@ import "react-image-crop/dist/ReactCrop.css";
 
 import states from "../states&dists/data.json";
 import NavBar from "../components/NavBar";
-import generatePDF from "../PDFGenerator";
 
 
 const StudentRegistration = () => {
-
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleshowModal=(e)=>{
-      e.preventDefault()
-      handleShow()
-  }
-
+  const handleshowModal = (e) => {
+    e.preventDefault();
+    handleShow();
+  };
 
   const navigate = useNavigate();
   const course = useParams();
@@ -32,6 +29,7 @@ const StudentRegistration = () => {
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
   const [adhar, setadhar] = useState("");
+  const [gender, setgender] = useState("")
   const [dob, setDob] = useState("");
   const [state, setState] = useState("Kerala");
   const [district, setDistrict] = useState("");
@@ -49,9 +47,9 @@ const StudentRegistration = () => {
   const [File, setFile] = useState();
   const [feedue, setfeedue] = useState();
   const [coursefee, setcoursefee] = useState();
-  const [class_start, setclass_start] = useState("")
-  const admission_date=new Date()
-console.log(admission_date.toLocaleDateString('en-GB')) 
+  const [class_start, setclass_start] = useState("");
+  const admission_date = new Date();
+  console.log(admission_date.toLocaleDateString("en-GB"));
 
   useEffect(() => {
     setfeedue(coursefee - discount);
@@ -59,8 +57,10 @@ console.log(admission_date.toLocaleDateString('en-GB'))
 
   const [photoUploadWarning, setphotoUploadWarning] = useState(false);
   const [uploaded, setuploaded] = useState(false);
+  // const distObj={}
 
   const distObj = states.states.find((data) => data.state === state);
+
 
   useEffect(() => {
     const getFee = async () => {
@@ -90,7 +90,7 @@ console.log(admission_date.toLocaleDateString('en-GB'))
     genarateStudentId(course)
       .then(({ id }) => {
         setGenaratedID(id);
-        console.log("New ID Genarated ",id)
+        console.log("New ID Genarated ", id);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -127,8 +127,6 @@ console.log(admission_date.toLocaleDateString('en-GB'))
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-   
-      
     if (File && !uploaded) {
       alert("upload the photo to sava details");
       return;
@@ -140,6 +138,7 @@ console.log(admission_date.toLocaleDateString('en-GB'))
           student_id: GenaratedID,
           full_name: name,
           mobile: mobile,
+          gender:gender,
           email: email,
           state: state.toUpperCase(),
           adhar_number: adhar,
@@ -150,19 +149,19 @@ console.log(admission_date.toLocaleDateString('en-GB'))
           dob: dob,
           qualification: qualification.toUpperCase(),
           admission_date: admission_date,
-          class_start:class_start,
+          class_start: class_start,
           quardian: guardianName.toUpperCase(),
           quardian_mobile: guardianMobile,
           placement: placementNeeded,
           hosteler: hostlite,
-          discount: discount||0,
+          discount: discount || 0,
           fee_due: feedue,
           admissions_officer: "diat",
           course_id: course.c_id,
           photo_url: photoURL,
         },
       ])
-      .select(); 
+      .select();
 
     if (error) {
       alert(error.message);
@@ -170,15 +169,13 @@ console.log(admission_date.toLocaleDateString('en-GB'))
       return;
     }
     console.log("added", data);
-   if (data) {
-    generatePDF(GenaratedID)
-   }
-    navigate(`/course/${course.c_id}`);
-    
-    
+    if (data) {
+      navigate(
+        `/course/${course.c_id}/student/${GenaratedID}`
+      )
+    }
    
   };
-
 
   return (
     <div>
@@ -186,14 +183,14 @@ console.log(admission_date.toLocaleDateString('en-GB'))
       {/* <button onClick={() => DisappearingMessage('This message will disappear in 1 second!')}>
         Show Message
       </button> */}
-      
+
       <NavBar />
       <div className="subNav">
         <p>New Admission</p>
         <div></div>
         <p>{course.c_id}</p>
       </div>
-     
+
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Registration</Modal.Title>
@@ -203,16 +200,15 @@ console.log(admission_date.toLocaleDateString('en-GB'))
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button
-            variant="success"
-            onClick={handleSubmit}
-          >
+          <Button variant="success" onClick={handleSubmit}>
             Register
           </Button>
         </Modal.Footer>
       </Modal>
       <br />
-      <h4 style={{ color: "orange" ,marginTop:"30px",marginBottom:"-20px"}}>NEW ADMISSION</h4>
+      <h4 style={{ color: "orange", marginTop: "30px", marginBottom: "-20px" }}>
+        NEW ADMISSION
+      </h4>
 
       <div style={{ padding: "40px" }}>
         <Form onSubmit={handleshowModal}>
@@ -236,10 +232,14 @@ console.log(admission_date.toLocaleDateString('en-GB'))
                 required
                 type="tel"
                 value={mobile}
+                pattern="[[0-9]{10}"
                 placeholder="Mobile"
                 onChange={(e) => {
-                  const value = parseInt(e.target.value);
-                  if (!isNaN(value)) {
+                  let value = e.target.value;
+                  if (value.length <= 10 && value.match(/^\d+$/)) {
+                    setMobile(value);
+                  } else if (value.length > 10) {
+                    value = value.slice(0, 10); // Truncate to 12 characters
                     setMobile(value);
                   } else {
                     setMobile("");
@@ -252,7 +252,7 @@ console.log(admission_date.toLocaleDateString('en-GB'))
               <InputGroup hasValidation>
                 <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
                 <Form.Control
-                  type="text"
+                  type="email"
                   placeholder="Email"
                   aria-describedby="inputGroupPrepend"
                   value={email}
@@ -277,17 +277,54 @@ console.log(admission_date.toLocaleDateString('en-GB'))
 
           {/* ----------------------------------------------- */}
 
-          <Row>
+          <Row className="">
+            <Form.Group
+              className="mt-3"
+              as={Col}
+              md="2"
+              controlId="validationCustom02"
+            >
+              <div className="d-flex bg- rounded-3 gap-4 justify-content-center mt-4 p-2  ">
+                {" "}
+                <div className="d-flex gap-2 ">
+                  {" "}
+                  <Form.Check
+                    type="radio"
+                    onChange={(e)=>setgender(e.target.value)}
+                    className=""
+                    aria-label="radio 1"
+                    name="gender"
+                  />
+                  <Form.Label style={{ marginTop: "" }}>Male</Form.Label>{" "}
+                </div>
+                <div className="d-flex  gap-2 ">
+                  {" "}
+                  <Form.Check
+                    type="radio"
+                    onChange={(e)=>setgender(e.target.value)}
+
+                    className=""
+                    aria-label="radio 1"
+                    name="gender"
+                  />{" "}
+                  <Form.Label style={{ marginTop: "" }}>Female</Form.Label>{" "}
+                </div>
+              </div>
+            </Form.Group>
+
             <Form.Group as={Col} md="3" controlId="validationCustom02">
               <Form.Label style={{ marginTop: "29px" }}></Form.Label>
               <Form.Control
                 required
-                type="integer"
+                type="text"
                 value={adhar}
                 placeholder="UID No"
                 onChange={(e) => {
-                  const value = parseInt(e.target.value);
-                  if (!isNaN(value)) {
+                  let value = e.target.value;
+                  if (value.length <= 12 && value.match(/^\d+$/)) {
+                    setadhar(value);
+                  } else if (value.length > 12) {
+                    value = value.slice(0, 12); // Truncate to 12 characters
                     setadhar(value);
                   } else {
                     setadhar("");
@@ -397,7 +434,6 @@ console.log(admission_date.toLocaleDateString('en-GB'))
               <Form.Label> Education Qualification</Form.Label>
               <Form.Select
                 required
-
                 aria-label=" Education Qualification"
                 // value={qualification}
                 onChange={(e) => setQualification(e.target.value.toUpperCase())}
@@ -414,28 +450,6 @@ console.log(admission_date.toLocaleDateString('en-GB'))
                 <option value="Other">Other</option>
               </Form.Select>
             </Form.Group>
-            {/* <Form.Group
-              className="mt-3"
-              as={Col}
-              md="2"
-              controlId="validationCustom02"
-            >
-              <Form.Label></Form.Label>
-              <Form.Control
-                required
-                type="integer"
-                placeholder="Pass Out Year"
-                value={passOutYear}
-                onChange={(e) => {
-                  const value = parseInt(e.target.value);
-                  if (!isNaN(value)) {
-                    setPassOutYear(value);
-                  } else {
-                    setPassOutYear("");
-                  }
-                }}
-              />
-            </Form.Group> */}
           </Row>
 
           <br />
@@ -473,7 +487,7 @@ console.log(admission_date.toLocaleDateString('en-GB'))
                 onChange={(e) => setDistrict(e.target.value)}
               >
                 <option>Select District</option>
-                {distObj.districts.map((data) => (
+                {distObj.districts?.map((data) => (
                   <option key={data}>{data}</option>
                 ))}
               </Form.Select>
@@ -487,7 +501,6 @@ console.log(admission_date.toLocaleDateString('en-GB'))
                 value={postoffice}
                 onChange={(e) => {
                   setpostoffice(e.target.value.toUpperCase());
-                  
                 }}
               />
             </Form.Group>
@@ -534,9 +547,7 @@ console.log(admission_date.toLocaleDateString('en-GB'))
                 type="text"
                 placeholder="Guardian Name"
                 value={guardianName}
-                onChange={(e) =>
-                  setGuardianName(e.target.value.toUpperCase())
-                }
+                onChange={(e) => setGuardianName(e.target.value.toUpperCase())}
               />
             </Form.Group>
 
@@ -545,11 +556,15 @@ console.log(admission_date.toLocaleDateString('en-GB'))
               <Form.Control
                 required
                 type="tel"
+                pattern="[[0-9]{10}"
                 value={guardianMobile}
                 placeholder="Mobile"
                 onChange={(e) => {
-                  const value = parseInt(e.target.value);
-                  if (!isNaN(value)) {
+                  let value = e.target.value;
+                  if (value.length <= 10 && value.match(/^\d+$/)) {
+                    setGuardianMobile(value);
+                  } else if (value.length > 10) {
+                    value = value.slice(0, 10);
                     setGuardianMobile(value);
                   } else {
                     setGuardianMobile("");
@@ -571,7 +586,7 @@ console.log(admission_date.toLocaleDateString('en-GB'))
                 boxShadow: "1px 2px 5px rgb(228, 227, 227)",
                 borderRadius: "10px",
                 margin: "10px",
-                marginTop:"35px",
+                marginTop: "35px",
                 padding: "10px 20px",
                 display: "flex",
                 alignItems: "center",
@@ -587,7 +602,7 @@ console.log(admission_date.toLocaleDateString('en-GB'))
               <br />
             </Form.Group>
             <Form.Group
-            className="mt-4"
+              className="mt-4"
               as={Col}
               md="2"
               style={{
@@ -607,20 +622,16 @@ console.log(admission_date.toLocaleDateString('en-GB'))
               />
             </Form.Group>
 
-
-          
-
             <Form.Group as={Col} md="3">
               <Form.Control
                 style={{
                   boxShadow: "1px 2px 5px rgba(234, 25, 25, 0.225)",
                   padding: "10px",
                   border: "1px solid yellow",
-                  marginTop:"35px",
-                  color:"red",
-                  fontWeight:"400"
+                  marginTop: "35px",
+                  color: "red",
+                  fontWeight: "400",
                 }}
-                
                 type="integer"
                 value={discount}
                 placeholder="Discount / Fee Concession"
@@ -648,13 +659,25 @@ console.log(admission_date.toLocaleDateString('en-GB'))
                 onChange={(e) => setclass_start(e.target.value)}
               />
             </Form.Group>
-
           </Row>
           <br />
           <hr />
           <br />
 
-          <Button style={{padding:"12px 50px", fontSize:"18px",fontWeight:"400",marginTop:"20px",marginBottom:"30px"}} variant="success" type="submit">REGISTER</Button>
+          <Button
+            style={{
+              padding: "12px 50px",
+              fontSize: "18px",
+              fontWeight: "400",
+              marginTop: "20px",
+              marginBottom: "30px",
+            }}
+            variant="success"
+            type="submit"
+            disabled={mobile.length!==10 || guardianMobile.length!==10 ||adhar.length!==12 ||district==="Select District" ||postoffice==="" ||place==="" ||housename==="" ||guardianName==="" ||gender==="" } 
+          >
+            REGISTER
+          </Button>
         </Form>
       </div>
     </div>

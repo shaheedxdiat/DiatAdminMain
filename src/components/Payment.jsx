@@ -7,7 +7,6 @@ const Payment = ({ student_id, due, setreloader }) => {
   const [admin, setadmin] = useState("");
   const [amount, setamount] = useState();
   const [remark, setremark] = useState("Fee Installment");
-  
 
   useEffect(() => {
     const getAdmin = async () => {
@@ -21,7 +20,6 @@ const Payment = ({ student_id, due, setreloader }) => {
   }, [student_id]);
 
   const handlePayment = async () => {
-   
     if (!amount) {
       alert("inputs requuired");
       return;
@@ -55,24 +53,24 @@ const Payment = ({ student_id, due, setreloader }) => {
       return;
     }
     console.log("due updated data", student_data);
-    generateINVOICE( payment_data,student_data);
+    generateINVOICE(payment_data, student_data);
     setreloader(true);
     handleClose();
     return;
   };
-// ---------------------------------------------------------
-const [showConfirm, setshowConfirm] = useState(false)
-const handleSubmit=(event)=>{
-  event.preventDefault();
-  setshowConfirm(true)
-}
+  // ---------------------------------------------------------
+  const [showConfirm, setshowConfirm] = useState(false);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setshowConfirm(true);
+  };
 
-// ----------------------------------------------------------
+  // ----------------------------------------------------------
   const [show, setShow] = useState(false);
-  const handleClose = () =>{
-    setShow(false)
-    setshowConfirm(false)
-  }
+  const handleClose = () => {
+    setShow(false);
+    setshowConfirm(false);
+  };
   const handleShow = () => setShow(true);
   return (
     <div>
@@ -89,7 +87,7 @@ const handleSubmit=(event)=>{
       >
         <Modal.Header>
           <Modal.Title style={{ color: "green" }}>
-            Fee Payment{" "} 
+            Fee Payment{" "}
             <div
               style={{
                 display: "flex",
@@ -115,7 +113,6 @@ const handleSubmit=(event)=>{
                 // defaultValue={10}
                 onChange={(e) => {
                   setamount(e.target.value);
-                 
                 }}
                 type="number"
                 placeholder="Rs."
@@ -137,19 +134,22 @@ const handleSubmit=(event)=>{
               <Button variant="outline-secondary" onClick={handleClose}>
                 Cancel
               </Button>
-              {!showConfirm?<Button variant="success" type="submit">
-                Recieved
-              </Button>:<Button variant="danger" onClick={handlePayment}>Confirm And Get PDF</Button>}
+              {!showConfirm ? (
+                <Button variant="success" type="submit">
+                  Recieved
+                </Button>
+              ) : (
+                <Button variant="danger" onClick={handlePayment}>
+                  Confirm And Get PDF
+                </Button>
+              )}
             </div>
           </Form>
           {student_id.student_id}
         </Modal.Body>
-
-       
       </Modal>
 
-
-{/* 
+      {/* 
       {set?<Modal 
          show={showConfirm}
          onHide={handleCloseConfirm}

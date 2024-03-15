@@ -9,6 +9,7 @@ import  pdfIcon  from "../assests/images/pdf_icon.png";
 import alterIMG from "../assests/images/alterIMG.jpeg";
 import Payment from "../components/Payment";
 import generatePDF from "../PDFGenerator";
+import PaymentLog from "../components/PaymentLog";
 const StudentDetails = () => {
   const navigate = useNavigate();
   const { c_id, s_id } = useParams();
@@ -73,7 +74,7 @@ const StudentDetails = () => {
       const { data, error } = await supabase
         .from("students")
         .select("*")
-        .eq("student_id", s_id);
+        .eq("student_id", s_id).neq("course_status", "3");
 
       if (data.length === 0) {
         console.log(error);
@@ -302,6 +303,7 @@ const StudentDetails = () => {
               <Payment student_id={s_id} due={fee_due} c_id={c_id} setreloader={setreloader}/>
             </div>
           </div>
+          <PaymentLog student_id={s_id}/>
         </div>
       </div>
 
