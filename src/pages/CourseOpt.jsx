@@ -3,6 +3,7 @@ import { Button, InputGroup, Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import lxlogo from "../assests/images/DIAT_20240307_213038-removebg-preview.png";
+import AdminTitle from "../components/AdminTitle";
 
 
 const CourseOpt = () => {
@@ -33,6 +34,7 @@ const CourseOpt = () => {
   return (
     <div>
     <NavBar/>
+    <AdminTitle/>
       <div
         style={{
           width: "100%",

@@ -5,6 +5,7 @@ import {  useNavigate } from "react-router-dom";
 import { Form,  Row, Col,  Button,Modal } from "react-bootstrap";
 import logo from "../assests/images/DIAT_LOGO_1.png";
 import lxlogo from "../assests/images/DIAT_20240307_213038-removebg-preview.png";
+import AdminTitle from "../components/AdminTitle";
 
 
 const SelectCourse = () => {
@@ -78,13 +79,16 @@ const SelectCourse = () => {
             Close
           </Button>
           <Button variant="danger" onClick={()=>{
-            supabase.auth.signOut()
+            supabase.auth.signOut();
+            localStorage.removeItem("admin")
+
           }}>
             Logout
           </Button>
         </Modal.Footer>
       </Modal>
       <div style={{width:"100px"}}></div>
+         
      
       <img src={logo} height="80px" alt="" />
       {/* <h6 style={{ color: "gray" }}>name</h6> */}
@@ -97,6 +101,7 @@ const SelectCourse = () => {
         Logout
       </Button>
     </div>
+    <AdminTitle/>
       <Row
         style={{
           borderRadius: "15px",

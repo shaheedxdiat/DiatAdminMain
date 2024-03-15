@@ -8,6 +8,7 @@ import "react-image-crop/dist/ReactCrop.css";
 
 import states from "../states&dists/data.json";
 import NavBar from "../components/NavBar";
+import AdminTitle from "../components/AdminTitle";
 
 
 const StudentRegistration = () => {
@@ -49,7 +50,8 @@ const StudentRegistration = () => {
   const [coursefee, setcoursefee] = useState();
   const [class_start, setclass_start] = useState("");
   const admission_date = new Date();
-  console.log(admission_date.toLocaleDateString("en-GB"));
+  // console.log(admission_date.toLocaleDateString("en-GB"));
+  console.log(gender);
 
   useEffect(() => {
     setfeedue(coursefee - discount);
@@ -185,6 +187,8 @@ const StudentRegistration = () => {
       </button> */}
 
       <NavBar />
+      <AdminTitle/>
+
       <div className="subNav">
         <p>New Admission</p>
         <div></div>
@@ -278,39 +282,43 @@ const StudentRegistration = () => {
           {/* ----------------------------------------------- */}
 
           <Row className="">
-            <Form.Group
-              className="mt-3"
-              as={Col}
-              md="2"
-              controlId="validationCustom02"
-            >
-              <div className="d-flex bg- rounded-3 gap-4 justify-content-center mt-4 p-2  ">
-                {" "}
-                <div className="d-flex gap-2 ">
-                  {" "}
-                  <Form.Check
-                    type="radio"
-                    onChange={(e)=>setgender(e.target.value)}
-                    className=""
-                    aria-label="radio 1"
-                    name="gender"
-                  />
-                  <Form.Label style={{ marginTop: "" }}>Male</Form.Label>{" "}
-                </div>
-                <div className="d-flex  gap-2 ">
-                  {" "}
-                  <Form.Check
-                    type="radio"
-                    onChange={(e)=>setgender(e.target.value)}
-
-                    className=""
-                    aria-label="radio 1"
-                    name="gender"
-                  />{" "}
-                  <Form.Label style={{ marginTop: "" }}>Female</Form.Label>{" "}
-                </div>
-              </div>
-            </Form.Group>
+          <Form.Group className="mt-3" as={Col} md="2" controlId="validationCustom02">
+  <div className="d-flex bg- rounded-3 gap-4 justify-content-center mt-4 p-2">
+    <div className="d-flex gap-2">
+      <Form.Check
+        type="radio"
+        onChange={() => setgender("male")}
+        className=""
+        aria-label="radio 1"
+        name="gender"
+        value="male"
+      />
+      <Form.Label style={{ marginTop: "" }}>Male</Form.Label>{" "}
+    </div>
+    <div className="d-flex  gap-2 ">
+      <Form.Check
+        type="radio"
+        onChange={() => setgender("female")}
+        className=""
+        aria-label="radio 1"
+        name="gender"
+        value="female"
+      />{" "}
+      <Form.Label style={{ marginTop: "" }}>Other</Form.Label>{" "}
+    </div>
+    <div className="d-flex  gap-2">
+      <Form.Check
+        type="radio"
+        onChange={() => setgender("other")}
+        className=""
+        aria-label="radio 1"
+        name="other"
+        value="other"
+      />{" "}
+      <Form.Label style={{ marginTop: "" }}>Female</Form.Label>{" "}
+    </div>
+  </div>
+</Form.Group>
 
             <Form.Group as={Col} md="3" controlId="validationCustom02">
               <Form.Label style={{ marginTop: "29px" }}></Form.Label>

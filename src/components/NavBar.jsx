@@ -48,6 +48,7 @@ const NavBar = () => {
             variant="danger"
             onClick={() => {
               supabase.auth.signOut();
+              localStorage.removeItem("admin")
             }}
           >
             Logout

@@ -10,6 +10,7 @@ import alterIMG from "../assests/images/alterIMG.jpeg";
 import Payment from "../components/Payment";
 import generatePDF from "../PDFGenerator";
 import PaymentLog from "../components/PaymentLog";
+import AdminTitle from "../components/AdminTitle";
 const StudentDetails = () => {
   const navigate = useNavigate();
   const { c_id, s_id } = useParams();
@@ -19,6 +20,7 @@ const StudentDetails = () => {
 
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
+  const [gender, setgender] = useState("")
   const [email, setEmail] = useState("");
   const [dob, setDob] = useState("");
   const [adhar, setAdhar] = useState("");
@@ -87,6 +89,7 @@ const StudentDetails = () => {
         const studentData = data[0]; // Assuming there's only one student with given ID
         setName(studentData.full_name);
         setMobile(studentData.mobile);
+        setgender(studentData.gender)
         setEmail(studentData.email);
         setDob(studentData.dob);
         setAdhar(studentData.adhar_number);
@@ -127,6 +130,8 @@ const StudentDetails = () => {
   return (
     <div>
       <NavBar />
+      <AdminTitle/>
+
       <div className="subNav">
         <p>Student info</p>
         <div></div>
@@ -188,6 +193,14 @@ const StudentDetails = () => {
             </div>
             <div className="listColR">
               <p>{dob} </p>
+            </div>
+          </div>
+          <div className="listRow">
+            <div className="listColL">
+              <p>Gender </p>
+            </div>
+            <div className="listColR">
+              <p>{gender} </p>
             </div>
           </div>
 

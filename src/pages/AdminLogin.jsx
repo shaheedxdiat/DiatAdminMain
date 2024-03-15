@@ -1,9 +1,10 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { supabase } from "../SupaBase";
 import { Button, Form } from "react-bootstrap";
 import { BeatLoader } from "react-spinners";
 import logo from "../assests/images/DIAT_20240307_213038-removebg-preview.png";
 import { useNavigate } from "react-router-dom";
+
 
 const AdminLogin = () => {
   // useEffect(() => {
@@ -27,13 +28,22 @@ const AdminLogin = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  const getAdmin = async () => {
+    const { data, error } = await supabase.auth.getUser();
+    if (error) {
+      console.log("error:", error);
+      return;
+    }
+    console.log("admin@context",data.user.email)
+    localStorage.setItem("admin",data.user.email)
+  };
+
   // useEffect(() => {
   //  const {data}=supabase.auth.getSession()
   //  if (data) {
   //     console.log("data:",data)
   //  }
 
-  
   // }, []);
 
   //   useEffect(() => {
@@ -75,6 +85,8 @@ const AdminLogin = () => {
       console.log("Login successful", data.user.email);
       setError("");
       navigate("/course");
+
+      getAdmin();
     } catch (error) {
       console.error("Login failed", error.message);
 
@@ -108,8 +120,6 @@ const AdminLogin = () => {
               alignItems: "center",
             }}
           >
-
-            
             <Form.Control
               style={{ maxWidth: "300px" }}
               required

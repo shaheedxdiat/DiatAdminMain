@@ -7,6 +7,9 @@ const Payment = ({ student_id, due, setreloader }) => {
   const [admin, setadmin] = useState("");
   const [amount, setamount] = useState();
   const [remark, setremark] = useState("Fee Installment");
+  const [showConfirm, setshowConfirm] = useState(false);
+  const [unvalid, setunvalid] = useState(false)
+
 
   useEffect(() => {
     const getAdmin = async () => {
@@ -20,11 +23,18 @@ const Payment = ({ student_id, due, setreloader }) => {
   }, [student_id]);
 
   const handlePayment = async () => {
-    if (!amount) {
-      alert("inputs requuired");
+    if (!amount||amount>due) {
+      setunvalid(true)
+      
+      setTimeout(() => {
+        setshowConfirm(false)  
+        setShow(false) 
+        setunvalid(false)
+      }, 1500);
+      
       return;
     }
-    console.log(amount, admin, student_id);
+    // console.log(amount, admin, student_id);
     const { data: payment_data, error } = await supabase
       .from("payment_log")
       .insert([
@@ -41,7 +51,7 @@ const Payment = ({ student_id, due, setreloader }) => {
       console.log("error in adding payment", error);
       return;
     }
-    console.log("payment log updated data", payment_data);
+    // console.log("payment log updated data", payment_data);
 
     const { data: student_data, error: error1 } = await supabase
       .from("students")
@@ -52,14 +62,13 @@ const Payment = ({ student_id, due, setreloader }) => {
       console.log("error updating due", error1);
       return;
     }
-    console.log("due updated data", student_data);
+    // console.log("due updated data", student_data);
     generateINVOICE(payment_data, student_data);
     setreloader(true);
     handleClose();
     return;
   };
   // ---------------------------------------------------------
-  const [showConfirm, setshowConfirm] = useState(false);
   const handleSubmit = (event) => {
     event.preventDefault();
     setshowConfirm(true);
@@ -117,7 +126,9 @@ const Payment = ({ student_id, due, setreloader }) => {
                 type="number"
                 placeholder="Rs."
               />
+              
             </div>
+            {unvalid&&<p style={{color:"tomato" ,paddingLeft:"100px"}}>enter a valid amount</p>}
             <div style={{ display: "flex", gap: "31px", marginTop: "10px" }}>
               <Form.Label style={{ marginTop: "10px" }}>Remark</Form.Label>
               <Form.Control

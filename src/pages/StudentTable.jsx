@@ -3,6 +3,7 @@ import { Table } from "react-bootstrap";
 import { supabase } from "../SupaBase";
 import { useNavigate, useParams } from "react-router-dom";
 import NavBar from "../components/NavBar";
+import AdminTitle from "../components/AdminTitle";
 
 const StudentTable = () => {
   const navigate = useNavigate();
@@ -41,6 +42,8 @@ const StudentTable = () => {
   return (
     <div>
       <NavBar />
+      <AdminTitle/>
+
       <div className="subNav">
         <p>Student Table</p>
         <div></div>
@@ -66,7 +69,8 @@ const StudentTable = () => {
           </thead>
           <tbody>
             {students?.map((student, index) => (
-              <tr
+              <tr onMouseUp={()=>{console
+            .log("hahha")}}
                 onDoubleClick={() => {
                   navigate(
                     `/course/${c_id.c_id}/student/${student.student_id}`
@@ -98,7 +102,7 @@ const StudentTable = () => {
                       : student.course_status === 1
                       ? "completed"
                       : student.course_status === 2
-                      ? "droped"
+                      ? "droped out"
                       : "deleted"}
                   </span>
                 </td>
