@@ -15,7 +15,7 @@ const PaymentLog =  (student_id) => {
     if (error) {
       console.log(error);
     }
-    // console.log("data",data); 
+
     setlog(data)
     setvisibile(!visibile);
     
