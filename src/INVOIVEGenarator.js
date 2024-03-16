@@ -2,10 +2,7 @@ import { jsPDF } from "jspdf";
 // import { supabase } from "./SupaBase";
 
 const generateINVOICE = async (payment_data,student_data) => {
-  // var data=null
-  console.log("invoice initialized")
-  console.log("paymentLog",payment_data)
-  console.log("studentData",student_data[0])
+
 
 
   // alert("INVOICE is downloading");
@@ -85,25 +82,7 @@ doc.text(`: ${student_data[0].fee_due} .00`, 120,10*y)
 
 
 
-// // Create a new table instance
-// const table = doc.table({
-//   head: [['Item', 'Description', 'Amount']],
-//   body: [
-//     ['Course Fee', 'amount'],
-//     // Add more data rows as needed
-//   ],
-//   headStyles: {
-//     textColor: [0, 0, 255], // Blue color for headers
-//     fontSize: 12,
-//     lineWidth: 0.5,
-//   },
-//   bodyStyles: {
-//     fontSize: 10,
-//     lineWidth: 0.2,
-//   },
-// });
 
-// doc.autoTable(table, { startY: 50 }); // Start table at y position 50
 
 
 
