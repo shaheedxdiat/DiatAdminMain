@@ -55,7 +55,7 @@ const StudentTable = () => {
           striped
           bordered
           hover
-          variant="dark"
+          variant="success"
         >
           <thead>
             <tr>
