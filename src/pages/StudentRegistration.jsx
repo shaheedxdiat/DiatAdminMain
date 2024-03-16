@@ -50,8 +50,7 @@ const StudentRegistration = () => {
   const [coursefee, setcoursefee] = useState();
   const [class_start, setclass_start] = useState("");
   const admission_date = new Date();
-  // console.log(admission_date.toLocaleDateString("en-GB"));
-  console.log(gender);
+  
 
   useEffect(() => {
     setfeedue(coursefee - discount);
@@ -92,7 +91,7 @@ const StudentRegistration = () => {
     genarateStudentId(course)
       .then(({ id }) => {
         setGenaratedID(id);
-        console.log("New ID Genarated ", id);
+       
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -123,7 +122,7 @@ const StudentRegistration = () => {
     setFile(null);
     setuploaded(true);
 
-    console.log("uploaded", data);
+   
   };
 
   const handleSubmit = async (event) => {
@@ -170,7 +169,7 @@ const StudentRegistration = () => {
       console.log("error in registration", error);
       return;
     }
-    console.log("added", data);
+   
     if (data) {
       navigate(
         `/course/${course.c_id}/student/${GenaratedID}`

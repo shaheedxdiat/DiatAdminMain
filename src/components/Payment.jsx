@@ -66,18 +66,17 @@ const Payment = ({ student_id, due, setreloader }) => {
     setreloader(true);
     handleClose();
     if (due - amount === 0) {
-     
-      const { data,  error } = await supabase
+      const { data, error } = await supabase
         .from("students")
         .update({ payment_completed: true })
         .eq("student_id", student_id)
         .select("student_id,payment_completed");
 
-        if (error) {
-          console.log(error)
-        }
-        console.log(data[0])
-        alert("Payment_completed");        
+      if (error) {
+        console.log(error);
+      }
+      console.log(data[0]);
+      alert("Payment_completed");
     }
     return;
   };
@@ -132,7 +131,6 @@ const Payment = ({ student_id, due, setreloader }) => {
               <Form.Control
                 style={{ color: "orangered", fontSize: "20px" }}
                 required
-                // defaultValue={10}
                 onChange={(e) => {
                   setamount(e.target.value);
                 }}
@@ -175,31 +173,6 @@ const Payment = ({ student_id, due, setreloader }) => {
           {student_id.student_id}
         </Modal.Body>
       </Modal>
-
-      {/* 
-      {set?<Modal 
-         show={showConfirm}
-         onHide={handleCloseConfirm}
-         backdrop="static"
-         keyboard={false}
-      >
-          <Modal.Header>
-          <Modal.Title style={{ color: "orange" }}>
-            Confirm Payment
-            
-           
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseConfirm}>
-            Cancel
-          </Button>
-          <Button variant="secondary" onClick={handlePayment}>
-            Confirm
-          </Button>
-          
-        </Modal.Footer>
-      </Modal>:<></>} */}
     </div>
   );
 };
