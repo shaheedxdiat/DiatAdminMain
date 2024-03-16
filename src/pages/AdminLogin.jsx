@@ -4,7 +4,7 @@ import { Button, Form } from "react-bootstrap";
 import { BeatLoader } from "react-spinners";
 import logo from "../assests/images/DIAT_20240307_213038-removebg-preview.png";
 import { useNavigate } from "react-router-dom";
-
+import "../assests/styles/AdminLogin.css"
 
 const AdminLogin = () => {
   // useEffect(() => {
@@ -34,8 +34,8 @@ const AdminLogin = () => {
       console.log("error:", error);
       return;
     }
-    console.log("admin@context",data.user.email)
-    localStorage.setItem("admin",data.user.email)
+    console.log("admin@context", data.user.email);
+    localStorage.setItem("admin", data.user.email);
   };
 
   // useEffect(() => {
@@ -64,9 +64,11 @@ const AdminLogin = () => {
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
+    setError(false)
   };
 
   const handlePasswordChange = (e) => {
+    setError(false)
     setPassword(e.target.value);
   };
 
@@ -96,20 +98,18 @@ const AdminLogin = () => {
     }
   };
 
-  const isFormValid = () => {
-    return username.trim() !== "" && password.trim() !== "";
-  };
+  // const isFormValid = () => {
+  //   return username.trim() !== "" && password.trim() !== "";
+  // };
 
   return (
     <div>
-      {/* <SearchBar/> */}
-      <div>
-        <div style={{ marginTop: "100px", marginBottom: "50px" }}>
-          <img src={logo} alt="diat logo" height={100} />
-        </div>
+      <div  style={{ marginTop: "100px", marginBottom: "50px" }}>
+        <img id="logindiatlogo" src={logo} alt="diat logo" height={100} />
       </div>
-      <div>
-        <div>
+
+      
+        <div id="loginForm">
           <form
             onSubmit={submitLogin}
             style={{
@@ -138,15 +138,15 @@ const AdminLogin = () => {
             />
             <Button
               type="submit"
-              disabled={!isFormValid()}
+              // disabled={!isFormValid()}
               style={{ width: "100px" }}
             >
               {loading ? <BeatLoader size={8} color="white" /> : "LOGIN"}
             </Button>
-            {error && <p style={{ color: "red" }}>{error}</p>}
+            {error && <p id="error" style={{ color: "red" }}>{error}</p>}
           </form>
         </div>
-      </div>
+      
     </div>
   );
 };
