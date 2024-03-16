@@ -85,7 +85,7 @@ doc.text(`: ${student_data[0].fee_due} .00`, 120,10*y)
 
 
 
-// // Create a new table instance
+
 // const table = doc.table({
 //   head: [['Item', 'Description', 'Amount']],
 //   body: [
@@ -99,10 +99,7 @@ doc.text(`: ${student_data[0].fee_due} .00`, 120,10*y)
 //   },
 //   bodyStyles: {
 //     fontSize: 10,
-//     lineWidth: 0.2,
-//   },
-// });
-
+//     lineWidth: 0.
 // doc.autoTable(table, { startY: 50 }); // Start table at y position 50
 
 
