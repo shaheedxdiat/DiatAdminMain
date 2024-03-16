@@ -67,7 +67,7 @@ const Payment = ({ student_id, due, setreloader }) => {
     handleClose();
     if (due - amount === 0) {
      
-      const { data, error } = await supabase
+      const { data,  error } = await supabase
         .from("students")
         .update({ payment_completed: true })
         .eq("student_id", student_id)
@@ -76,6 +76,7 @@ const Payment = ({ student_id, due, setreloader }) => {
         if (error) {
           console.log(error)
         }
+        console.log(data[0])
         alert("Payment_completed");        
     }
     return;

@@ -1,17 +1,10 @@
 import { jsPDF } from "jspdf";
-// import { supabase } from "./SupaBase";
+
 
 const generateINVOICE = async (payment_data,student_data) => {
 
-
-
-  // alert("INVOICE is downloading");
-
-
-
-
   const doc = new jsPDF(); 
-  // const lineHeight = 1;
+
   let y = 10;
 
   const companyName = "DIALOGUE INSTITUTE OF ADVANCED TECHNOLOGY";
@@ -19,10 +12,7 @@ const generateINVOICE = async (payment_data,student_data) => {
   const companyAddress2 = " Karadi, Thamarassery, Pincode: 673573";
   const companyContact = "Phone: +91 8960886633, ";
   const GSTIN="GSTN: 32AASFD1915F1ZO"
-  // const billNo=payment_data[0].i
 
-
-  
   const logoUrl = "https://qlterlkavzxidliounaa.supabase.co/storage/v1/object/public/publiclogos&images/diat_logo_main-min.png";
   const logoWidth = 40;
 
