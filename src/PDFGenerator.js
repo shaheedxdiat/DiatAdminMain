@@ -85,8 +85,8 @@ const generatePDF = async (id) => {
     "JPEG",
     150, //x axis position
     60, //y axis position
-    35, //width
-    43 //height
+    30, //width
+    40 //height
   );
 
   // ................................................................detail
@@ -117,7 +117,7 @@ const generatePDF = async (id) => {
   doc.text(`: ${data[0]?.admission_date} `, 70, 115);
 
   doc.text(`Gender `, 20, 125);
-  doc.text(`:  `, 70, 125);
+  doc.text(`: ${data[0]?.gender} `, 70, 125);
 
   
   doc.text(`Mobile No`, 20, 135);

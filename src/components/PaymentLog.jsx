@@ -3,10 +3,8 @@ import { Table } from "react-bootstrap";
 import { supabase } from "../SupaBase";
 
 const PaymentLog =  (student_id) => {
-  console.log("student_id", student_id.student_id);
   const [visibile, setvisibile] = useState(false);
   const [log, setlog] = useState([])
-  console.log(log);
   const handleclick = async () => {
     const { data, error } = await supabase
       .from("payment_log").select("*")
@@ -15,7 +13,6 @@ const PaymentLog =  (student_id) => {
     if (error) {
       console.log(error);
     }
-    // console.log("data",data); 
     setlog(data)
     setvisibile(!visibile);
     

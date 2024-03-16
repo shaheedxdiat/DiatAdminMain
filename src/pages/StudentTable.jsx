@@ -8,11 +8,10 @@ import AdminTitle from "../components/AdminTitle";
 const StudentTable = () => {
   const navigate = useNavigate();
   const c_id = useParams();
-  console.log(c_id);
-  const [students, setstudents] = useState([]);
-  console.log("students", students);
-  // console.log(students[0].payment_completed);
 
+  const [students, setstudents] = useState([]);
+
+ 
   useEffect(() => {
     const getStudents = async () => {
       const { data, error } = await supabase
@@ -27,7 +26,7 @@ const StudentTable = () => {
         console.log(error);
         return;
       }
-      console.log("data", data);
+     
       setstudents(data);
     };
     getStudents();
@@ -69,8 +68,7 @@ const StudentTable = () => {
           </thead>
           <tbody>
             {students?.map((student, index) => (
-              <tr onMouseUp={()=>{console
-            .log("hahha")}}
+              <tr 
                 onDoubleClick={() => {
                   navigate(
                     `/course/${c_id.c_id}/student/${student.student_id}`
