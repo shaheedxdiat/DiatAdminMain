@@ -192,7 +192,7 @@ const StudentDetails = () => {
   };
 
   const handleEditdata = async () => {
-    alert("Edit Not Impelemented");
+    alert("Edit Not Impelemented");  
   };
 
   const [showoption, setshowoption] = useState(false);
