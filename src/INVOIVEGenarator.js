@@ -2,10 +2,7 @@ import { jsPDF } from "jspdf";
 // import { supabase } from "./SupaBase";
 
 const generateINVOICE = async (payment_data,student_data) => {
-  // var data=null
-  console.log("invoice initialized")
-  console.log("paymentLog",payment_data)
-  console.log("studentData",student_data[0])
+
 
 
   // alert("INVOICE is downloading");
