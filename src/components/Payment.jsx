@@ -34,7 +34,7 @@ const Payment = ({ student_id, due, setreloader }) => {
       
       return;
     }
-    // console.log(amount, admin, student_id);
+ 
     const { data: payment_data, error } = await supabase
       .from("payment_log")
       .insert([
@@ -51,7 +51,7 @@ const Payment = ({ student_id, due, setreloader }) => {
       console.log("error in adding payment", error);
       return;
     }
-    // console.log("payment log updated data", payment_data);
+ payment_data);
 
     const { data: student_data, error: error1 } = await supabase
       .from("students")
@@ -62,7 +62,6 @@ const Payment = ({ student_id, due, setreloader }) => {
       console.log("error updating due", error1);
       return;
     }
-    // console.log("due updated data", student_data);
     generateINVOICE(payment_data, student_data);
     setreloader(true);
     handleClose();
