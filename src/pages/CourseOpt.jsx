@@ -32,7 +32,7 @@ const CourseOpt = () => {
  
 
   return (
-    <div>
+    <div >
     <NavBar/>
     <AdminTitle/>
       <div

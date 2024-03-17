@@ -10,6 +10,7 @@ import SelectCourse from "./pages/SelectCourse";
 import CourseOpt from "./pages/CourseOpt";
 import StudentDetails from "./pages/StudentDetails";
 import StudentTable from "./pages/StudentTable";
+import InsightPage from "./pages/InsightPage";
 
 const DiatRouter = () => {
   return (
@@ -65,6 +66,14 @@ const DiatRouter = () => {
             element={
               <>
                 <StudentDetails/>
+              </>
+            }
+          />
+          <Route
+            path="/insight"
+            element={
+              <>
+                <InsightPage/>
               </>
             }
           />

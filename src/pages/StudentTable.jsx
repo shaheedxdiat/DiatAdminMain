@@ -39,7 +39,7 @@ const StudentTable = () => {
   }
 
   return (
-    <div>
+    <div >
       <NavBar />
       <AdminTitle/>
 
@@ -48,9 +48,9 @@ const StudentTable = () => {
         <div></div>
         <p>{c_id.c_id}</p>
       </div>
-      <div style={{overflowX:"scroll" }} className="p-3">
+      <div style={{overflowX:"scroll",borderRadius:"10px"}}  className="p-3">
         <Table
-        //   style={{ overflowX: "hidden" }}
+          style={{borderRadius:"20px"}}
           striped
           bordered
           hover

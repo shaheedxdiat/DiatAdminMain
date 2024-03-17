@@ -1,0 +1,71 @@
+.firstexpdiv{
+    display: flex;
+    padding: 25px;
+    width: 100%;
+    display: flex;
+    gap: 100px;
+    /* justify-content: space-around; */
+    /* background-color: rgba(128, 128, 128, 0.393); */
+    align-items: center;
+}
+
+.insightDiv{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+}
+.inputandlable{
+    /* background: #000; */
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    /* justify-content: space-around; */
+    gap: 10px;
+}
+.Formdiv{
+    display: flex;
+    flex-direction: column;
+    /* background-color: red; */
+    gap: 20px;
+}
+.inputandlable p{
+    width: 200px;
+    text-align: left;
+}
+.tablediv{
+    background-color: rgba(162, 219, 161, 0.251);
+    width: "20px";
+    padding: 10px;
+}
+.tablediv p{
+    font-weight: 600;
+    font-size: 18px;
+    color: rgb(110, 99, 99);
+}
+.tablediv div{
+    gap: 20px;
+}
+.firstexpdiv img{
+    margin-top: -80px;
+}
+
+@media screen and (max-width:600px) {
+    .firstexpdiv{
+      
+        flex-direction: column;
+      
+        padding: 25px;
+        width: 100%;
+        display: block;
+        gap: 100px;
+        /* justify-content: space-around; */
+        /* background-color: rgba(128, 128, 128, 0.393); */
+        align-items: center;
+    }
+    .tablediv{
+        /* background-color: rgba(162, 219, 161, 0.251); */
+        width: "20px";
+        overflow: scroll;
+    }
+}

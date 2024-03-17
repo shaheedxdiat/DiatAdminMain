@@ -40,7 +40,7 @@ const Payment = ({ student_id, due, setreloader }) => {
       .insert([
         {
           payedby: student_id,
-          amount: parseInt(amount),
+          amount: Math.abs(amount),
           cashier: admin,
           remark: remark,
         },

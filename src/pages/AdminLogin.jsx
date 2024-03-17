@@ -4,24 +4,12 @@ import { Button, Form } from "react-bootstrap";
 import { BeatLoader } from "react-spinners";
 import logo from "../assests/images/DIAT_20240307_213038-removebg-preview.png";
 import { useNavigate } from "react-router-dom";
-import "../assests/styles/AdminLogin.css"
+import "../assests/styles/AdminLogin.css";
+// import svgg from "../assests/images/7140739_3516835.svg";
+import authsvg from "../assests/images/9712739_4140043.svg";
+// import authsvg from "../assests/images/5639782_2942005.svg";
 
 const AdminLogin = () => {
-  // useEffect(() => {
-  //   const { data } = supabase.auth.onAuthStateChange((event, session) => {
-  //     if (event === "SIGNED_IN") {
-  //       navigate("/course");
-  //     }
-  //     if (!session) {
-  //       navigate("/");
-  //     }
-  //   });
-
-  //   return () => {
-  //     // authListener.unsubscribe();
-  //   };
-  // }, [navigate]);
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -38,37 +26,13 @@ const AdminLogin = () => {
     localStorage.setItem("admin", data.user.email);
   };
 
-  // useEffect(() => {
-  //  const {data}=supabase.auth.getSession()
-  //  if (data) {
-  //     console.log("data:",data)
-  //  }
-
-  // }, []);
-
-  //   useEffect(() => {
-  //   const { data } = supabase.auth.onAuthStateChange((event, session) => {
-  //     console.log(data.subscription.id)
-  //     if (event === "SIGNED_IN") {
-  //       navigate("/course");
-  //     }
-  //     if (!session) {
-  //       navigate("/");
-  //     }
-  //   });
-
-  //   return () => {
-  //     // authListener.unsubscribe();
-  //   };
-  // }, [navigate]);
-
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
-    setError(false)
+    setError(false);
   };
 
   const handlePasswordChange = (e) => {
-    setError(false)
+    setError(false);
     setPassword(e.target.value);
   };
 
@@ -98,55 +62,61 @@ const AdminLogin = () => {
     }
   };
 
-  // const isFormValid = () => {
-  //   return username.trim() !== "" && password.trim() !== "";
-  // };
-
   return (
-    <div>
-      <div  style={{ marginTop: "100px", marginBottom: "50px" }}>
-        <img id="logindiatlogo" src={logo} alt="diat logo" height={100} />
-      </div>
-
-      
-        <div id="loginForm">
-          <form
-            onSubmit={submitLogin}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "20px",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Form.Control
-              style={{ maxWidth: "300px" }}
-              required
-              type="text"
-              placeholder="User name"
-              value={username}
-              onChange={handleUsernameChange}
-            />
-            <Form.Control
-              style={{ maxWidth: "300px" }}
-              required
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={handlePasswordChange}
-            />
-            <Button
-              type="submit"
-              // disabled={!isFormValid()}
-              style={{ width: "100px" }}
-            >
-              {loading ? <BeatLoader size={8} color="white" /> : "LOGIN"}
-            </Button>
-            {error && <p id="error" style={{ color: "red" }}>{error}</p>}
-          </form>
+    <div className="adminMainDiv">
+      <div className="containerdiv">
+        <div className="adminFirstDiv">
+          <h3>Admin</h3>
+          <img src={authsvg} height={250} alt="" />
         </div>
-      
+        <div className="adminSecDiv">
+          {" "}
+          <div style={{margin:"20px"}}>
+            <img id="logindiatlogo" src={logo} alt="diat logo" height={100} />
+          </div>
+          <div id="loginForm">
+            <form
+              onSubmit={submitLogin}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "20px",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Form.Control
+                style={{ maxWidth: "250px" }}
+                required
+                type="text"
+                placeholder="User name"
+                value={username}
+                onChange={handleUsernameChange}
+              />
+              <Form.Control
+                style={{ maxWidth: "250px" }}
+                required
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={handlePasswordChange}
+              />
+              <Button
+                type="submit"
+                // disabled={!isFormValid()}
+                style={{ width: "100px" }}
+              >
+                {loading ? <BeatLoader size={8} color="white" /> : "LOGIN"}
+              </Button>
+              {error ? 
+                <p  id="error" style={{ color: "red",width:"300px",height:"5px" }}>
+                  {error}
+                </p>: <p style={{width:"300px",height:"5px"}}></p>
+              }
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

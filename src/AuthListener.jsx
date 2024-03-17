@@ -1,41 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from './SupaBase';
+import { supabase } from "./SupaBase";
 
 const AuthListener = () => {
   const navigate = useNavigate();
   const [logoutTimeout, setLogoutTimeout] = useState(null);
 
   useEffect(() => {
-    const handleLogout = async () => {
-      const { error } = await supabase.auth.signOut();
-      if (error) {
-        console.error('Error logging out:', error.message);
-      } else {
-        navigate("/");
-      }
-    };
-
-    const handleBeforeUnload = () => {
-      // Logout the user when the tab is closed or refreshed
-      handleLogout();
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-      if (logoutTimeout) {
-        clearTimeout(logoutTimeout);
-      }
-    };
-  }, [navigate, logoutTimeout]);
-
-  useEffect(() => {
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_OUT') {
+      if (event === "SIGNED_OUT") {
         navigate("/");
-        console.log("sign-out success ",data.subscription.unsubscribe.name );
+        console.log("sign-out success ", data.subscription.unsubscribe.name);
         if (logoutTimeout) {
           clearTimeout(logoutTimeout);
           setLogoutTimeout(null);
@@ -46,12 +21,12 @@ const AuthListener = () => {
       }
     });
 
-    return () => {
-      if (logoutTimeout) {
-        clearTimeout(logoutTimeout);
-      }
-      // authListener.unsubscribe();
-    };
+    // return () => {
+    //   if (logoutTimeout) {
+    //     clearTimeout(logoutTimeout);
+    //   }
+    //   // authListener.unsubscribe();
+    // };
   }, [navigate, logoutTimeout]);
 
   return (
