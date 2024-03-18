@@ -31,7 +31,7 @@ const AuthListener = () => {
 
   return (
     <div>
-      {/* You can add any UI elements related to authentication here */}
+
     </div>
   );
 };
