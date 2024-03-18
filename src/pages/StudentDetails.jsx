@@ -44,6 +44,7 @@ const StudentDetails = () => {
   const [hostler, sethostler] = useState("");
   const [placement, setplacement] = useState("");
   const [coursefee, setcoursefee] = useState("");
+const [coursename, setcoursename] = useState("");
   const [admission_date, setadmission_date] = useState("");
   const [class_start, setaclass_start] = useState("");
 
@@ -57,6 +58,7 @@ const StudentDetails = () => {
           .select("fee")
           .eq("courses_id", c_id);
 
+
         if (error) {
           console.error("Error fetching course fee:", error.message);
           return;
@@ -64,7 +66,7 @@ const StudentDetails = () => {
 
         if (data.length > 0) {
           setcoursefee(data[0].fee);
-        }
+           setcoursename(data[0]. course_name)       }
       } catch (error) {
         console.error("Error fetching course fee:", error.message);
       }
@@ -352,7 +354,7 @@ const StudentDetails = () => {
           </div>
           <div className="CardConatainer">
             <p>{name}</p>
-            <p> DIAT IT PROFESSIONAL PACKAGE</p> 
+            <p>{coursename}</p> 
             <div id="abcd" style={{ display: "flex", gap: "10px", }}>
               <p>STUDENT ID : </p>
               <p> {s_id}</p>
