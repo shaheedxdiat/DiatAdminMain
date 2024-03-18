@@ -66,7 +66,7 @@ const [coursename, setcoursename] = useState("");
 
         if (data.length > 0) {
           setcoursefee(data[0].fee);
-           setcoursename(data[0]. course_name)       }
+           setcoursename(data[0].course_name)       }
       } catch (error) {
         console.error("Error fetching course fee:", error.message);
       }
