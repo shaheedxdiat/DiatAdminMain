@@ -44,7 +44,7 @@ const StudentDetails = () => {
   const [hostler, sethostler] = useState("");
   const [placement, setplacement] = useState("");
   const [coursefee, setcoursefee] = useState("");
-const [coursename, setcoursename] = useState("");
+const [coursename, setcoursename] = useState("abc");
   const [admission_date, setadmission_date] = useState("");
   const [class_start, setaclass_start] = useState("");
 
@@ -66,7 +66,7 @@ const [coursename, setcoursename] = useState("");
 
         if (data.length > 0) {
           setcoursefee(data[0].fee);
-           setcoursename(data[0].course_name)       }
+           setcoursename(data[0].course_name) //      }
       } catch (error) {
         console.error("Error fetching course fee:", error.message);
       }
