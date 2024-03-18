@@ -57,7 +57,7 @@ const [coursename, setcoursename] = useState("");
           .from("courses")
           .select("fee")
           .eq("courses_id", c_id);
-
+ 
 
         if (error) {
           console.error("Error fetching course fee:", error.message);
