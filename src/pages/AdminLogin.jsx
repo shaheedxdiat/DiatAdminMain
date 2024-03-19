@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import { supabase } from "../SupaBase";
 import { Button, Form } from "react-bootstrap";
 import { BeatLoader } from "react-spinners";
@@ -10,11 +10,16 @@ import authsvg from "../assests/images/9712739_4140043.svg";
 // import authsvg from "../assests/images/5639782_2942005.svg";
 
 const AdminLogin = () => {
+
+  
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  
+  
 
   const getAdmin = async () => {
     const { data, error } = await supabase.auth.getUser();
@@ -57,6 +62,9 @@ const AdminLogin = () => {
       console.error("Login failed", error.message);
 
       setError("Incorrect username or password.");
+      if ('vibrate' in navigator) {
+        navigator.vibrate([150]);
+      }
     } finally {
       setLoading(false);
     }
