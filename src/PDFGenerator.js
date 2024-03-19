@@ -32,13 +32,13 @@ const generatePDF = async (id) => {
   // const lineHeight = 1;
 
   const companyName = "DIALOGUE INSTITUTE OF ADVANCED TECHNOLOGY";
-  const companyAddress = "Maharani shopping complex,";
-  const companyAddress2 = " Karadi, Thamarassery, Pincode: 673573";
+  const companyAddress = "VC Tower, Karadi";
+  const companyAddress2 = "Thamarassery, Pincode: 673573";
   const companyContact = "Phone: +91 8960886633, ";
   // const billNo=payment_data[0].i
 
   const logoUrl =
-    "https://qlterlkavzxidliounaa.supabase.co/storage/v1/object/public/publiclogos&images/diat_logo_main-min.png";
+    "https://qlterlkavzxidliounaa.supabase.co/storage/v1/object/public/publiclogos&images/diat_main_logo_with_bg-min%20(1).png";
  
 
   // ..................................logo
@@ -48,10 +48,10 @@ const generatePDF = async (id) => {
   doc.addImage(
     logoUrl,
     "PNG",
-    1,
-   -7,
-    y * 5,
-    y * 5
+    11,
+   9,
+    y * 3,
+    y * 1.5
   );
   doc.setFont("helvetica", "bold")
   doc.setTextColor(255, 255, 255)

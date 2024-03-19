@@ -46,6 +46,7 @@ const Payment = ({ student_id, due, setreloader }) => {
         },
       ])
       .select("*");
+      setamount(null)
 
     if (error) {
       console.log("error in adding payment", error);
@@ -95,6 +96,7 @@ const Payment = ({ student_id, due, setreloader }) => {
   const handleShow = () => setShow(true);
   return (
     <div>
+      
       <Button variant="success" onClick={handleShow}>
         Payment
       </Button>
@@ -123,6 +125,7 @@ const Payment = ({ student_id, due, setreloader }) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ fontSize: "17px", fontWeight: "500" }}>
+          {/* <Form onSubmit={handlePayment}> */}
           <Form onSubmit={handleSubmit}>
             <div style={{ display: "flex" }}>
               <Form.Label style={{ marginTop: "10px" }}>
@@ -131,6 +134,7 @@ const Payment = ({ student_id, due, setreloader }) => {
               <Form.Control
                 style={{ color: "orangered", fontSize: "20px" }}
                 required
+                value={amount} 
                 onChange={(e) => {
                   setamount(e.target.value);
                 }}

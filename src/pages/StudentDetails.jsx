@@ -44,7 +44,7 @@ const StudentDetails = () => {
   const [hostler, sethostler] = useState("");
   const [placement, setplacement] = useState("");
   const [coursefee, setcoursefee] = useState("");
-const [coursename, setcoursename] = useState("abc");
+  const [coursename, setcoursename] = useState(c_id);
   const [admission_date, setadmission_date] = useState("");
   const [class_start, setaclass_start] = useState("");
 
@@ -55,9 +55,8 @@ const [coursename, setcoursename] = useState("abc");
       try {
         const { data, error } = await supabase
           .from("courses")
-          .select("fee")
+          .select("fee,course_name")
           .eq("courses_id", c_id);
- 
 
         if (error) {
           console.error("Error fetching course fee:", error.message);
@@ -65,9 +64,10 @@ const [coursename, setcoursename] = useState("abc");
         }
 
         if (data.length > 0) {
+          // console.log("data",data)
           setcoursefee(data[0].fee);
-           setcoursename(data[0].course_name)   
-  }
+          setcoursename(data[0].course_name);
+        }
       } catch (error) {
         console.error("Error fetching course fee:", error.message);
       }
@@ -80,7 +80,7 @@ const [coursename, setcoursename] = useState("abc");
       const { data, error } = await supabase
         .from("students")
         .select("*")
-        .eq("student_id", s_id)
+        .eq("student_id", s_id).eq("course_id",c_id)
         .neq("course_status", "3");
 
       if (data.length === 0) {
@@ -129,9 +129,6 @@ const [coursename, setcoursename] = useState("abc");
   const downloadPDF = () => {
     generatePDF(s_id);
   };
-
-
- 
 
   // -----------------------------------delete modal----------------------------
 
@@ -195,7 +192,7 @@ const [coursename, setcoursename] = useState("abc");
   };
 
   const handleEditdata = async () => {
-    alert("Edit Not Impelemented");  
+    alert("Edit Not Impelemented");
   };
 
   const [showoption, setshowoption] = useState(false);
@@ -355,8 +352,8 @@ const [coursename, setcoursename] = useState("abc");
           </div>
           <div className="CardConatainer">
             <p>{name}</p>
-            <p>{coursename}</p> 
-            <div id="abcd" style={{ display: "flex", gap: "10px", }}>
+            <p>{coursename}</p>
+            <div id="abcd" style={{ display: "flex", gap: "10px" }}>
               <p>STUDENT ID : </p>
               <p> {s_id}</p>
             </div>
@@ -388,7 +385,7 @@ const [coursename, setcoursename] = useState("abc");
                     />{" "}
                     Get PDF
                   </button>
-                  <button className="option"  onClick={handleEditdata}>
+                  <button className="option" onClick={handleEditdata}>
                     <img src={editIcon} height={20} alt="" />
                     Edit
                   </button>

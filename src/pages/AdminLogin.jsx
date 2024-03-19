@@ -72,6 +72,7 @@ const AdminLogin = () => {
         <div className="adminSecDiv">
           {" "}
           <div style={{margin:"20px"}}>
+            {/* <img id="logindiatlogo" src="https://qlterlkavzxidliounaa.supabase.co/storage/v1/object/public/publiclogos&images/diat_blank.png" alt="diat logo" height={100} /> */}
             <img id="logindiatlogo" src={logo} alt="diat logo" height={100} />
           </div>
           <div id="loginForm">

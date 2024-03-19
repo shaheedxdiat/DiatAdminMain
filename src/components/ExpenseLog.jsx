@@ -65,9 +65,12 @@ const ExpenseLog = (data) => {
             <div className="d-flex">
               <p style={{color:"tomato"}}>Total Spended : </p> <p style={{color:"tomato"}}>{expense}</p>
             </div>
+            <div className="d-flex">
+              <p style={{color:""}}>Expected Balance : </p> <p style={{color:""}}>{parseInt(income)-parseInt(expense)}</p>
+            </div>
           </div>
           <Table  striped bordered hover variant="dark"> 
-         
+          
             <thead>
             <caption>Expenses:-</caption>
               <tr>
