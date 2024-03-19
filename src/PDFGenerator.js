@@ -4,7 +4,6 @@ import { supabase } from "./SupaBase";
 const generatePDF = async (id) => {
   var data = null;
 
-  // alert("PDF is downloading");
 
   try {
     const { data: studentdata, error } = await supabase
@@ -15,7 +14,6 @@ const generatePDF = async (id) => {
       console.error(error);
     } else {
       data = studentdata;
-      // console.log("studentdata to pdf", studentdata[0]);
     }
   } catch (error) {
     console.error("Error fetching student details:", error);
@@ -35,7 +33,7 @@ const generatePDF = async (id) => {
   const companyAddress = "VC Tower, Karadi";
   const companyAddress2 = "Thamarassery, Pincode: 673573";
   const companyContact = "Phone: +91 8960886633, ";
-  // const billNo=payment_data[0].i
+
 
   const logoUrl =
     "https://qlterlkavzxidliounaa.supabase.co/storage/v1/object/public/publiclogos&images/diat_main_logo_with_bg-min%20(1).png";
@@ -43,7 +41,7 @@ const generatePDF = async (id) => {
 
   // ..................................logo
   doc.setFillColor(251, 189, 10); 
-  doc.rect(0, 0, doc.internal.pageSize.width+2, 35, "F"); // Draw a transparent red square
+  doc.rect(0, 0, doc.internal.pageSize.width+2, 35, "F"); 
   
   doc.addImage(
     logoUrl,

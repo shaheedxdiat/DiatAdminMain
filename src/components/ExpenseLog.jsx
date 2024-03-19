@@ -21,10 +21,8 @@ const ExpenseLog = (data) => {
       setlog(data);
       const totalAmount = data.reduce((acc, curr) => acc + curr.amount, 0);
   
-      // Update the state with the total amount
-    //   setTotalIncome(totalAmount);
+  
     setexpense(totalAmount);
-      // setvisibile(!visibile);
     };
     fetchexpense();
   }, [data]);
@@ -40,11 +38,8 @@ const ExpenseLog = (data) => {
         return;
       }
   
-      // Calculate the sum of amounts
       const totalAmount = data.reduce((acc, curr) => acc + curr.amount, 0);
   
-      // Update the state with the total amount
-    //   setTotalIncome(totalAmount);
       setincome(totalAmount);
     };
   

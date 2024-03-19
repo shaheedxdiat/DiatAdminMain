@@ -14,7 +14,6 @@ const generateINVOICE = async (payment_data, student_data) => {
 
   const logoUrl =
     "https://qlterlkavzxidliounaa.supabase.co/storage/v1/object/public/publiclogos&images/diat_main_logo_with_bg-min%20(1).png";
-  // const logoWidth = 40;
 
   doc.addImage(logoUrl, "PNG", 11, 9, y * 3, y * 1.5);
 
@@ -32,14 +31,12 @@ const generateINVOICE = async (payment_data, student_data) => {
   doc.text(companyContact, doc.internal.pageSize.width / 1.8, 3.1 * y, {
     align: "center",
   });
-  // doc.text(GSTIN, doc.internal.pageSize.width / 1.8, 4*y, { align: "center" });
 
   doc.setDrawColor(0, 0, 0, 0.2);
   doc.setLineWidth(0.1);
   doc.line(10, 35, 200, 35);
 
-  // doc.setLineWidth(0.1);
-  // doc.line(20, 65, 20, 185);
+
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(11);
@@ -49,7 +46,6 @@ const generateINVOICE = async (payment_data, student_data) => {
   // ...........................................................................................................
 
   doc.setFont("helvetica", "normal");
-  // doc.setFontSize(10);
 
   doc.text("Student Name ", doc.internal.pageSize.width / 15, 5 * y, {
     align: "left",
@@ -114,7 +110,7 @@ const generateINVOICE = async (payment_data, student_data) => {
     align: "left",
   });
 
-  // );
+
 
   doc.setTextColor(0, 0, 0);
 
@@ -126,7 +122,6 @@ const generateINVOICE = async (payment_data, student_data) => {
     align: "left",
   });
 
-  // doc.setFont("helvetica", "bold");
   doc.text(
     `${payment_data[0].amount}.00`,
     doc.internal.pageSize.width - 12,
@@ -175,11 +170,10 @@ const generateINVOICE = async (payment_data, student_data) => {
     }
   );
   doc.setLineWidth(0.1);
-  // doc.line(10, 125, 200, 125);
 
   const amount = payment_data[0].amount;
   const words = numberToWords.toWords(amount);
-  console.log(words); // Output: "one thousand thirty"
+  console.log(words);
 
   doc.setFont("helvetica", "normal");
   doc.text(`Total In Words`, doc.internal.pageSize.width / 13, 131);

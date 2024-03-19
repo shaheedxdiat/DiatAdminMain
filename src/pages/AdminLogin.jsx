@@ -5,9 +5,7 @@ import { BeatLoader } from "react-spinners";
 import logo from "../assests/images/DIAT_20240307_213038-removebg-preview.png";
 import { useNavigate } from "react-router-dom";
 import "../assests/styles/AdminLogin.css";
-// import svgg from "../assests/images/7140739_3516835.svg";
 import authsvg from "../assests/images/9712739_4140043.svg";
-// import authsvg from "../assests/images/5639782_2942005.svg";
 
 const AdminLogin = () => {
 
@@ -80,7 +78,6 @@ const AdminLogin = () => {
         <div className="adminSecDiv">
           {" "}
           <div style={{margin:"20px"}}>
-            {/* <img id="logindiatlogo" src="https://qlterlkavzxidliounaa.supabase.co/storage/v1/object/public/publiclogos&images/diat_blank.png" alt="diat logo" height={100} /> */}
             <img id="logindiatlogo" src={logo} alt="diat logo" height={100} />
           </div>
           <div id="loginForm">
@@ -112,7 +109,6 @@ const AdminLogin = () => {
               />
               <Button
                 type="submit"
-                // disabled={!isFormValid()}
                 style={{ width: "100px" }}
               >
                 {loading ? <BeatLoader size={8} color="white" /> : "LOGIN"}

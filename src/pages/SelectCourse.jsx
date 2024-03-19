@@ -43,13 +43,6 @@ const SelectCourse = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   
-  // const [session, setSession] = useState(null)
-
-  
-
-    // const handlebackClick=()=>{
-    //   navigate(-1)
-    // }
     useEffect(() => {
       supabase.auth.getSession().then(({ data: { session } }) => {
        
@@ -58,7 +51,6 @@ const SelectCourse = () => {
       const {
         data: { subscription },
       } = supabase.auth.onAuthStateChange((_event, session) => {
-        // setSession(session)
       })
 
       return () => subscription.unsubscribe()
@@ -91,11 +83,8 @@ const SelectCourse = () => {
          
      
       <img src={logo} height="80px" alt="" />
-      {/* <h6 style={{ color: "gray" }}>name</h6> */}
       <Button variant="danger"
-        // onClick={async () => {
-        //   supabase.auth.signOut();console.log("logout clicked");;
-        // }}
+   
         onClick={handleShow}
       >
         Logout
