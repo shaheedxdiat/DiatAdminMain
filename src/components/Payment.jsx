@@ -169,7 +169,7 @@ const Payment = ({ student_id, due, setreloader }) => {
                 </Button>
               ) : (
                 <Button variant="danger" onClick={handlePayment}>
-                  Confirm And Get PDF
+                  Confirm And Get Invoice
                 </Button>
               )}
             </div>
