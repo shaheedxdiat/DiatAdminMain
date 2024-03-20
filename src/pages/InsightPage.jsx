@@ -35,7 +35,7 @@ const InsightPage = () => {
         console.log(error);
       }
       setdata(data);
-      console.log(data);
+      // console.log(data);
     }
   };
 

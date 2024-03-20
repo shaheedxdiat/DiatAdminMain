@@ -10,7 +10,6 @@ const generateINVOICE = async (payment_data, student_data) => {
   const companyAddress = "VC Tower, Karadi, Thamarassery";
   const companyAddress2 = "Pincode: 673573, Phone: +91 8960886633";
   const companyContact = "";
-  // const GSTIN = "GSTN: 32AASFD1915F1ZO";
 
   const logoUrl =
     "https://qlterlkavzxidliounaa.supabase.co/storage/v1/object/public/publiclogos&images/diat_main_logo_with_bg-min%20(1).png";
@@ -179,7 +178,6 @@ const generateINVOICE = async (payment_data, student_data) => {
   doc.text(`Total In Words`, doc.internal.pageSize.width / 13, 131);
   doc.text(`Rupees  ${words} only`, doc.internal.pageSize.width - 150, 131);
   doc.setLineWidth(0.1);
-  // doc.line(10, 135, 200, 135);
 
   doc.text(`Balance`, doc.internal.pageSize.width / 13, 141);
   doc.text(
@@ -203,6 +201,8 @@ const generateINVOICE = async (payment_data, student_data) => {
   doc.text(formattedDate, doc.internal.pageSize.width - 150, 151);
   doc.setTextColor(0, 0, 0);
   doc.text("Signature &Stamp", doc.internal.pageSize.width - 50, 181);
+
+  // doc.addImage(footer, "PNG", 1, 260, doc.internal.pageSize.width, y*3.5);
 
   doc.save(`DIAT_000${payment_data[0].id}.pdf`);
 };

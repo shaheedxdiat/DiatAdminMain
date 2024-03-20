@@ -8,7 +8,7 @@ const ExpenseLog = (data) => {
   const [log, setlog] = useState([]);
   const [income, setincome] = useState();
   const [expense, setexpense] = useState()
-  console.log("income", income);
+  
   useEffect(() => {
     const fetchexpense = async () => {
       const { data, error } = await supabase.from("expense_chart").select("*");
@@ -17,7 +17,7 @@ const ExpenseLog = (data) => {
         console.log("expense error",error);
         return;
       }
-      console.log("insight data", data);
+      
       setlog(data);
       const totalAmount = data.reduce((acc, curr) => acc + curr.amount, 0);
   
