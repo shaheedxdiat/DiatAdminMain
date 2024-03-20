@@ -5,7 +5,7 @@ import generateINVOICE from "../INVOIVEGenarator";
 
 const Payment = ({ student_id, due, setreloader }) => {
   const [admin, setadmin] = useState("");
-  const [amount, setamount] = useState(100);
+  const [amount, setamount] = useState();
   const [remark, setremark] = useState("Fee Installment");
   const [showConfirm, setshowConfirm] = useState(false);
   const [unvalid, setunvalid] = useState(false);
