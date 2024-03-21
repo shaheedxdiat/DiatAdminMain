@@ -37,7 +37,7 @@ const Payment = ({ student_id, due, setreloader }) => {
           setamount(null)
           setpasscode("")
           alert("payment canceled")
-        }, 1500);
+        }, 1000);
       }
   }
 
@@ -53,7 +53,7 @@ const Payment = ({ student_id, due, setreloader }) => {
         setunvalid(false);
         setamount(null)
 
-      }, 1500);
+      }, 1000);
 
       return;
     }
