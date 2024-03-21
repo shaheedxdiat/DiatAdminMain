@@ -48,6 +48,7 @@
     ]
   },
   "devDependencies": {
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "supabase": "^1.150.2"
   }
 }

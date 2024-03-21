@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Form, Row, Button, Col, InputGroup, Modal } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { supabase } from "../SupaBase";
-import { genarateStudentId } from "../genarateID";
+import { genarateStudentId } from "../functions/genarateID";
 
 import "react-image-crop/dist/ReactCrop.css";
 
-import states from "../states&dists/data.json";
+import states from "../assests/data/data.json";
 import NavBar from "../components/NavBar";
 import AdminTitle from "../components/AdminTitle";
-
 
 const StudentRegistration = () => {
   const [show, setShow] = useState(false);
@@ -30,7 +29,7 @@ const StudentRegistration = () => {
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
   const [adhar, setadhar] = useState("");
-  const [gender, setgender] = useState("")
+  const [gender, setgender] = useState("");
   const [dob, setDob] = useState("");
   const [state, setState] = useState("Kerala");
   const [district, setDistrict] = useState("");
@@ -50,7 +49,8 @@ const StudentRegistration = () => {
   const [coursefee, setcoursefee] = useState();
   const [class_start, setclass_start] = useState("");
   const admission_date = new Date();
-  
+  console.log("admission_date",admission_date)
+  console.log("class_start",class_start)
 
   useEffect(() => {
     setfeedue(coursefee - discount);
@@ -61,7 +61,6 @@ const StudentRegistration = () => {
   // const distObj={}
 
   const distObj = states.states.find((data) => data.state === state);
-
 
   useEffect(() => {
     const getFee = async () => {
@@ -91,7 +90,6 @@ const StudentRegistration = () => {
     genarateStudentId(course)
       .then(({ id }) => {
         setGenaratedID(id);
-       
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -121,8 +119,6 @@ const StudentRegistration = () => {
     );
     setFile(null);
     setuploaded(true);
-
-   
   };
 
   const handleSubmit = async (event) => {
@@ -139,7 +135,7 @@ const StudentRegistration = () => {
           student_id: GenaratedID,
           full_name: name,
           mobile: mobile,
-          gender:gender,
+          gender: gender,
           email: email,
           state: state.toUpperCase(),
           adhar_number: adhar,
@@ -169,13 +165,10 @@ const StudentRegistration = () => {
       console.log("error in registration", error);
       return;
     }
-   
+
     if (data) {
-      navigate(
-        `/course/${course.c_id}/student/${GenaratedID}`
-      )
+      navigate(`/course/${course.c_id}/student/${GenaratedID}`);
     }
-   
   };
 
   return (
@@ -186,7 +179,7 @@ const StudentRegistration = () => {
       </button> */}
 
       <NavBar />
-      <AdminTitle/>
+      <AdminTitle />
 
       <div className="subNav">
         <p>New Admission</p>
@@ -281,43 +274,48 @@ const StudentRegistration = () => {
           {/* ----------------------------------------------- */}
 
           <Row className="">
-          <Form.Group className="mt-3" as={Col} md="2" controlId="validationCustom02">
-  <div className="d-flex bg- rounded-3 gap-4 justify-content-center mt-4 p-2">
-    <div className="d-flex gap-2">
-      <Form.Check
-        type="radio"
-        onChange={() => setgender("male")}
-        className=""
-        aria-label="radio 1"
-        name="gender"
-        value="male"
-      />
-      <Form.Label style={{ marginTop: "" }}>Male</Form.Label>{" "}
-    </div>
-    <div className="d-flex  gap-2 ">
+            <Form.Group
+              className="mt-3"
+              as={Col}
+              md="2"
+              controlId="validationCustom02"
+            >
+              <div className="d-flex bg- rounded-3 gap-4 justify-content-center mt-4 p-2">
+                <div className="d-flex gap-2">
+                  <Form.Check
+                    type="radio"
+                    onChange={() => setgender("male")}
+                    className=""
+                    aria-label="radio 1"
+                    name="gender"
+                    value="Male"
+                  />
+                  <Form.Label style={{ marginTop: "" }}>Male</Form.Label>{" "}
+                </div>
+                {/* <div className="d-flex  gap-2 ">
       <Form.Check
         type="radio"
         onChange={() => setgender("female")}
         className=""
         aria-label="radio 1"
         name="gender"
-        value="female"
+        value="Other"
       />{" "}
       <Form.Label style={{ marginTop: "" }}>Other</Form.Label>{" "}
-    </div>
-    <div className="d-flex  gap-2">
-      <Form.Check
-        type="radio"
-        onChange={() => setgender("other")}
-        className=""
-        aria-label="radio 1"
-        name="other"
-        value="other"
-      />{" "}
-      <Form.Label style={{ marginTop: "" }}>Female</Form.Label>{" "}
-    </div>
-  </div>
-</Form.Group>
+    </div> */}
+                <div className="d-flex  gap-2">
+                  <Form.Check
+                    type="radio"
+                    onChange={() => setgender("other")}
+                    className=""
+                    aria-label="radio 1"
+                    name="other"
+                    value="other"
+                  />{" "}
+                  <Form.Label style={{ marginTop: "" }}>Female</Form.Label>{" "}
+                </div>
+              </div>
+            </Form.Group>
 
             <Form.Group as={Col} md="3" controlId="validationCustom02">
               <Form.Label style={{ marginTop: "29px" }}></Form.Label>
@@ -643,12 +641,12 @@ const StudentRegistration = () => {
                 value={discount}
                 placeholder="Discount / Fee Concession"
                 onChange={(e) => {
-                  const value = parseInt(e.target.value); // Parse input value as integer
+                  const value = parseInt(e.target.value);
                   if (!isNaN(value)) {
-                    // Check if it's a valid number
                     setdiscount(value);
                   } else {
-                    setdiscount(""); // If not a valid number, set the state to an empty string
+                    setdiscount("");
+                  
                   }
                 }}
               />
@@ -681,7 +679,17 @@ const StudentRegistration = () => {
             }}
             variant="success"
             type="submit"
-            disabled={mobile.length!==10 || guardianMobile.length!==10 ||adhar.length!==12 ||district==="Select District" ||postoffice==="" ||place==="" ||housename==="" ||guardianName==="" ||gender==="" } 
+            disabled={
+              mobile.length !== 10 ||
+              guardianMobile.length !== 10 ||
+              adhar.length !== 12 ||
+              district === "Select District" ||
+              postoffice === "" ||
+              place === "" ||
+              housename === "" ||
+              guardianName === "" ||
+              gender === ""
+            }
           >
             REGISTER
           </Button>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { supabase } from "../SupaBase";
-import generateINVOICE from "../INVOIVEGenarator";
+import generateINVOICE from "../functions/INVOIVEGenarator";
 
 const Payment = ({ student_id, due, setreloader }) => {
   const [admin, setadmin] = useState("");
@@ -95,6 +95,7 @@ const Payment = ({ student_id, due, setreloader }) => {
   const handleShow = () => setShow(true);
   return (
     <div>
+      {/* <button onClick={handlePayment}>bill</button> */}
       <Button variant="success" onClick={handleShow}>
         Payment
       </Button>
@@ -127,22 +128,27 @@ const Payment = ({ student_id, due, setreloader }) => {
           <Form onSubmit={handleSubmit}>
             <div style={{ display: "flex" }}>
               <Form.Label style={{ marginTop: "10px" }}>
-                paying Amount
+                Paying Amount
               </Form.Label>
               <Form.Control
                 style={{ color: "orangered", fontSize: "20px" }}
                 required
                 value={amount} 
                 onChange={(e) => {
-                  setamount(e.target.value);
+                  let value = e.target.value;
+                  if (value < due+1 && value.match(/^\d+$/)) {
+                    setamount(value);
+                  } else {
+                    setamount("");
+                  }
                 }}
-                type="number"
-                placeholder="Rs."
+                type="text"
+                placeholder="₹ "
               />
             </div>
             {unvalid && (
               <p style={{ color: "tomato", paddingLeft: "100px" }}>
-                enter a valid amount
+                Enter a valid amount
               </p>
             )}
             <div style={{ display: "flex", gap: "31px", marginTop: "10px" }}>
@@ -152,7 +158,7 @@ const Payment = ({ student_id, due, setreloader }) => {
                 onChange={(e) => {
                   setremark(e.target.value);
                 }}
-                defaultValue={"Fee Installment "}
+                defaultValue={"FEE INSTALLMENT "}
                 type="text"
               />
             </div>

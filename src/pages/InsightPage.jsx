@@ -61,10 +61,15 @@ const InsightPage = () => {
               <p>Amount : </p>
               <Form.Control
                 required
-                type="number"
+                type="text"
                 value={amount}
                 onChange={(e) => {
-                  setamount(e.target.value);
+                  let value = e.target.value;
+                  if ( value.match(/^\d+$/)) {
+                    setamount(value);
+                  } else {
+                    setamount("");
+                  }
                 }}
               />
             </div>

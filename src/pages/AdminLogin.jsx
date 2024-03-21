@@ -72,7 +72,7 @@ const AdminLogin = () => {
     <div className="adminMainDiv">
       <div className="containerdiv">
         <div className="adminFirstDiv">
-          <h3>Admin</h3>
+          <h3>DIAT IT ACADEMY</h3>
           <img src={authsvg} height={250} alt="" />
         </div>
         <div className="adminSecDiv">
@@ -95,7 +95,7 @@ const AdminLogin = () => {
                 style={{ maxWidth: "250px" }}
                 required
                 type="text"
-                placeholder="User name"
+                placeholder="User Name"
                 value={username}
                 onChange={handleUsernameChange}
               />

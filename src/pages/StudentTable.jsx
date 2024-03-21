@@ -10,7 +10,9 @@ const StudentTable = () => {
   const c_id = useParams();
 
   const [students, setstudents] = useState([]);
-
+  // console.log(students.length);
+ 
+ 
  
   useEffect(() => {
     const getStudents = async () => {
@@ -48,7 +50,7 @@ const StudentTable = () => {
         <div></div>
         <p>{c_id.c_id}</p>
       </div>
-      <div style={{overflowX:"scroll",borderRadius:"10px"}}  className="p-3">
+     {students.length===0?<><p style={{color:"blue"}}>Student data is not available</p></>:<> <div style={{overflowX:"scroll",borderRadius:"10px"}}  className="p-3">
         <Table
           style={{borderRadius:"20px"}}
           striped
@@ -122,7 +124,7 @@ const StudentTable = () => {
             ))}
           </tbody>
         </Table>
-      </div>
+      </div></>}
     </div>
   );
 };

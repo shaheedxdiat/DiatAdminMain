@@ -1,4 +1,4 @@
-import { supabase } from "./SupaBase";
+import { supabase } from "../SupaBase";
 
 export async function genarateStudentId(course_id) {
   const lastStudentId = await getLastStudentId(course_id);

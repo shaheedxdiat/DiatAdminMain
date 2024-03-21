@@ -6,7 +6,7 @@ import "../assests/styles/StudentDetails.css";
 
 import NavBar from "../components/NavBar";
 import Payment from "../components/Payment";
-import generatePDF from "../PDFGenerator";
+import generatePDF from "../functions/PDFGenerator";
 import PaymentLog from "../components/PaymentLog";
 import AdminTitle from "../components/AdminTitle";
 
@@ -82,6 +82,7 @@ const StudentDetails = () => {
         .select("*")
         .eq("student_id", s_id).eq("course_id",c_id)
         .neq("course_status", "3");
+        console.log(data)
 
       if (data.length === 0) {
         console.log(error);
@@ -112,7 +113,7 @@ const StudentDetails = () => {
         setadmission_date(studentData.admission_date);
         setaclass_start(studentData.class_start);
         sethostler(() => {
-          if (studentData.hostler) {
+          if (studentData.hosteler) {
             return "YES";
           } else return "NO";
         });

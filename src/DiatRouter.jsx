@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import AdminLogin from "./pages/AdminLogin";
 import StudentRegistration from "./pages/StudentRegistration";
-import AuthListener from "./AuthListener";
+import AuthListener from "./functions/AuthListener";
 
 // import AdminDashBoard from "./pages/AdminDashBoard";
 import SelectCourse from "./pages/SelectCourse";
