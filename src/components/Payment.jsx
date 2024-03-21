@@ -190,7 +190,7 @@ const Payment = ({ student_id, due, setreloader }) => {
            {showConfirm&& <div style={{ display: "flex", gap: "21px", marginTop: "10px" }}>
               <Form.Label style={{ marginTop: "10px" }}>Pass Code</Form.Label>
               <Form.Control
-              autoComplete="new-password" 
+              autoComplete="off" 
                 value={passcode}
                 onChange={(e) => {
                   setpasscode(e.target.value);
