@@ -23,9 +23,10 @@ const Payment = ({ student_id, due, setreloader }) => {
   }, [student_id]);
 
   // ----------------------------------------------------------
-
+const passkey=process.env.REACT_APP_PASS_CODE
+console.log("passkey",passkey)
   const verifypasscode=()=>{
-      if (passcode===process.env.REACT_APP_PASS_CODE) {
+      if (passcode===passkey) {
         handlePayment()
       }
       else{
