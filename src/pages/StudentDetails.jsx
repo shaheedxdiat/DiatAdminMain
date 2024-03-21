@@ -82,7 +82,7 @@ const StudentDetails = () => {
         .select("*")
         .eq("student_id", s_id).eq("course_id",c_id)
         .neq("course_status", "3");
-        console.log(data)
+       
 
       if (data.length === 0) {
         console.log(error);

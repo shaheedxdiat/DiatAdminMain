@@ -9,7 +9,8 @@ const Payment = ({ student_id, due, setreloader }) => {
   const [remark, setremark] = useState("Fee Installment");
   const [showConfirm, setshowConfirm] = useState(false);
   const [unvalid, setunvalid] = useState(false);
-
+  const [passcode, setpasscode] = useState("")
+ 
   useEffect(() => {
     const getAdmin = async () => {
       const { data, error } = await supabase.auth.getUser();
@@ -22,6 +23,26 @@ const Payment = ({ student_id, due, setreloader }) => {
   }, [student_id]);
 
   // ----------------------------------------------------------
+
+  const verifypasscode=()=>{
+      if (passcode===process.env.REACT_APP_PASS_CODE) {
+        handlePayment()
+      }
+      else{
+        setunvalid(true);
+        setTimeout(() => {
+          setshowConfirm(false);
+          setShow(false);
+          setunvalid(false);
+          setamount(null)
+          setpasscode("")
+          alert("payment canceled")
+        }, 1500);
+      }
+  }
+
+
+
   const handlePayment = async () => {
     if (!amount || amount > due) {
       setunvalid(true);
@@ -30,6 +51,8 @@ const Payment = ({ student_id, due, setreloader }) => {
         setshowConfirm(false);
         setShow(false);
         setunvalid(false);
+        setamount(null)
+
       }, 1500);
 
       return;
@@ -89,6 +112,8 @@ const Payment = ({ student_id, due, setreloader }) => {
   // ----------------------------------------------------------
   const [show, setShow] = useState(false);
   const handleClose = () => {
+    setamount(null)
+    setpasscode(null)
     setShow(false);
     setshowConfirm(false);
   };
@@ -99,6 +124,7 @@ const Payment = ({ student_id, due, setreloader }) => {
       <Button variant="success" onClick={handleShow}>
         Payment
       </Button>
+      
 
       <Modal
         style={{ marginTop: "150px" }}
@@ -107,6 +133,8 @@ const Payment = ({ student_id, due, setreloader }) => {
         backdrop="static"
         keyboard={false}
       >
+
+        
         <Modal.Header>
           <Modal.Title style={{ color: "green" }}>
             Fee Payment{" "}
@@ -146,11 +174,7 @@ const Payment = ({ student_id, due, setreloader }) => {
                 placeholder="₹ "
               />
             </div>
-            {unvalid && (
-              <p style={{ color: "tomato", paddingLeft: "100px" }}>
-                Enter a valid amount
-              </p>
-            )}
+           
             <div style={{ display: "flex", gap: "31px", marginTop: "10px" }}>
               <Form.Label style={{ marginTop: "10px" }}>Remark</Form.Label>
               <Form.Control
@@ -158,10 +182,28 @@ const Payment = ({ student_id, due, setreloader }) => {
                 onChange={(e) => {
                   setremark(e.target.value);
                 }}
-                defaultValue={"FEE INSTALLMENT "}
+                
                 type="text"
               />
             </div>
+
+           {showConfirm&& <div style={{ display: "flex", gap: "21px", marginTop: "10px" }}>
+              <Form.Label style={{ marginTop: "10px" }}>Pass Code</Form.Label>
+              <Form.Control
+              autoComplete="new-password" 
+                value={passcode}
+                onChange={(e) => {
+                  setpasscode(e.target.value);
+                }}
+                placeholder="Enter the passcode for verification"
+                type="password"
+              />
+            </div>}
+            {unvalid && (
+              <p style={{ color: "tomato", paddingLeft: "100px" }}>
+                Incorrect Pass Code
+              </p>
+            )}
             <hr />
             <div className="d-flex justify-content-end px-2 gap-3">
               <Button variant="outline-secondary" onClick={handleClose}>
@@ -172,7 +214,7 @@ const Payment = ({ student_id, due, setreloader }) => {
                   Recieved
                 </Button>
               ) : (
-                <Button variant="danger" onClick={handlePayment}>
+                <Button variant="danger" onClick={verifypasscode}>
                   Confirm And Get Invoice
                 </Button>
               )}

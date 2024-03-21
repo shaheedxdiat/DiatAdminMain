@@ -70,7 +70,7 @@ const generateINVOICE = async (payment_data, student_data) => {
 
   // ---------
 const billdate=payment_data[0].created_at.toString().split("T")[0]
-console.log("billdate",billdate)
+
 const parts1 = billdate.split("-"); 
 const formattedbilldate = `${parts1[2]}-${parts1[1]}-${parts1[0]}`; 
 
@@ -182,7 +182,7 @@ const formattedbilldate = `${parts1[2]}-${parts1[1]}-${parts1[0]}`;
 
   // const amount = payment_data[0].amount; 
   const words = numberToWords.toWords(amount);
-  console.log(words);
+
 
   doc.setFont("helvetica", "normal");
   doc.text(`Total In Words `, doc.internal.pageSize.width / 13, 131);
@@ -221,7 +221,7 @@ doc.setTextColor(128, 128, 128);
   doc.line(10, 145, 200, 145);
 
   var currentDate = new Date();
-  console.log("currentDate",currentDate)
+
 
   var formattedDate =
     currentDate.getFullYear() +

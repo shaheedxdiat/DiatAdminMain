@@ -12,6 +12,7 @@ const PaymentLog =  (student_id) => {
       
     if (error) {
       console.log(error);
+      return
     }
     // console.log("data",data); 
     setlog(data)
