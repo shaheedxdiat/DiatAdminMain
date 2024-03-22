@@ -3,7 +3,6 @@ import { supabase } from "../SupaBase";
 import {  useNavigate } from "react-router-dom";
 
 import { Form,  Row, Col,  Button,Modal } from "react-bootstrap";
-import logo from "../assests/images/DIAT_LOGO_1.png";
 import lxlogo from "../assests/images/DIAT_20240307_213038-removebg-preview.png";
 import AdminTitle from "../components/AdminTitle";
 
