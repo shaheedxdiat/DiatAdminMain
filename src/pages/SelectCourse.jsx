@@ -85,7 +85,6 @@ const SelectCourse = () => {
       <div style={{width:"100px"}}></div>
          
      
-      {/* <img src={logo} height="80px" alt="" /> */}
       <Button variant="danger"
    
         onClick={handleShow}
@@ -151,7 +150,6 @@ const SelectCourse = () => {
             </svg>
           </Button>
           <Button variant="secondary" style={{position:"fixed", bottom:"40px" ,left:"40px" ,fontSize:"18px"}} onClick={handleAdminClick}>Admin</Button>
-          {/* <a style={{position:"fixed", bottom:"40px" ,left:"40px" ,fontSize:"20px"}} href="/insight"> Admin</a> */}
         </Col>
       </Row>
     </div>
