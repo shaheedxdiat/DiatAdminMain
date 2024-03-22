@@ -3,7 +3,6 @@ import { supabase } from "../SupaBase";
 import facebooklogo from "../assests/images/icons8-facebook-32.png";
 import instalogo from "../assests/images/icons8-instagram-24.png";
 import weblogo from "../assests/images/icons8-www-64.png";
-// import emaillogo from "./assests/images/icons8-mail-50.png";
 
 const generatePDF = async (id) => {
   var data = null;
@@ -42,7 +41,7 @@ const generatePDF = async (id) => {
 
   // ..................................logo
   doc.setFillColor(251, 189, 10);
-  // doc.setFillColor(128, 128, 128);
+  
   doc.rect(0, 0, doc.internal.pageSize.width + 2, 35, "F");
 
   doc.addImage(logoUrl, "PNG", 11, 9, y * 3, y * 1.5);
@@ -109,10 +108,7 @@ const generatePDF = async (id) => {
     doc.internal.pageSize.width / 2 - 45,
     45
   );
-  // doc.setDrawColor(0, 0, 0, 0.5);
 
-  // doc.setLineWidth(0.5);
-  // doc.line(66, 48, 150, 48);
   doc.setFont("helvetica", "normal");
 
   doc.setTextColor(0);
@@ -185,7 +181,7 @@ const generatePDF = async (id) => {
     doc.text(`: YES `, 70, xposition);
     
     xposition = 245;
-    // return
+    
   } else doc.text("", 0, 0);
 
   if (!data[0].placement) {
@@ -210,9 +206,9 @@ const generatePDF = async (id) => {
   doc.setFontSize(12)
   doc.setTextColor(0, 0, 0);
   doc.setFillColor(251, 189, 10);
-  // doc.setFillColor(128, 128, 128);
+  
 
-  doc.rect(5, 282, doc.internal.pageSize.width - 10, 10, "F"); // Draw a transparent red square
+  doc.rect(5, 282, doc.internal.pageSize.width - 10, 10, "F");
 
   doc.addImage(instalogo, "PNG", 10, 284, 5, 5);
   doc.addImage(facebooklogo, "PNG", 15, 284, 5, 5);
