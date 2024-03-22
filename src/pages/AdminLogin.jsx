@@ -20,15 +20,7 @@ const AdminLogin = ({setautotimeout}) => {
 
   
   
-  //   const { data } = supabase.auth.onAuthStateChange((event, session) => {
-  //     if (event === "SIGNED_IN") {
-  //       navigate("/course");
-  //       console.log("renavigated ", data.subscription.unsubscribe.name);
-        
 
-    
-
-); 
 
   const getAdmin = async () => {
     const { data, error } = await supabase.auth.getUser();
