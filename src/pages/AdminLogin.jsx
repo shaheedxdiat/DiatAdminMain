@@ -25,11 +25,7 @@ const AdminLogin = ({setautotimeout}) => {
   //       navigate("/course");
   //       console.log("renavigated ", data.subscription.unsubscribe.name);
         
-  //     }
-  //     if (session) {
-  //       navigate("/course");
-  //     }
-  //   });
+
     
 
 ); 
