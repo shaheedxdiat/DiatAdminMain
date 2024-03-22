@@ -19,9 +19,7 @@ const AdminLogin = ({setautotimeout}) => {
   const navigate = useNavigate();
 
   
-
-  // useEffect(() => {
-    
+  
   //   const { data } = supabase.auth.onAuthStateChange((event, session) => {
   //     if (event === "SIGNED_IN") {
   //       navigate("/course");
