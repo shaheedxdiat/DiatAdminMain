@@ -604,7 +604,6 @@ const StudentDetails = () => {
       <div className="subNav" id="footer">
         <p>DIAT</p>
         <div></div>
-        {/* <p>Admin</p> */}
       </div>
     </div>
   );
