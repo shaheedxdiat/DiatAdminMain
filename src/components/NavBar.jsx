@@ -58,7 +58,6 @@ const NavBar = () => {
       <div><button
         className="NavBackBtn"
         onClick={handlebackClick}
-        // style={{ border: "none",  padding:"0px 12px" }}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -77,14 +76,7 @@ const NavBar = () => {
       </button>
       <button
           className="NavBackBtn"
-          onClick={handleHomeClick}
-          // style={{
-          //   border: "none",
-          //   // color: "wheat",
-          //   padding:"12px"
-          // //  width:"1"
-          // }}
-        >
+          onClick={handleHomeClick}        >
           Home
         </button>
         
@@ -95,9 +87,6 @@ const NavBar = () => {
 
         <Button
           variant="danger"
-          // onClick={async () => {
-          //   supabase.auth.signOut();console.log("logout clicked");;
-          // }}
           onClick={handleShow}
         >
           Logout
