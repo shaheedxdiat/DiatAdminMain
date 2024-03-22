@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "../assests/styles/NavBar.css";
-import logo from "../assests/images/DIAT_LOGO_1.png";
 import { Button, Modal } from "react-bootstrap";
 import { supabase } from "../SupaBase";
 import { useNavigate } from "react-router-dom";
@@ -90,8 +89,7 @@ const NavBar = () => {
         </button>
         
         </div>
-      {/* <img src={logo} height="80px" alt="" /> */}
-      {/* <h6 style={{ color: "gray" }}>name</h6> */}
+     
       <div>
 
 

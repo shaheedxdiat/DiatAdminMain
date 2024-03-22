@@ -7,7 +7,6 @@ const AuthListener = () => {
 
 
   const navigate = useNavigate();
-  const [logoutTimeout, setLogoutTimeout] = useState(null);
 
   useEffect(() => {
     
@@ -16,10 +15,7 @@ const AuthListener = () => {
         navigate("/");
         console.log("sign-out success ", data.subscription.unsubscribe.name);
         localStorage.clear()
-        if (logoutTimeout) {
-          clearTimeout(logoutTimeout);
-          setLogoutTimeout(null);
-        }
+       
       }
       if (!session) {
         navigate("/");
@@ -27,7 +23,7 @@ const AuthListener = () => {
     });
 
 
-  }, [navigate, logoutTimeout]);
+  }, [navigate]);
 
   
   return (
