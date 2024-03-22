@@ -121,7 +121,6 @@ const Payment = ({ student_id, due, setreloader }) => {
   const handleShow = () => setShow(true);
   return (
     <div>
-      {/* <button onClick={handlePayment}>bill</button> */}
       <Button variant="success" onClick={handleShow}>
         Payment
       </Button>
