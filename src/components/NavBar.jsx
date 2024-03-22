@@ -49,6 +49,7 @@ const NavBar = () => {
             onClick={() => {
               supabase.auth.signOut();
               localStorage.removeItem("admin")
+            
             }}
           >
             Logout
@@ -58,12 +59,12 @@ const NavBar = () => {
       <div><button
         className="NavBackBtn"
         onClick={handlebackClick}
-        style={{ border: "none",  padding:"0px 12px" }}
+        // style={{ border: "none",  padding:"0px 12px" }}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="26"
-          height="36"
+          width="20"
+          height="20"
           fill="currentColor"
           class="bi bi-chevron-left"
           viewBox="0 0 16 16"
@@ -78,18 +79,18 @@ const NavBar = () => {
       <button
           className="NavBackBtn"
           onClick={handleHomeClick}
-          style={{
-            border: "none",
-            // color: "wheat",
-            padding:"12px"
-          //  width:"1"
-          }}
+          // style={{
+          //   border: "none",
+          //   // color: "wheat",
+          //   padding:"12px"
+          // //  width:"1"
+          // }}
         >
           Home
         </button>
         
         </div>
-      <img src={logo} height="80px" alt="" />
+      {/* <img src={logo} height="80px" alt="" /> */}
       {/* <h6 style={{ color: "gray" }}>name</h6> */}
       <div>
 

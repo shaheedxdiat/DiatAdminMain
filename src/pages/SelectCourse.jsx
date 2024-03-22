@@ -86,7 +86,7 @@ const SelectCourse = () => {
       <div style={{width:"100px"}}></div>
          
      
-      <img src={logo} height="80px" alt="" />
+      {/* <img src={logo} height="80px" alt="" /> */}
       <Button variant="danger"
    
         onClick={handleShow}

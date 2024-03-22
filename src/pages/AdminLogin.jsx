@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { supabase } from "../SupaBase";
 import { Button, Form } from "react-bootstrap";
 import { BeatLoader } from "react-spinners";
@@ -7,7 +7,9 @@ import { useNavigate } from "react-router-dom";
 import "../assests/styles/AdminLogin.css";
 import authsvg from "../assests/images/9712739_4140043.svg";
 
-const AdminLogin = () => {
+const AdminLogin = ({setautotimeout}) => {
+
+  // setautotimeout(true)
 
   
   const [username, setUsername] = useState("");
@@ -17,7 +19,22 @@ const AdminLogin = () => {
   const navigate = useNavigate();
 
   
-  
+
+  useEffect(() => {
+    
+    const { data } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_IN") {
+        navigate("/course");
+        console.log("renavigated ", data.subscription.unsubscribe.name);
+        
+      }
+      if (session) {
+        navigate("/course");
+      }
+    });
+    
+
+  }, [navigate,setautotimeout]); 
 
   const getAdmin = async () => {
     const { data, error } = await supabase.auth.getUser();
@@ -54,6 +71,7 @@ const AdminLogin = () => {
       console.log("Login successful", data.user.email);
       setError("");
       navigate("/course");
+      setautotimeout(true)
 
       getAdmin();
     } catch (error) {
@@ -68,7 +86,8 @@ const AdminLogin = () => {
     }
   };
 
-  return (
+
+  return ( 
     <div className="adminMainDiv">
       <div className="containerdiv">
         <div className="adminFirstDiv">
