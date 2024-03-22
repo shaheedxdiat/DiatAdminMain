@@ -27,7 +27,7 @@ const DiatRouter = () => {
       settimeoutalert(true)
       supabase.auth.signOut()
       setautotimeout(false)
-    }, 15*60*1000);
+    }, 10*60*1000);
    }
  }, [autotimeout])
  const handleClose=()=>{

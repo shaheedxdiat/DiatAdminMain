@@ -20,21 +20,21 @@ const AdminLogin = ({setautotimeout}) => {
 
   
 
-  useEffect(() => {
+  // useEffect(() => {
     
-    const { data } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "SIGNED_IN") {
-        navigate("/course");
-        console.log("renavigated ", data.subscription.unsubscribe.name);
+  //   const { data } = supabase.auth.onAuthStateChange((event, session) => {
+  //     if (event === "SIGNED_IN") {
+  //       navigate("/course");
+  //       console.log("renavigated ", data.subscription.unsubscribe.name);
         
-      }
-      if (session) {
-        navigate("/course");
-      }
-    });
+  //     }
+  //     if (session) {
+  //       navigate("/course");
+  //     }
+  //   });
     
 
-  }, [navigate,setautotimeout]); 
+  // }, [navigate,setautotimeout]); 
 
   const getAdmin = async () => {
     const { data, error } = await supabase.auth.getUser();

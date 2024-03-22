@@ -28,7 +28,7 @@ const SelectCourse = () => {
   }, []);
 
   const handleNextClick = () => {
-    if (selectedCourse === ""||selectedCourse==="Select a course") {
+    if (selectedCourse === ""||selectedCourse==="Select a Course") {
       setShowWarning(true);
     } else {
       setShowWarning(false);
