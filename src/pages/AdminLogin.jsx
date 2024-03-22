@@ -32,7 +32,7 @@ const AdminLogin = ({setautotimeout}) => {
   //   });
     
 
-  // }, [navigate,setautotimeout]); 
+); 
 
   const getAdmin = async () => {
     const { data, error } = await supabase.auth.getUser();
