@@ -12,7 +12,6 @@ export async function genarateStudentId(course_id) {
   const incrementedID = parseInt(onlyDigits) + 1;
   const paddedId = incrementedID.toString().padStart(4, "0");
   const genaratedID = `${course_id.c_id}${paddedId}`;
-
   return { id: genaratedID };
 }
 
@@ -24,7 +23,6 @@ async function getLastStudentId(course_id) {
     .eq("course_id", course_id.c_id)
     .order("student_id", { ascending: false })
     .limit(1);
-
   // console.log("last id", data);
   if (error) {
     console.error("Error fetching last student ID:", error);
