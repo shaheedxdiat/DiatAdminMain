@@ -11,10 +11,7 @@ const generateINVOICE = async (payment_data, student_data) => {
   // const companyAddress = "VC Tower, Karadi, Thamarassery";
   // const companyAddress2 = "Pincode: 673573, Phone: +91 8960886633";
   // const companyContact = "";
-
-  // const logoUrl =
-  //   "https://qlterlkavzxidliounaa.supabase.co/storage/v1/object/public/publiclogos&images/diat_main_logo_with_bg-min%20(1).png";
-
+  // const logoUrl = "https://qlterlkavzxidliounaa.supabase.co/storage/v1/object/public/publiclogos&images/diat_main_logo_with_bg-min%20(1).png";
   // doc.addImage(logoUrl, "PNG", 11, 9, y * 3, y * 1.5);
 
   doc.setFontSize(17);
@@ -234,7 +231,7 @@ doc.setTextColor(128, 128, 128);
 
 
     
-const parts = formattedDate.split("-"); // Split the date string into an array of parts
+const parts = formattedDate.split("-"); 
 const printedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
 
   doc.text("Printed Date", doc.internal.pageSize.width / 13, 151);
