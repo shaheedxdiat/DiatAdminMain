@@ -14,16 +14,6 @@ const generateINVOICE = async (payment_data, student_data) => {
   doc.text(companyName, doc.internal.pageSize.width / 2, 1.5 * y, {
     align: "center",
   });
-  // doc.setFontSize(9);
-  // doc.text(companyAddress, doc.internal.pageSize.width / 1.8, 2.1 * y, {
-  //   align: "center",
-  // });
-  // doc.text(companyAddress2, doc.internal.pageSize.width / 1.8, 2.6 * y, {
-  //   align: "center",
-  // });
-  // doc.text(companyContact, doc.internal.pageSize.width / 1.8, 3.1 * y, {
-  //   align: "center",
-  // });
 
   doc.setDrawColor(0, 0, 0, 1);
   doc.setLineWidth(0.2);
@@ -173,7 +163,6 @@ const formattedbilldate = `${parts1[2]}-${parts1[1]}-${parts1[0]}`;
   );
   doc.setLineWidth(0.1);
 
-  // const amount = payment_data[0].amount; 
   const words = numberToWords.toWords(amount);
 
 
