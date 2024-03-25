@@ -1,5 +1,7 @@
 import { jsPDF } from "jspdf";
 import { supabase } from "../SupaBase";
+import footer from "../assests/images/diat_footer.png";
+
 import facebooklogo from "../assests/images/icons8-facebook-32.png";
 import instalogo from "../assests/images/icons8-instagram-24.png";
 import weblogo from "../assests/images/icons8-www-64.png";
@@ -40,30 +42,31 @@ const generatePDF = async (id) => {
     "https://qlterlkavzxidliounaa.supabase.co/storage/v1/object/public/publiclogos&images/diat_main_logo_with_bg-min%20(1).png";
 
   // ..................................logo
-  doc.setFillColor(251, 189, 10);
+  // doc.setFillColor(251, 189, 10);
+  doc.setFillColor(128, 128, 128);
   
-  doc.rect(0, 0, doc.internal.pageSize.width + 2, 35, "F");
+  doc.rect(0, 0, doc.internal.pageSize.width + 2, 32, "F");
 
-  doc.addImage(logoUrl, "PNG", 11, 9, y * 3, y * 1.5);
+  // doc.addImage(logoUrl, "PNG", 11, 9, y * 3, y * 1.5);
   doc.setFont("helvetica", "bold");
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(17);
-  doc.text(companyName, doc.internal.pageSize.width / 1.7, 1.5 * y, {
+  doc.text(companyName, doc.internal.pageSize.width/2, 1.5 * y, {
     align: "center",
   });
   doc.setFont("helvetica", "normal");
-  doc.setFontSize(10);
-  doc.text(companyAddress, doc.internal.pageSize.width / 1.8, 2 * y, {
+  doc.setFontSize(9);
+  doc.text("VC TOWER ,KARDI ,THAMARASSERY ,673603 ,Phone: +91 9516007008", doc.internal.pageSize.width / 2, 2 * y, {
     align: "center",
   });
-  doc.text(companyAddress2, doc.internal.pageSize.width / 1.8, 2.5 * y, {
-    align: "center",
-  });
-  doc.setFontSize(12);
+  // doc.text(companyAddress2, doc.internal.pageSize.width / 1.8, 2.5 * y, {
+  //   align: "center",
+  // });
+  // doc.setFontSize(12);
 
-  doc.text(companyContact, doc.internal.pageSize.width / 1.8, 3 * y, {
-    align: "center",
-  });
+  // doc.text(companyContact, doc.internal.pageSize.width / 1.8, 3 * y, {
+  //   align: "center",
+  // });
   // doc.text(GSTIN, doc.internal.pageSize.width / 1.8, 4*y, { align: "center" });
 
   // doc.setLineWidth(0.2);
@@ -83,8 +86,8 @@ const generatePDF = async (id) => {
     40 //height
   );
 
-  doc.setLineWidth(0.1);
-  doc.setDrawColor(0, 0, 0, 0.4);
+  doc.setLineWidth(0.3);
+  doc.setDrawColor(0, 0, 0, 0.6);
 
   doc.line(158, 58, 192, 58);
 
@@ -123,15 +126,15 @@ const generatePDF = async (id) => {
   doc.text(`Admission No / ID`, 20, 85);
   doc.text(`: ${data[0]?.student_id} `, 70, 85);
 
-  doc.text(`Adhaar No `, 20, 95);
-  doc.text(`: ${data[0]?.adhar_number} `, 70, 95);
-
-    
   const admDate=data[0]?.admission_date
   const admDateParts=admDate.split("-")     
   const formattedAdmDate=`${admDateParts[2]}-${admDateParts[1]}-${admDateParts[0]}`
-  doc.text(`Admission Date `, 20, 105);
-  doc.text(`: ${formattedAdmDate} `, 70, 105);
+  doc.text(`Admission Date `, 20, 95);
+  doc.text(`: ${formattedAdmDate} `, 70, 95);
+
+
+  doc.text(`Adhaar No `, 20, 105);
+  doc.text(`: ${data[0]?.adhar_number} `, 70, 105);
 
 
   const dob=data[0]?.dob
@@ -208,14 +211,18 @@ const generatePDF = async (id) => {
   doc.setFillColor(251, 189, 10);
   
 
-  doc.rect(5, 282, doc.internal.pageSize.width - 10, 10, "F");
+  // doc.rect(5, 282, doc.internal.pageSize.width - 10, 10, "F");
 
-  doc.addImage(instalogo, "PNG", 10, 284, 5, 5);
-  doc.addImage(facebooklogo, "PNG", 15, 284, 5, 5);
-  doc.text("diat.institute", 20, 288);
+  // doc.addImage(instalogo, "PNG", 10, 284, 5, 5);
+  // doc.addImage(facebooklogo, "PNG", 15, 284, 5, 5);
+  // doc.text("diat.institute", 20, 288);
 
-  doc.addImage(weblogo, "PNG", doc.internal.pageSize.width-50, 284, 5, 5);
-  doc.text("www.diatedu.com", doc.internal.pageSize.width-44, 288);
+  // doc.addImage(weblogo, "PNG", doc.internal.pageSize.width-50, 284, 5, 5);
+  // doc.text("www.diatedu.com", doc.internal.pageSize.width-44, 288);
+  doc.setLineWidth(0.3);
+  doc.line(10, 265, 200,265);
+  doc.addImage(footer, "PNG", 30, 261, doc.internal.pageSize.width-50, y*3);
+
   doc.save(`DIAT_${data[0].full_name}.pdf`);
 };
 

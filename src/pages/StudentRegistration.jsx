@@ -284,7 +284,7 @@ const StudentRegistration = () => {
                 <div className="d-flex gap-2">
                   <Form.Check
                     type="radio"
-                    onChange={() => setgender("male")}
+                    onChange={() => setgender("Male")}
                     className=""
                     aria-label="radio 1"
                     name="gender"
@@ -306,11 +306,11 @@ const StudentRegistration = () => {
                 <div className="d-flex  gap-2">
                   <Form.Check
                     type="radio"
-                    onChange={() => setgender("other")}
+                    onChange={() => setgender("Female")}
                     className=""
                     aria-label="radio 1"
-                    name="other"
-                    value="other"
+                    name="gender"
+                    value="Female"
                   />{" "}
                   <Form.Label style={{ marginTop: "" }}>Female</Form.Label>{" "}
                 </div>

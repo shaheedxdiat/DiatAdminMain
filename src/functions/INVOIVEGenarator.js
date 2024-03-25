@@ -8,13 +8,9 @@ const generateINVOICE = async (payment_data, student_data) => {
   let y = 10;
 
   const companyName = "DIALOGUE INSTITUTE OF ADVANCED TECHNOLOGY";
-  // const companyAddress = "VC Tower, Karadi, Thamarassery";
-  // const companyAddress2 = "Pincode: 673573, Phone: +91 8960886633";
-  // const companyContact = "";
-  // const logoUrl = "https://qlterlkavzxidliounaa.supabase.co/storage/v1/object/public/publiclogos&images/diat_main_logo_with_bg-min%20(1).png";
-  // doc.addImage(logoUrl, "PNG", 11, 9, y * 3, y * 1.5);
+  
 
-  doc.setFontSize(17);
+  doc.setFontSize(15);
   doc.text(companyName, doc.internal.pageSize.width / 2, 1.5 * y, {
     align: "center",
   });
@@ -29,15 +25,15 @@ const generateINVOICE = async (payment_data, student_data) => {
   //   align: "center",
   // });
 
-  doc.setDrawColor(0, 0, 0, 0.5);
+  doc.setDrawColor(0, 0, 0, 1);
   doc.setLineWidth(0.2);
   doc.line(10, 35, 200, 35);
 
 
-  doc.setDrawColor(0, 0, 0, 0.1);
+  doc.setDrawColor(0, 0, 0, 0.5);
 
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(13);
+  doc.setFontSize(11);
   doc.text("INVOICE", doc.internal.pageSize.width / 2.2, 2.6 * y, {
     align: "left",
   });
@@ -207,15 +203,15 @@ const formattedbilldate = `${parts1[2]}-${parts1[1]}-${parts1[0]}`;
 
 var username = casier.substring(0, atIndex);
 
-doc.setFontSize(10)
+doc.setFontSize(9)
 doc.setTextColor(128, 128, 128);
-  doc.text(`Cashier`, doc.internal.pageSize.width - 80, 151);
+  doc.text(`Cashier`, doc.internal.pageSize.width - 80, 153);
   doc.text(
     ` ${username}`,
     doc.internal.pageSize.width - 40,
-    151
+    153
   );
-  doc.line(10, 145, 200, 145);
+  doc.line(10, 147, 200, 147);
 
   var currentDate = new Date();
 
@@ -233,9 +229,10 @@ doc.setTextColor(128, 128, 128);
     
 const parts = formattedDate.split("-"); 
 const printedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
-
-  doc.text("Printed Date", doc.internal.pageSize.width / 13, 151);
-  doc.text(printedDate, doc.internal.pageSize.width - 150, 151);
+doc.setFontSize(9)
+  doc.text("Printed Date", doc.internal.pageSize.width / 13, 153);
+  doc.text(printedDate, doc.internal.pageSize.width - 150, 153);
+  doc.setFontSize(10)
   doc.setTextColor(0, 0, 0);
   doc.text("Signature & Stamp", doc.internal.pageSize.width - 50, 240);
   
@@ -245,9 +242,9 @@ const printedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
   doc.line(10, 260, 200,260);
 
 
-  doc.addImage(footer, "PNG", 30, 255, doc.internal.pageSize.width-50, y*3);
+  doc.addImage(footer, "PNG", 30, 255, doc.internal.pageSize.width-60, y*3);
 
-  doc.save(`DIAT_000${payment_data[0].id}.pdf`);
+  doc.save(`DIAT_INVOICE_000${payment_data[0].id}.pdf`);
 };
 
 export default generateINVOICE;

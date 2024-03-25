@@ -9,7 +9,7 @@ import authsvg from "../assests/images/9712739_4140043.svg";
 
 const AdminLogin = ({setautotimeout}) => {
 
-  // setautotimeout(true)
+
 
   
   const [username, setUsername] = useState("");
@@ -18,7 +18,7 @@ const AdminLogin = ({setautotimeout}) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  
+   
   
 
 
