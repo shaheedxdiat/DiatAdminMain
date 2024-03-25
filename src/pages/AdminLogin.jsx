@@ -9,18 +9,11 @@ import authsvg from "../assests/images/9712739_4140043.svg";
 
 const AdminLogin = ({setautotimeout}) => {
 
-
-
-  
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-   
-  
-
 
   const getAdmin = async () => {
     const { data, error } = await supabase.auth.getUser();
