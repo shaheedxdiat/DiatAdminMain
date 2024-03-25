@@ -2,9 +2,7 @@ import { jsPDF } from "jspdf";
 import { supabase } from "../SupaBase";
 import footer from "../assests/images/diat_footer.png";
 
-import facebooklogo from "../assests/images/icons8-facebook-32.png";
-import instalogo from "../assests/images/icons8-instagram-24.png";
-import weblogo from "../assests/images/icons8-www-64.png";
+
 
 const generatePDF = async (id) => {
   var data = null;
@@ -31,7 +29,6 @@ const generatePDF = async (id) => {
   const doc = new jsPDF();
 
   let y = 10;
-  // const lineHeight = 1;
 
   const companyName = "DIALOGUE INSTITUTE OF ADVANCED TECHNOLOGY";
   const companyAddress = "VC TOWER ,KARADI";
@@ -42,7 +39,6 @@ const generatePDF = async (id) => {
     "https://qlterlkavzxidliounaa.supabase.co/storage/v1/object/public/publiclogos&images/diat_main_logo_with_bg-min%20(1).png";
 
   // ..................................logo
-  // doc.setFillColor(251, 189, 10);
   doc.setFillColor(128, 128, 128);
   
   doc.rect(0, 0, doc.internal.pageSize.width + 2, 32, "F");
@@ -59,18 +55,6 @@ const generatePDF = async (id) => {
   doc.text("VC TOWER ,KARDI ,THAMARASSERY ,673603 ,Phone: +91 9516007008", doc.internal.pageSize.width / 2, 2 * y, {
     align: "center",
   });
-  // doc.text(companyAddress2, doc.internal.pageSize.width / 1.8, 2.5 * y, {
-  //   align: "center",
-  // });
-  // doc.setFontSize(12);
-
-  // doc.text(companyContact, doc.internal.pageSize.width / 1.8, 3 * y, {
-  //   align: "center",
-  // });
-  // doc.text(GSTIN, doc.internal.pageSize.width / 1.8, 4*y, { align: "center" });
-
-  // doc.setLineWidth(0.2);
-  // doc.line(20, 45, 185, 45);
 
   // .......................................................head end here
 
@@ -91,13 +75,10 @@ const generatePDF = async (id) => {
 
   doc.line(158, 58, 192, 58);
 
-
   doc.line(158, 102, 192, 102);
  
-
   doc.line(192, 58, 192, 102);
  
-
   doc.line(158, 58, 158, 102);
   
 
@@ -201,24 +182,10 @@ const generatePDF = async (id) => {
   
   }else doc.text("", 0, 0);
 
-
-  // doc.setTextColor(220, 220, 220);
-  // doc.setFontSize(15)
-  // doc.text(`UNLEASH YOUR POTENTIAL AT DIAT IT ACADEMY`, 45, 278);
-
   doc.setFontSize(12)
   doc.setTextColor(0, 0, 0);
   doc.setFillColor(251, 189, 10);
   
-
-  // doc.rect(5, 282, doc.internal.pageSize.width - 10, 10, "F");
-
-  // doc.addImage(instalogo, "PNG", 10, 284, 5, 5);
-  // doc.addImage(facebooklogo, "PNG", 15, 284, 5, 5);
-  // doc.text("diat.institute", 20, 288);
-
-  // doc.addImage(weblogo, "PNG", doc.internal.pageSize.width-50, 284, 5, 5);
-  // doc.text("www.diatedu.com", doc.internal.pageSize.width-44, 288);
   doc.setLineWidth(0.3);
   doc.line(10, 265, 200,265);
   doc.addImage(footer, "PNG", 30, 261, doc.internal.pageSize.width-50, y*3);
