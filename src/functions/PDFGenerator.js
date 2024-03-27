@@ -31,13 +31,13 @@ const generatePDF = async (id) => {
   let y = 10;
 
   const companyName = "DIALOGUE INSTITUTE OF ADVANCED TECHNOLOGY";
-  const companyAddress = "VC TOWER ,KARADI";
-  const companyAddress2 = "THAMARASSERY, PINCODE: 673573";
-  const companyContact = "Phone: +91 9516007008, ";
+  // const companyAddress = "VC TOWER ,KARADI";
+  // const companyAddress2 = "THAMARASSERY, PINCODE: 673573";
+  // const companyContact = "Phone: +91 9516007008, ";
 
-  const logoUrl =
-    "https://qlterlkavzxidliounaa.supabase.co/storage/v1/object/public/publiclogos&images/diat_main_logo_with_bg-min%20(1).png";
-
+  // const logoUrl =
+  //   "https://qlterlkavzxidliounaa.supabase.co/storage/v1/object/public/publiclogos&images/diat_main_logo_with_bg-min%20(1).png";
+  
   // ..................................logo
   doc.setFillColor(128, 128, 128);
   
@@ -52,7 +52,12 @@ const generatePDF = async (id) => {
   });
   doc.setFont("helvetica", "normal");
   doc.setFontSize(9);
-  doc.text("VC TOWER ,KARDI ,THAMARASSERY ,673603 ,Phone: +91 9516007008", doc.internal.pageSize.width / 2, 2 * y, {
+  doc.text("VC TOWER ,KARDI ,THAMARASSERY ,673603 ", doc.internal.pageSize.width / 2, 2 * y, {
+    align: "center",
+  });
+  doc.setFontSize(10);
+
+  doc.text("Phone: +91 9516007008", doc.internal.pageSize.width / 2, 2.5 * y, {
     align: "center",
   });
 
@@ -92,6 +97,10 @@ const generatePDF = async (id) => {
     doc.internal.pageSize.width / 2 - 45,
     45
   );
+  doc.setDrawColor(0, 0, 0, 0.4);
+  doc.setLineWidth(0.4);
+
+  doc.line(65, 50, 145, 50);
 
   doc.setFont("helvetica", "normal");
 
@@ -136,7 +145,7 @@ const generatePDF = async (id) => {
   doc.text(`Address `, 20, 155);
   doc.text(`: ${data[0]?.house_name} (H) `, 70, 155);
   doc.text(`: ${data[0]?.place} ,${data[0]?.post} (PO)`, 70, 165);
-  doc.text(`: ${data[0]?.district} ,${data[0]?.state} `, 70, 175);
+  doc.text(`: ${data[0]?.district.toUpperCase()} ,${data[0]?.state.toUpperCase()} `, 70, 175);
 
   doc.text(`Education Qualification`, 20, 185);
   doc.text(`: ${data[0]?.qualification} `, 70, 185);

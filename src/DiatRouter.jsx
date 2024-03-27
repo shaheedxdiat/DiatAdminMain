@@ -13,6 +13,8 @@ import StudentDetails from "./pages/StudentDetails";
 import StudentTable from "./pages/StudentTable";
 import InsightPage from "./pages/InsightPage";
 import { supabase } from "./SupaBase";
+import EditRegistration from "./pages/EditRegistration";
+// import Text from "./pages/Text";
 
 const DiatRouter = () => {
   // const [timeOut, settimeOut] = useState(null)
@@ -36,6 +38,7 @@ const DiatRouter = () => {
  
   return (
     <div>
+    {/* <Text/> */}
        <Modal
         show={timeoutalert}
         onHide={handleClose}
@@ -110,6 +113,14 @@ const DiatRouter = () => {
             element={
               <>
                 <InsightPage/>
+              </>
+            }
+          />
+          <Route
+            path="/course/:c_id/student/:s_id/edit"
+            element={
+              <>
+                <EditRegistration/>
               </>
             }
           />

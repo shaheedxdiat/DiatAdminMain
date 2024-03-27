@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Form, Row, Button, Col, InputGroup, Modal } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { supabase } from "../SupaBase";
-import { genarateStudentId } from "../functions/genarateID";
+
 
 import "react-image-crop/dist/ReactCrop.css";
 
 import states from "../assests/data/data.json";
 import NavBar from "../components/NavBar";
 import AdminTitle from "../components/AdminTitle";
+const EditRegistration = () => {
+  const [Details, setDetails] = useState([]);
+  console.log(Details);
 
-const StudentRegistration = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -21,17 +23,19 @@ const StudentRegistration = () => {
   };
 
   const navigate = useNavigate();
-  const course = useParams();
+  const params = useParams();
+  console.log("params", params);
 
   const stateNames = states.states.map((stateObj) => stateObj.state);
 
   const [name, setName] = useState("");
+  console.log("name",name)
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
   const [adhar, setadhar] = useState("");
   const [gender, setgender] = useState("");
   const [dob, setDob] = useState("");
-  const [state, setState] = useState("Kerala");
+  const [state, setState] = useState("");
   const [district, setDistrict] = useState("");
   const [postoffice, setpostoffice] = useState("");
   const [place, setplace] = useState("");
@@ -43,57 +47,61 @@ const StudentRegistration = () => {
   const [hostlite, sethostlite] = useState(false);
   const [discount, setdiscount] = useState("");
   const [photoURL, setphotoURL] = useState("");
-  const [GenaratedID, setGenaratedID] = useState("");
+  const [ID, setID] = useState("");
   const [File, setFile] = useState();
   const [feedue, setfeedue] = useState();
   const [coursefee, setcoursefee] = useState();
   const [class_start, setclass_start] = useState("");
   const admission_date = new Date();
- 
-
-  useEffect(() => {
-    setfeedue(coursefee - discount);
-  }, [discount, coursefee]);
 
   const [photoUploadWarning, setphotoUploadWarning] = useState(false);
   const [uploaded, setuploaded] = useState(false);
-  // const distObj={}
 
-  const distObj = states.states.find((data) => data.state === state);
+  const distObj = states.states.find((data) => data.state === state?state:"Kerala");
 
   useEffect(() => {
-    const getFee = async () => {
-      try {
-        const { data, error } = await supabase
-          .from("courses")
-          .select("fee")
-          .eq("courses_id", course.c_id);
-
-        if (error) {
-          console.error("Error fetching course fee:", error.message);
-          return;
-        }
-
-        if (data.length > 0) {
-          setcoursefee(data[0].fee);
-        }
-      } catch (error) {
-        console.error("Error fetching course fee:", error.message);
+    const fetchDetails = async () => {
+      const { data, error } = await supabase
+        .from("students")
+        .select("*")
+        .eq("student_id", params.s_id);
+      if (error) {
+        console.log("error-details", error);
+        return;
       }
-    };
-    getFee();
-  }, [course.c_id]);
+      if (data[0]) {
+        setDetails(data[0])
+        setName(data[0].full_name);
+        setMobile(data[0].mobile);
+        setEmail(data[0].email);
+        setadhar(data[0].adhar_number);
+        setgender(data[0].gender);
+        setDob(data[0].dob);
+        setState(data[0].state);
+        setDistrict(data[0].district);
+        setpostoffice(data[0].post);
+        setplace(data[0].place);
+        sethousename(data[0].house_name);
+        setQualification(data[0].qualification);
+        setGuardianName(data[0].quardian);
+        setGuardianMobile(data[0].quardian_mobile);
+        setPlacementNeeded(data[0].placement);
+        sethostlite(data[0].hosteler);
+        setdiscount(data[0].discount);
+        setphotoURL(data[0].photoURL);
+        setID(data[0].student_id);
+        // Assuming 'File', 'feedue', 'coursefee', and 'class_start' are not part of 'data'
+        // If they are part of 'data', you can set them similarly
+        // setFile(data[0].File);
+        // setfeedue(data[0].feedue);
+        // setcoursefee(data[0].coursefee);
+        setclass_start(data[0].class_start);
+      }
 
-  useEffect(() => {
-    // console.log("initiating id geanaration")
-    genarateStudentId(course)
-      .then(({ id }) => {
-        setGenaratedID(id);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, [course]);
+      // console.log("data",data)
+    };
+    fetchDetails();
+  }, [params]);
 
   const handleUpload = async (e) => {
     if (name === "") {
@@ -129,34 +137,35 @@ const StudentRegistration = () => {
     }
     const { data, error } = await supabase
       .from("students")
-      .insert([
+      .update([
         {
-          student_id: GenaratedID,
+          student_id: ID,
           full_name: name,
           mobile: mobile,
           gender: gender,
           email: email,
-          state: state,
+          state: state.toUpperCase(),
           adhar_number: adhar,
-          district: district,
-          post: postoffice,
-          place: place,
-          house_name: housename,
+          district: district.toUpperCase(),
+          post: postoffice.toUpperCase(),
+          place: place.toUpperCase(),
+          house_name: housename.toUpperCase(),
           dob: dob,
-          qualification: qualification,
+          qualification: qualification.toUpperCase(),
           admission_date: admission_date,
           class_start: class_start,
-          quardian: guardianName,
+          quardian: guardianName.toUpperCase(),
           quardian_mobile: guardianMobile,
           placement: placementNeeded,
           hosteler: hostlite,
           discount: discount || 0,
           fee_due: feedue,
           admissions_officer: "diat",
-          course_id: course.c_id,
+          course_id: params.c_id,
           photo_url: photoURL,
         },
       ])
+      .eq("student_id", params.s_id)
       .select();
 
     if (error) {
@@ -164,56 +173,65 @@ const StudentRegistration = () => {
       console.log("error in registration", error);
       return;
     }
-
     if (data) {
-      navigate(`/course/${course.c_id}/student/${GenaratedID}`);
+      console.log("editedData",data)
+      navigate(`/course/${params.c_id}/student/${ID}`);
     }
   };
 
   return (
-    <div>
-      {/* <Button onClick={handleShow}>show</Button> */}
-      {/* <button onClick={() => DisappearingMessage('This message will disappear in 1 second!')}>
-        Show Message
-      </button> */}
-
+    <div >
       <NavBar />
       <AdminTitle />
 
       <div className="subNav">
-        <p>New Admission</p>
+        <p>Edit</p>
         <div></div>
-        <p>{course.c_id}</p>
+        <p>{params.s_id}</p> 
       </div>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Registration</Modal.Title>
+          <Modal.Title>Updation</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Registering New Student</Modal.Body>
+        <Modal.Body>
+          <div>Updating Student Details</div>
+          
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
           <Button variant="success" onClick={handleSubmit}>
-            Register
+            Save
           </Button>
         </Modal.Footer>
       </Modal>
       <br />
-      <h4 style={{ color: "orange", marginTop: "30px", marginBottom: "-20px" }}>
-        NEW ADMISSION
-      </h4>
-
+      <h3 style={{color:"gray"}}>UPDATE DETAILS <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+</svg></h3>
       <div style={{ padding: "40px" }}>
         <Form onSubmit={handleshowModal}>
           <Row className="mb-4">
             <Form.Group as={Col} md="3" controlId="validationCustom01">
-              <Form.Label style={{ marginTop: "29px" }}></Form.Label>
+              <span
+                style={{
+                  fontSize: "10px",
+                  color: "gray",
+                  display: "block",
+                  textAlign: "left",
+                  padding: "5px",
+                }}
+              >
+                Name
+              </span>
               <Form.Control
                 required
                 type="text"
                 placeholder="Name"
+                // defaultValue={Details.full_name}
                 value={name}
                 onChange={(e) => {
                   setName(e.target.value.toUpperCase());
@@ -222,10 +240,22 @@ const StudentRegistration = () => {
               />
             </Form.Group>
             <Form.Group as={Col} md="3" controlId="validationCustom02">
-              <Form.Label style={{ marginTop: "29px" }}></Form.Label>
+              <span
+                style={{
+                  fontSize: "10px",
+                  color: "gray",
+                  display: "block",
+                  textAlign: "left",
+                  padding: "5px",
+                }}
+              >
+                Mobile
+              </span>
+
               <Form.Control
                 required
                 type="tel"
+                // defaultValue={Details.mobile}
                 value={mobile}
                 pattern="[[0-9]{10}"
                 placeholder="Mobile"
@@ -243,13 +273,26 @@ const StudentRegistration = () => {
               />
             </Form.Group>
             <Form.Group as={Col} md="3" controlId="validationCustomUsername">
-              <Form.Label style={{ marginTop: "29px" }}></Form.Label>
+              <span
+                style={{
+                  fontSize: "10px",
+                  color: "gray",
+                  display: "block",
+                  textAlign: "left",
+                  padding: "5px",
+                }}
+              >
+                Email
+              </span>
+
               <InputGroup hasValidation>
                 <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+
                 <Form.Control
                   type="email"
                   placeholder="Email"
                   aria-describedby="inputGroupPrepend"
+                  // defaultValue={Details.email}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -257,13 +300,26 @@ const StudentRegistration = () => {
               </InputGroup>
             </Form.Group>
             <Form.Group as={Col} md="3" controlId="validationCustom01">
-              <Form.Label style={{ marginTop: "10px" }}>
+              {/* <Form.Label style={{ marginTop: "10px" }}>
                 Date of Birth
-              </Form.Label>
+              </Form.Label> */}
+              <span
+                style={{
+                  fontSize: "10px",
+                  color: "gray",
+                  display: "block",
+                  textAlign: "left",
+                  padding: "5px",
+                }}
+              >
+                Date Of Birth
+              </span>
+
               <Form.Control
                 required
                 type="date"
                 placeholder="Date of Birth"
+                // defaultValue={Details.dob}
                 value={dob}
                 onChange={(e) => setDob(e.target.value)}
               />
@@ -271,7 +327,6 @@ const StudentRegistration = () => {
           </Row>
 
           {/* ----------------------------------------------- */}
-
           <Row className="">
             <Form.Group
               className="mt-3"
@@ -288,20 +343,11 @@ const StudentRegistration = () => {
                     aria-label="radio 1"
                     name="gender"
                     value="Male"
+                    checked={Details.gender === "Male"}
                   />
                   <Form.Label style={{ marginTop: "" }}>Male</Form.Label>{" "}
                 </div>
-                {/* <div className="d-flex  gap-2 ">
-      <Form.Check
-        type="radio"
-        onChange={() => setgender("female")}
-        className=""
-        aria-label="radio 1"
-        name="gender"
-        value="Other"
-      />{" "}
-      <Form.Label style={{ marginTop: "" }}>Other</Form.Label>{" "}
-    </div> */}
+
                 <div className="d-flex  gap-2">
                   <Form.Check
                     type="radio"
@@ -310,6 +356,7 @@ const StudentRegistration = () => {
                     aria-label="radio 1"
                     name="gender"
                     value="Female"
+                    checked={Details.gender === "Female"}
                   />{" "}
                   <Form.Label style={{ marginTop: "" }}>Female</Form.Label>{" "}
                 </div>
@@ -317,10 +364,24 @@ const StudentRegistration = () => {
             </Form.Group>
 
             <Form.Group as={Col} md="3" controlId="validationCustom02">
-              <Form.Label style={{ marginTop: "29px" }}></Form.Label>
+
+              <span
+                style={{
+                  fontSize: "10px",
+                  color: "gray",
+                  display: "block",
+                  textAlign: "left",
+                  padding: "5px",
+                  marginTop:"8px"
+                }}
+              >
+                Adhaar Number
+              </span>
+
               <Form.Control
                 required
                 type="text"
+                // defaultValue={Details.adhar_number}
                 value={adhar}
                 placeholder="UID No"
                 onChange={(e) => {
@@ -338,12 +399,14 @@ const StudentRegistration = () => {
             </Form.Group>
 
             <Form.Group
+              hidden={Details.photo_url !== ""}
               className="mt-2"
               as={Col}
               md="3"
               controlId="validationCustom02"
             >
               <Form.Label>Student Photo</Form.Label>
+
               <Form.Control
                 // required
                 type="file"
@@ -352,29 +415,6 @@ const StudentRegistration = () => {
                   setFile(e.target.files[0]);
                 }}
               />
-
-              {/* __________________________________________________________ */}
-              {/* {file && (
-                <div>
-                  <ReactCrop
-                    src={F}
-                    crop={crop}
-                    onImageLoaded={handleCropChange}
-                    onComplete={handleCropComplete}
-                    onChange={handleCropChange}
-                  />
-                  <button onClick={handleCropImage}>Crop Image</button>
-                </div>
-              )}
-
-              {croppedImage && (
-                <div>
-                  <h2>Cropped Image</h2>
-                  <img src={croppedImage} alt="Cropped" />
-                </div>
-              )} */}
-
-              {/* _________________________________________________________________________ */}
 
               <br />
 
@@ -435,14 +475,26 @@ const StudentRegistration = () => {
               md="3"
               controlId="validationCustom01"
             >
-              <Form.Label> Education Qualification</Form.Label>
+              <span
+                style={{
+                  fontSize: "10px",
+                  color: "gray",
+                  display: "block",
+                  textAlign: "left",
+                  padding: "5px",
+                }}
+              >
+                Education Qualification
+              </span>
+
               <Form.Select
                 required
                 aria-label=" Education Qualification"
                 // value={qualification}
+
                 onChange={(e) => setQualification(e.target.value.toUpperCase())}
               >
-                <option>Select Qualification</option>
+                <option>{Details.qualification}</option>
                 <option value="Post Graduation">Post Graduation</option>
                 <option value="Under Graduation">Under Graduation</option>
                 <option value="Polytechnic(3year diploma)">
@@ -464,16 +516,29 @@ const StudentRegistration = () => {
 
           <Row className="mb-3">
             <Form.Group as={Col} md="3" controlId="validationCustom02">
-              <Form.Label></Form.Label>
+              <span
+                style={{
+                  fontSize: "10px",
+                  color: "gray",
+                  display: "block",
+                  textAlign: "left",
+                  padding: "5px",
+                }}
+              >
+                State
+              </span>
+
               <Form.Select
                 required
                 aria-label="State"
+                // defaultChecked={Details.state}
+                // defaultValue={Details.state}
                 value={state}
                 onChange={(e) => {
                   setState(e.target.value);
                 }}
               >
-                <option>Select State</option>
+                <option>{Details.state}</option>
                 <option value={"Kerala"}>Kerala</option>
                 {stateNames.map((state) => (
                   <option key={state} value={state}>
@@ -483,11 +548,24 @@ const StudentRegistration = () => {
               </Form.Select>
             </Form.Group>
             <Form.Group as={Col} md="3" controlId="validationCustom02">
-              <Form.Label> </Form.Label>
+              <span
+                style={{
+                  fontSize: "10px",
+                  color: "gray",
+                  display: "block",
+                  textAlign: "left",
+                  padding: "5px",
+                }}
+              >
+                District
+              </span>
+
               <Form.Select
                 required
                 aria-label="District"
+                // defaultValue={Details.district}
                 value={district}
+
                 onChange={(e) => setDistrict(e.target.value)}
               >
                 <option>Select District</option>
@@ -497,11 +575,26 @@ const StudentRegistration = () => {
               </Form.Select>
             </Form.Group>
             <Form.Group as={Col} md="3" controlId="validationCustom02">
-              <Form.Label> </Form.Label>
+              <br />
+              <span
+                style={{
+                  fontSize: "10px",
+                  color: "gray",
+                  display: "block",
+                  textAlign: "left",
+                  padding: "5px",
+                  marginTop:"-26px"
+                }}
+              >
+                Post Office
+              </span>
+              
+
               <Form.Control
                 required
                 type="text"
                 placeholder="Post Office"
+                // defaultValue={Details.post}
                 value={postoffice}
                 onChange={(e) => {
                   setpostoffice(e.target.value.toUpperCase());
@@ -513,21 +606,45 @@ const StudentRegistration = () => {
           {/* ---------------------------------------------- */}
           <Row>
             <Form.Group as={Col} md="3" controlId="validationCustom02">
-              <Form.Label> </Form.Label>
+              <span
+                style={{
+                  fontSize: "10px",
+                  color: "gray",
+                  display: "block",
+                  textAlign: "left",
+                  padding: "5px",
+                }}
+              >
+                Place
+              </span>
+
               <Form.Control
                 required
                 type="text"
                 placeholder="Place"
+                // defaultValue={Details.place}
                 value={place}
                 onChange={(e) => setplace(e.target.value.toUpperCase())}
               />
             </Form.Group>
             <Form.Group as={Col} md="3" controlId="validationCustom02">
-              <Form.Label> </Form.Label>
+              <span
+                style={{
+                  fontSize: "10px",
+                  color: "gray",
+                  display: "block",
+                  textAlign: "left",
+                  padding: "5px",
+                }}
+              >
+                House Name
+              </span>
+
               <Form.Control
                 required
                 type="text"
                 placeholder="House Name / No"
+                // defaultValue={Details.house_name}
                 value={housename}
                 onChange={(e) => sethousename(e.target.value.toUpperCase())}
               />
@@ -545,22 +662,46 @@ const StudentRegistration = () => {
           <br />
           <Row className="mb-3">
             <Form.Group as={Col} md="4" controlId="validationCustom01">
-              <Form.Label></Form.Label>
+              <span
+                style={{
+                  fontSize: "10px",
+                  color: "gray",
+                  display: "block",
+                  textAlign: "left",
+                  padding: "5px",
+                }}
+              >
+                Name of Guardian
+              </span>
+
               <Form.Control
                 required
                 type="text"
                 placeholder="Guardian Name"
+                // defaultValue={Details.quardian}
                 value={guardianName}
                 onChange={(e) => setGuardianName(e.target.value.toUpperCase())}
               />
             </Form.Group>
 
             <Form.Group as={Col} md="4" controlId="validationCustom02">
-              <Form.Label></Form.Label>
+              <span
+                style={{
+                  fontSize: "10px",
+                  color: "gray",
+                  display: "block",
+                  textAlign: "left",
+                  padding: "5px",
+                }}
+              >
+                Mobile of Guardian
+              </span>
+
               <Form.Control
                 required
                 type="tel"
                 pattern="[[0-9]{10}"
+                // defaultValue={Details.quardian_mobile}
                 value={guardianMobile}
                 placeholder="Mobile"
                 onChange={(e) => {
@@ -597,7 +738,7 @@ const StudentRegistration = () => {
               }}
             >
               <Form.Check
-                defaultChecked
+                defaultChecked={Details.placement}
                 type="switch"
                 id="placement"
                 label="Placement "
@@ -619,6 +760,7 @@ const StudentRegistration = () => {
               }}
             >
               <Form.Check
+                defaultChecked={Details.hosteler}
                 type="checkbox"
                 id="placement"
                 label="hostlite"
@@ -627,16 +769,27 @@ const StudentRegistration = () => {
             </Form.Group>
 
             <Form.Group as={Col} md="3">
+            <span
+                style={{
+                  fontSize: "10px",
+                  color: "gray",
+                  display: "block",
+                  textAlign: "left",
+                  padding: "5px",
+                  marginTop:"15px"
+                }}
+              >
+              Discount
+              </span>
               <Form.Control
                 style={{
                   boxShadow: "1px 2px 5px rgba(234, 25, 25, 0.225)",
-                  padding: "10px",
                   border: "1px solid yellow",
-                  marginTop: "35px",
                   color: "red",
                   fontWeight: "400",
                 }}
                 type="integer"
+                // defaultValue={Details.discount}
                 value={discount}
                 placeholder="Discount / Fee Concession"
                 onChange={(e) => {
@@ -645,20 +798,30 @@ const StudentRegistration = () => {
                     setdiscount(value);
                   } else {
                     setdiscount("");
-                  
                   }
                 }}
               />
             </Form.Group>
 
             <Form.Group as={Col} md="3" controlId="validationCustom01">
-              <Form.Label style={{ marginTop: "10px" }}>
-                Class Start At
-              </Form.Label>
+            <span
+                style={{
+                  fontSize: "10px",
+                  color: "gray",
+                  display: "block",
+                  textAlign: "left",
+                  padding: "5px",
+                  marginTop:"15px"
+
+                }}
+              >
+                Post Office
+              </span>
               <Form.Control
                 required
                 type="date"
                 placeholder="class starting date"
+                // defaultValue={Details.class_start}
                 value={class_start}
                 onChange={(e) => setclass_start(e.target.value)}
               />
@@ -676,21 +839,33 @@ const StudentRegistration = () => {
               marginTop: "20px",
               marginBottom: "30px",
             }}
-            variant="success"
+            variant="primary"
             type="submit"
-            disabled={
-              mobile.length !== 10 ||
-              guardianMobile.length !== 10 ||
-              adhar.length !== 12 ||
-              district === "Select District" ||
-              postoffice === "" ||
-              place === "" ||
-              housename === "" ||
-              guardianName === "" ||
-              gender === ""
-            }
+            // disabled={
+            //   mobile.length !== 10 ||
+            //   guardianMobile.length !== 10 ||
+            //   adhar.length !== 12 ||
+            //   district === "Select District" ||
+            //   postoffice === "" ||
+            //   place === "" ||
+            //   housename === "" ||
+            //   guardianName === "" ||
+            //   gender === ""
+            // }
           >
-            REGISTER
+            Save
+            <svg
+              style={{ margin: " 0px 5px" }}
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-floppy"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11 2H9v3h2z" />
+              <path d="M1.5 0h11.586a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13A1.5 1.5 0 0 1 1.5 0M1 1.5v13a.5.5 0 0 0 .5.5H2v-4.5A1.5 1.5 0 0 1 3.5 9h9a1.5 1.5 0 0 1 1.5 1.5V15h.5a.5.5 0 0 0 .5-.5V2.914a.5.5 0 0 0-.146-.353l-1.415-1.415A.5.5 0 0 0 13.086 1H13v4.5A1.5 1.5 0 0 1 11.5 7h-7A1.5 1.5 0 0 1 3 5.5V1H1.5a.5.5 0 0 0-.5.5m3 4a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V1H4zM3 15h10v-4.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5z" />
+            </svg>
           </Button>
         </Form>
       </div>
@@ -698,4 +873,4 @@ const StudentRegistration = () => {
   );
 };
 
-export default StudentRegistration;
+export default EditRegistration;

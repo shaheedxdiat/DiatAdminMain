@@ -193,7 +193,7 @@ const StudentDetails = () => {
   };
 
   const handleEditdata = async () => {
-    alert("Edit Not Impelemented");
+    navigate("edit")
   };
 
   const [showoption, setshowoption] = useState(false);
@@ -202,8 +202,12 @@ const StudentDetails = () => {
     return;
   };
 
+ 
+
   return (
     <div>
+
+
       {/* -----------------------------------------delete confirm----------- */}
 
       <Modal
@@ -484,7 +488,7 @@ const StudentDetails = () => {
             </div>
             <div className="listColR">
               <p>
-                {housename}(H) ,{place}, {postoffice}(PO), {district},{state}{" "}
+                {housename}(H) ,{place}, {postoffice}(PO), {district.toUpperCase()},{state.toUpperCase()}{" "}
               </p>
             </div>
           </div>
