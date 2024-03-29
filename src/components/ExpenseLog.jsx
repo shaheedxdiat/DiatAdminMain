@@ -85,7 +85,7 @@ const ExpenseLog = (data) => {
                   <td>{log.amount}</td>
                   <td>{log.description}</td>
                   <td>{log.invoice_number?log.invoice_number:"nill"}</td>
-                  <td>{log.enteredby}</td>
+                  <td>{log.enteredby.split('@')[0]}</td>
                 </tr>
               ))}
             </tbody>

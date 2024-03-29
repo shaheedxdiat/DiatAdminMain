@@ -50,7 +50,7 @@ const PaymentLog =  (student_id) => {
                  <td>{index+1}</td>
                  <td>{log.created_at.split("T")[0]}</td>
                  <td>{log.amount}</td>
-                 <td>{log.cashier}</td>
+                 <td>{log.cashier.split('@')[0]}</td>
                </tr>)}
              </tbody>
            </Table> <Button onClick={()=>StatementGenerator(log,student_id.student_id)}>download Statment</Button></>
