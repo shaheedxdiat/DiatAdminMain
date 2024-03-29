@@ -12,7 +12,7 @@ const StatementGenerator = async (log, id) => {
 
   doc.setTextColor(0, 0, 0);
 
-  const headers = [['S.No', 'Date', 'Amount', 'Description', 'Casier']];
+  const headers = [['S.No', 'Date', 'Amount', 'Description', 'Cashier']];
 
   const rows = log.map((statement, index) => [
     index + 1,
