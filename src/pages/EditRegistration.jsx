@@ -43,14 +43,14 @@ const EditRegistration = () => {
   const [qualification, setQualification] = useState("");
   const [guardianName, setGuardianName] = useState("");
   const [guardianMobile, setGuardianMobile] = useState("");
-  const [placementNeeded, setPlacementNeeded] = useState(true);
-  const [hostlite, sethostlite] = useState(false);
-  const [discount, setdiscount] = useState("");
+  // const [placementNeeded, setPlacementNeeded] = useState(true);
+  // const [hostlite, sethostlite] = useState(false);
+  // const [discount, setdiscount] = useState("");
   const [photoURL, setphotoURL] = useState("");
   const [ID, setID] = useState("");
   const [File, setFile] = useState();
-  const [feedue, setfeedue] = useState();
-  const [coursefee, setcoursefee] = useState();
+  // const [feedue, setfeedue] = useState();
+  // const [coursefee, setcoursefee] = useState();
   const [class_start, setclass_start] = useState("");
   const admission_date = new Date();
 
@@ -85,13 +85,12 @@ const EditRegistration = () => {
         setQualification(data[0].qualification);
         setGuardianName(data[0].quardian);
         setGuardianMobile(data[0].quardian_mobile);
-        setPlacementNeeded(data[0].placement);
-        sethostlite(data[0].hosteler);
-        setdiscount(data[0].discount);
+        // setPlacementNeeded(data[0].placement);
+        // sethostlite(data[0].hosteler);
+        // setdiscount(data[0].discount);
         setphotoURL(data[0].photoURL);
         setID(data[0].student_id);
-        // Assuming 'File', 'feedue', 'coursefee', and 'class_start' are not part of 'data'
-        // If they are part of 'data', you can set them similarly
+      
         // setFile(data[0].File);
         // setfeedue(data[0].feedue);
         // setcoursefee(data[0].coursefee);
@@ -139,7 +138,7 @@ const EditRegistration = () => {
       .from("students")
       .update([
         {
-          student_id: ID,
+          // student_id: ID,
           full_name: name,
           mobile: mobile,
           gender: gender,
@@ -156,10 +155,9 @@ const EditRegistration = () => {
           class_start: class_start,
           quardian: guardianName.toUpperCase(),
           quardian_mobile: guardianMobile,
-          placement: placementNeeded,
-          hosteler: hostlite,
-          discount: discount || 0,
-          fee_due: feedue,
+          // placement: placementNeeded,
+          // hosteler: hostlite,
+          // discount: discount || 0,
           admissions_officer: "diat",
           course_id: params.c_id,
           photo_url: photoURL,
@@ -167,6 +165,7 @@ const EditRegistration = () => {
       ])
       .eq("student_id", params.s_id)
       .select();
+      // navigate('/home', { replace: true });
 
     if (error) {
       alert(error.message);
@@ -175,7 +174,7 @@ const EditRegistration = () => {
     }
     if (data) {
       console.log("editedData",data)
-      navigate(`/course/${params.c_id}/student/${ID}`);
+      navigate(`/course/${params.c_id}/student/${ID}`, { replace: true });
     }
   };
 
@@ -723,7 +722,7 @@ const EditRegistration = () => {
 
           {/* ---------------------------------------------------- */}
 
-          <Row className="m-4">
+          {/* <Row className="m-4">
             <Form.Group
               as={Col}
               md="2"
@@ -826,10 +825,11 @@ const EditRegistration = () => {
                 onChange={(e) => setclass_start(e.target.value)}
               />
             </Form.Group>
-          </Row>
-          <br />
+          </Row> */}
+
+          {/* <br />
           <hr />
-          <br />
+          <br /> */}
 
           <Button
             style={{

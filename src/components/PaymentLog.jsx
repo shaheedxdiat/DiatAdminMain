@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Table } from "react-bootstrap";
 import { supabase } from "../SupaBase";
+import { Button } from "react-bootstrap";
+import StatementGenerator from "../functions/StatementGenarator";
 
 const PaymentLog =  (student_id) => {
   const [visibile, setvisibile] = useState(false);
@@ -51,7 +53,7 @@ const PaymentLog =  (student_id) => {
                  <td>{log.cashier}</td>
                </tr>)}
              </tbody>
-           </Table></>
+           </Table> <Button onClick={()=>StatementGenerator(log,student_id.student_id)}>download Statment</Button></>
         }
         </>
       ) : (

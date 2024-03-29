@@ -166,7 +166,7 @@ const StudentRegistration = () => {
     }
 
     if (data) {
-      navigate(`/course/${course.c_id}/student/${GenaratedID}`);
+      navigate(`/course/${course.c_id}/student/${GenaratedID}` ,{ replace: true });
     }
   };
 
