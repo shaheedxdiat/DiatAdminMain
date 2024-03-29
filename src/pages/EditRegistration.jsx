@@ -342,7 +342,7 @@ const EditRegistration = () => {
                     aria-label="radio 1"
                     name="gender"
                     value="Male"
-                    checked={Details.gender === "Male"}
+                    checked={gender === "Male"}
                   />
                   <Form.Label style={{ marginTop: "" }}>Male</Form.Label>{" "}
                 </div>
@@ -355,7 +355,7 @@ const EditRegistration = () => {
                     aria-label="radio 1"
                     name="gender"
                     value="Female"
-                    checked={Details.gender === "Female"}
+                    checked={gender === "Female"}
                   />{" "}
                   <Form.Label style={{ marginTop: "" }}>Female</Form.Label>{" "}
                 </div>

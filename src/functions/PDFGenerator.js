@@ -75,6 +75,7 @@ const generatePDF = async (id) => {
     40 //height
   );
 
+
   doc.setLineWidth(0.3);
   doc.setDrawColor(0, 0, 0, 0.6);
 

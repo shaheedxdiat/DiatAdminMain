@@ -8,7 +8,7 @@ const StatementGenerator = async (log, id) => {
 
   doc.setFontSize(15);
   doc.setTextColor(128, 128, 128);
-  doc.text(`PAYMENT SUMMARY - ${id}`, 60, 13);
+  doc.text(`PAYMENT SUMMARY - ${id}`, 15, 13);
 
   doc.setTextColor(0, 0, 0);
 
