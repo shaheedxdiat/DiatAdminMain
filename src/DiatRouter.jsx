@@ -11,7 +11,7 @@ import SelectCourse from "./pages/SelectCourse";
 import CourseOpt from "./pages/CourseOpt";
 import StudentDetails from "./pages/StudentDetails";
 import StudentTable from "./pages/StudentTable";
-import InsightPage from "./pages/InsightPage";
+// import InsightPage from "./pages/InsightPage";
 import { supabase } from "./SupaBase";
 import EditRegistration from "./pages/EditRegistration";
 import InsightPage2 from "./pages/InsightPage2";
