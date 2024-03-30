@@ -9,7 +9,7 @@ const PaymentLog =  (student_id) => {
   const [log, setlog] = useState([])
   const handleclick = async () => {
     const { data, error } = await supabase
-      .from("payment_log").select("*")
+      .from("payment_log").select("amount,date,remark,cashier")
       .eq("payedby", student_id.student_id).order("id")
       
     if (error) {
@@ -48,7 +48,7 @@ const PaymentLog =  (student_id) => {
              <tbody>
                {log?.map((log,index)=><tr key={log.id}>
                  <td>{index+1}</td>
-                 <td>{log.created_at.split("T")[0]}</td>
+                 <td>{log.date.split("T")[0]}</td>
                  <td>{log.amount}</td>
                  <td>{log.cashier.split('@')[0]}</td>
                </tr>)}

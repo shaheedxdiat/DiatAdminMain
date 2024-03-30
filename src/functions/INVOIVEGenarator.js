@@ -50,7 +50,7 @@ const generateINVOICE = async (payment_data, student_data) => {
   );
 
   // ---------
-  const billdate = payment_data[0].created_at.toString().split("T")[0];
+  const billdate = payment_data[0].date.toString().split("T")[0];
 
   const parts1 = billdate.split("-");
   const formattedbilldate = `${parts1[2]}-${parts1[1]}-${parts1[0]}`;

@@ -14,6 +14,7 @@ import StudentTable from "./pages/StudentTable";
 import InsightPage from "./pages/InsightPage";
 import { supabase } from "./SupaBase";
 import EditRegistration from "./pages/EditRegistration";
+import InsightPage2 from "./pages/InsightPage2";
 // import Text from "./pages/Text";
 
 const DiatRouter = () => {
@@ -112,7 +113,8 @@ const DiatRouter = () => {
             path="/insight"
             element={
               <>
-                <InsightPage/>
+                {/* <InsightPage/> */}
+                <InsightPage2/>
               </>
             }
           />
