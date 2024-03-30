@@ -42,7 +42,7 @@ const IncomeTab = () => {
         {
           amount: Math.abs(amount),
           description: description,
-          enteredby: localStorage.getItem("admin"),
+          cashier: localStorage.getItem("admin"),
         },
       ]);
       console.log(_);
@@ -60,7 +60,7 @@ const IncomeTab = () => {
 
   return (
     <div>
-      <h5 style={{ position: "absolute", left: "25px" }}>Expense Tab</h5>
+      <h5 style={{ position: "absolute", left: "25px" }}>INCOME TAB</h5>
 
       <div className="firstexpdiv">
         <img src={expensesvg} height={350} width={350} alt="" />
@@ -104,7 +104,7 @@ const IncomeTab = () => {
               />
             </div>
             
-            <Button type="submit">Add Bill</Button>
+            <Button variant="success" type="submit">Add Bill</Button>
           </Form>
         </div>
       </div>
@@ -114,7 +114,7 @@ const IncomeTab = () => {
 
       <div className="secexpdiv">
         <div>
-          <ExpenseLog data={data} total={income} />
+          <ExpenseLog data={data} total={income} theme={"success"} heading={"Total Income"} color={"green"} />
         </div>
       </div>
     </div>

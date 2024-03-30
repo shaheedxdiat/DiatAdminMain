@@ -21,6 +21,14 @@ const InsightPage2 = () => {
 <NavBar/>
 <div className="m-4">
       <ul className="nav nav-tabs">
+      <li className="nav-item">
+          <button
+            className={`nav-link ${activeTab === "income" ? "active" : ""}`}
+            onClick={() => handleTabChange("income")}
+          >
+            Income
+          </button>
+        </li>
         <li className="nav-item">
           <button
             className={`nav-link ${activeTab === "expense" ? "active" : ""}`}
@@ -29,14 +37,7 @@ const InsightPage2 = () => {
             Expense
           </button>
         </li>
-        <li className="nav-item">
-          <button
-            className={`nav-link ${activeTab === "income" ? "active" : ""}`}
-            onClick={() => handleTabChange("income")}
-          >
-            Income
-          </button>
-        </li>
+      
         <li className="nav-item">
           <button
             className={`nav-link ${activeTab === "summary" ? "active" : ""}`}

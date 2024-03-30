@@ -42,7 +42,7 @@ const ExpenseTab = () => {
           amount: Math.abs(amount),
           description: description,
           invoice_number: invoiceNo,
-          enteredby: localStorage.getItem("admin"),
+          cashier: localStorage.getItem("admin"),
         },
       ]);
       console.log(_);
@@ -117,7 +117,7 @@ const ExpenseTab = () => {
                 }}
               />
             </div>
-            <Button type="submit">Add Bill</Button>
+            <Button variant="danger" type="submit">Add Bill</Button>
           </Form>
         </div>
       </div>
@@ -127,7 +127,7 @@ const ExpenseTab = () => {
 
       <div className="secexpdiv">
         <div>
-          <ExpenseLog data={data} total={expense} />
+          <ExpenseLog data={data} total={expense} theme={""} heading={"Total Spend"} color={"red"}/>
         </div>
       </div>
     </div>

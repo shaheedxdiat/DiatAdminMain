@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import StatementGenerator from "../../functions/StatementGenarator";
 
-const ExpenseLog = ({ data, total }) => {
+const ExpenseLog = ({ data, total ,theme,heading,color}) => {
   const [columns, setColumns] = useState([]);
 
   useEffect(() => {
@@ -17,13 +17,13 @@ const ExpenseLog = ({ data, total }) => {
     <div className="tablediv">
       <div className="w-100 d-flex g-5">
         <div className="d-flex">
-          <p style={{ color: "tomato" }}>Total Spent: </p>{" "}
-          <p style={{ color: "tomato" }}>{total}</p>
+          <p className="danger" style={{ color:color}}>{heading} </p>
+          <p style={{ color: color }}>{total}</p>
         </div>
       </div>
-      <Table striped bordered hover variant="dark">
+      <Table striped bordered hover variant={theme}>
         <thead>
-          <caption>Expenses:-</caption>
+         
           <tr>
             <th>S.No</th>
             {columns.map((column, index) => (
@@ -43,7 +43,7 @@ const ExpenseLog = ({ data, total }) => {
         </tbody>
       </Table>
       <button
-        onClick={() => StatementGenerator(data, "OTHER INCOME STATEMENT", null)}
+        onClick={() => StatementGenerator(data, "STATEMENT", null)}
       >
         PDF
       </button>
