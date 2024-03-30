@@ -10,16 +10,15 @@ const ExpenseTab = () => {
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
   const [invoiceNo, setInvoiceNo] = useState("");
-  // var dofetch=1
-  // console.log(dofetch);
-
   const [data, setData] = useState([]);
-  const [expense, setexpense] = useState();
+  const [expense, setexpense] = useState(0);
   const [count1, setcount1] = useState(0);
- 
+  console.log("ExpensefetchCount",count1);
 
   const fetchexpense = async () => {
-    const { data, error } = await supabase.from("expense_chart").select("amount,date,description,invoice_number,enteredby");
+    const { data, error } = await supabase
+      .from("expense_chart")
+      .select("amount,date,description,invoice_number,enteredby");
     setcount1(count1 + 1);
     if (error) {
       console.log("expense error", error);
@@ -58,7 +57,7 @@ const ExpenseTab = () => {
       }
     }
   };
-
+ 
   return (
     <div>
       <h5 style={{ position: "absolute", left: "25px" }}>Expense Tab</h5>
@@ -128,7 +127,7 @@ const ExpenseTab = () => {
 
       <div className="secexpdiv">
         <div>
-          <ExpenseLog data={data} expense={expense}/>
+          <ExpenseLog data={data} total={expense} />
         </div>
       </div>
     </div>
