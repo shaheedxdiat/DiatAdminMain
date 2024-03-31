@@ -62,9 +62,9 @@
     width: 50%;
     height: 60vh;
   border-radius: 25px;
-  background: linear-gradient(145deg, #e9e9e9, #ffffff);
-  box-shadow:  5px 11px 25px #cfcfcf,
-               -5px -11px 25px #ffffff;
+  background: linear-gradient(145deg, #ffffff, #ffffff);
+  box-shadow:  2px 2px 25px #d6d6d665,
+               -2px -2px 25px #bcbcbcaa;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,7 +76,7 @@
 }
 .loginForm{
   animation: slideInFromBottom 1.3s forwards;
-
+ 
 }
 .adminFirstDiv h3 {
   color: rgba(128, 128, 128, 0.338);

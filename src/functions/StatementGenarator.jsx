@@ -55,7 +55,7 @@ const generatePDF = async (logs, heading, id) => {
   doc.save(`${heading}_${id ? id : ""}.pdf`);
 };
 
-const PDFViewer = ({ logs, heading, id, title }) => {
+const StatementGenarator = ({ logs, heading, id, title }) => {
   const handleClick = () => {
     generatePDF(logs, heading, id, title);
   };
@@ -78,4 +78,4 @@ const PDFViewer = ({ logs, heading, id, title }) => {
   );
 };
 
-export default PDFViewer;
+export default StatementGenarator;
