@@ -4,7 +4,7 @@ import { supabase } from "../../SupaBase";
 // import { Table } from "react-bootstrap";
 
 import expensesvg from "../../assests/images/income.svg";
-import ExpenseLog from "./ExpenseLog";
+import LogTable from "./LogTable";
 
 const IncomeTab = () => {
   const [amount, setAmount] = useState("");
@@ -17,7 +17,7 @@ const IncomeTab = () => {
   const fetchIncome = async () => {
     const { data, error } = await supabase
       .from("other_income")
-      .select("amount,date,description,enteredby");
+      .select("amount,date,description,cashier");
     setcount1(count1 + 1);
     if (error) {
       console.log("error in fetching income", error);
@@ -60,7 +60,7 @@ const IncomeTab = () => {
 
   return (
     <div>
-      <h5 style={{ position: "absolute", left: "25px" }}>INCOME TAB</h5>
+      <h4 style={{ position: "absolute", left: "30px", marginTop:"10px" ,color:"rgb(200,200,200)" ,textShadow:"1px 2px 5px rgb(210,210,210)"}}>INCOME TAB</h4>
 
       <div className="firstexpdiv">
         <img src={expensesvg} height={350} width={350} alt="" />
@@ -114,7 +114,7 @@ const IncomeTab = () => {
 
       <div className="secexpdiv">
         <div>
-          <ExpenseLog data={data} total={income} theme={"success"} heading={"Total Income"} color={"green"} />
+          <LogTable data={data} total={income} theme={"success"} heading={"INCOME_LOG"} title={"INCOME_LOG"} color={"green"} />
         </div>
       </div>
     </div>

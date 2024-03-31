@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import StatementGenerator from "../../functions/StatementGenarator";
 
-const ExpenseLog = ({ data, total ,theme,heading,color}) => {
+const LogTable = ({ data ,theme,title}) => {
   const [columns, setColumns] = useState([]);
 
   useEffect(() => {
@@ -16,10 +16,10 @@ const ExpenseLog = ({ data, total ,theme,heading,color}) => {
   return (
     <div className="tablediv">
       <div className="w-100 d-flex g-5">
-        <div className="d-flex">
+        {/* <div className="d-flex">
           <p className="danger" style={{ color:color}}>{heading} </p>
           <p style={{ color: color }}>{total}</p>
-        </div>
+        </div> */}
       </div>
       <Table striped bordered hover variant={theme}>
         <thead>
@@ -42,13 +42,10 @@ const ExpenseLog = ({ data, total ,theme,heading,color}) => {
           ))}
         </tbody>
       </Table>
-      <button
-        onClick={() => StatementGenerator(data, "STATEMENT", null)}
-      >
-        PDF
-      </button>
+      
+      <StatementGenerator  logs={data} heading={title}/>
     </div>
-  );
+  ); 
 };
 
-export default ExpenseLog;
+export default LogTable;

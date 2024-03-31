@@ -4,6 +4,7 @@ import { supabase } from "../SupaBase";
 import { useNavigate, useParams } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import AdminTitle from "../components/AdminTitle";
+import Loader from "../components/Loader";
 
 const StudentTable = () => {
   const navigate = useNavigate();
@@ -50,7 +51,7 @@ const StudentTable = () => {
         <div></div>
         <p>{c_id.c_id}</p>
       </div>
-     {students.length===0?<><p style={{color:"gray"}}>Student data is not available</p></>:<> <div style={{overflowX:"scroll",borderRadius:"10px"}}  className="p-3">
+     {students.length===0?<><Loader/></>:<> <div style={{overflowX:"scroll",borderRadius:"10px"}}  className="p-3">
         <Table
           style={{borderRadius:"20px"}}
           striped

@@ -1,8 +1,9 @@
 import React from "react";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import pdficon from "../assests/images/pdf_icon.png";
 
-const StatementGenerator = async (logs, heading, id) => {
+const generatePDF = async (logs, heading, id) => {
   const doc = new jsPDF();
   doc.setFontSize(15);
   doc.setTextColor(128, 128, 128);
@@ -34,7 +35,7 @@ const StatementGenerator = async (logs, heading, id) => {
       doc.setTextColor(148, 148, 148);
       doc.setFontSize(10);
       doc.text(
-        "Page " + pageNumber,
+        "Page " + pageNumber + " | ",
         data.settings.margin.right,
         doc.internal.pageSize.height - 10
       );
@@ -44,16 +45,37 @@ const StatementGenerator = async (logs, heading, id) => {
         hour12: true,
       });
       doc.text(
-        "Printed: " + printedDate + " " + printedTime,
+        `${printedDate} | ${printedTime} | DIAT`,
         data.settings.margin.left + 14,
         doc.internal.pageSize.height - 10
       );
     },
   });
 
-  doc.save(`${heading}_${id}.pdf`);
-
-  return <div></div>;
+  doc.save(`${heading}_${id ? id : ""}.pdf`);
 };
 
-export default StatementGenerator;
+const PDFViewer = ({ logs, heading, id, title }) => {
+  const handleClick = () => {
+    generatePDF(logs, heading, id, title);
+  };
+
+  return (
+    <div>
+      <button
+        style={{
+          border: "none",
+          padding: "5px 15px",
+          // backgroundColor: "transparent",
+          boxShadow: "2px 2px 10px rgb(200,200,200)",
+          borderRadius: "5px",
+        }}
+        onClick={handleClick}
+      >
+        Save <img src={pdficon} alt="" height={20} />
+      </button>
+    </div>
+  );
+};
+
+export default PDFViewer;

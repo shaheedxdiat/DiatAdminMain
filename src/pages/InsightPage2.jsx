@@ -3,14 +3,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // import ExpenseTab from "../components/ExpenseTab";
 // import IncomeTab from "../components/IncomeTab";
 import SummaryTab from "../components/tabs/SummaryTab";
-import "../assests/styles/ExpenseChart.css";
+import "../assests/styles/InsightPage.css";
 
 import NavBar from "../components/NavBar";
 import ExpenseTab from "../components/tabs/ExpenseTab";
 import IncomeTab from "../components/tabs/IncomeTab";
 
 const InsightPage2 = () => {
-  const [activeTab, setActiveTab] = useState("expense");
+  const [activeTab, setActiveTab] = useState("income");
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
