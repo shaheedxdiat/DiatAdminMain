@@ -62,7 +62,6 @@
     width: 50%;
     height: 60vh;
   border-radius: 25px;
-  background: linear-gradient(145deg, #ffffff, #ffffff);
   box-shadow:  2px 2px 25px #d6d6d665,
                -2px -2px 25px #bcbcbcaa;
   display: flex;

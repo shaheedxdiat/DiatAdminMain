@@ -18,7 +18,9 @@ const SelectCourse = () => {
       let { data: courses, error } = await supabase.from("courses").select("*");
       if (error) {
         console.log(error);
-        alert(error.message);
+        if (error.code==="") {
+          alert("Check your internet Connection")
+        }
         return;
       }
       setcourse(courses);

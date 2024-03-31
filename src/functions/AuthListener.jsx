@@ -7,10 +7,9 @@ const AuthListener = () => {
 const navigate = useNavigate();
 
   useEffect(() => {
-    const { data } = supabase.auth.onAuthStateChange((event, session) => {
+     supabase.auth.onAuthStateChange((event, session) => {
       if (event === "SIGNED_OUT") {
         navigate("/");
-        console.log("sign-out success ", data.subscription.unsubscribe.name);
         localStorage.clear()
       }
       if (!session) {

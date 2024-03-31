@@ -20,7 +20,7 @@ const AdminLogin = ({setautotimeout}) => {
     if (error) {
       console.log("error:", error);
       return;
-    }
+    } 
     console.log("admin@context", data.user.email);
     localStorage.setItem("admin", data.user.email);
   };
@@ -40,20 +40,20 @@ const AdminLogin = ({setautotimeout}) => {
     setLoading(true);
 
     try {
-      let { data, error } = await supabase.auth.signInWithPassword({
+      let {  error } = await supabase.auth.signInWithPassword({
         email: username,
         password: password,
       });
       if (error) {
         throw error;
       }
-      console.log("Login successful", data.user.email);
+      // console.log("Login successful", data.user.email);
       setError("");
       navigate("/course");
       setautotimeout(true)
 
       getAdmin();
-    } catch (error) {
+    } catch (error) {    
       console.error("Login failed", error.message);
 
       setError("Incorrect username or password.");

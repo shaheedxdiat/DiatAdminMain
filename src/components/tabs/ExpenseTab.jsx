@@ -13,15 +13,19 @@ const ExpenseTab = () => {
   const [data, setData] = useState([]);
   const [expense, setexpense] = useState(0);
   const [count1, setcount1] = useState(0);
-  console.log("ExpensefetchCount",count1);
+
 
   const fetchexpense = async () => {
     const { data, error } = await supabase
       .from("expense_chart")
       .select("amount,date,description,invoice_number,cashier");
     setcount1(count1 + 1);
+   
     if (error) {
-      console.log("expense error", error);
+      console.log("expense fetch error", error);
+      if (error.code==="") {
+        alert("Check your internet Connection")
+      }
       return;
     }
     setData(data);
@@ -29,7 +33,11 @@ const ExpenseTab = () => {
     const totalAmount = data.reduce((acc, curr) => acc + curr.amount, 0);
     setexpense(totalAmount);
   };
-  if (data.length === 0) {
+  if (data.length === 0&&count1<10) {
+    if (count1>=10) {
+      alert("check connection")
+      return
+    }
     fetchexpense();
   }
 

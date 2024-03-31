@@ -12,7 +12,7 @@ const IncomeTab = () => {
   const [data, setData] = useState([]);
   const [income, setincome] = useState(0);
   const [count1, setcount1] = useState(0);
-  console.log("incomefetchCount",count1);
+
 
   const fetchIncome = async () => {
     const { data, error } = await supabase
@@ -21,6 +21,9 @@ const IncomeTab = () => {
     setcount1(count1 + 1);
     if (error) {
       console.log("error in fetching income", error);
+      if (error.code==="") {
+        alert("Check your internet Connection")
+      }
       return;
     }
     console.log("income data from api",data) 
@@ -29,9 +32,13 @@ const IncomeTab = () => {
     const totalAmount = data.reduce((acc, curr) => acc + curr.amount, 0);
     console.log("totalAmount-income",totalAmount);
     setincome(totalAmount);
+   
   };
-  if (data.length === 0) {
-    fetchIncome();
+  if (data.length === 0&&count1<5) {
+
+  
+   fetchIncome();
+  
   }
 
   const handleSubmit = async (e) => {
