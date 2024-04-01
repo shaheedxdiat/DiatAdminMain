@@ -31,6 +31,7 @@ const InsightPage2 = () => {
         </li>
         <li className="nav-item">
           <button
+           style={{background Color:"red"}}
             className={`nav-link ${activeTab === "expense" ? "active" : ""}`}
             onClick={() => handleTabChange("expense")}
           >
