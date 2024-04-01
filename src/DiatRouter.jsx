@@ -1,46 +1,56 @@
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import {Modal ,Button  } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
+import { supabase } from "./SupaBase";
 
 import AdminLogin from "./pages/AdminLogin";
 import StudentRegistration from "./pages/StudentRegistration";
 import AuthListener from "./functions/AuthListener";
-
-// import AdminDashBoard from "./pages/AdminDashBoard";
 import SelectCourse from "./pages/SelectCourse";
 import CourseOpt from "./pages/CourseOpt";
 import StudentDetails from "./pages/StudentDetails";
 import StudentTable from "./pages/StudentTable";
-// import InsightPage from "./pages/InsightPage";
-import { supabase } from "./SupaBase";
 import EditRegistration from "./pages/EditRegistration";
 import InsightPage2 from "./pages/InsightPage2";
-// import Text from "./pages/Text";
 
 const DiatRouter = () => {
-  // const [timeOut, settimeOut] = useState(null)
-  const [autotimeout, setautotimeout] = useState(false)
-  const [timeoutalert, settimeoutalert] = useState(false) 
-  console.log(autotimeout);
- useEffect(() => {
-   
- 
-  if (autotimeout) {
-    setTimeout(() => {
-      settimeoutalert(true)
-      supabase.auth.signOut()
-      setautotimeout(false)
-    }, 10*60*1000);
-   }
- }, [autotimeout])
- const handleClose=()=>{
-  settimeoutalert(false)
- }
- 
+  const [autotimeout, setautotimeout] = useState(false);
+  const [timeoutalert, settimeoutalert] = useState(false);
+  // console.log(autotimeout);
+
+  useEffect(() => {
+    let timeoutId;
+
+    const handleMouseMove = () => {
+      clearTimeout(timeoutId);
+      if (autotimeout) {
+        settimeoutalert(false); 
+      }
+      setautotimeout(true);
+      timeoutId = setTimeout(() => {
+        settimeoutalert(true);
+        supabase.auth.signOut();
+        setautotimeout(false);
+      }, 5 * 60 * 1000);
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      clearTimeout(timeoutId); 
+      document.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [autotimeout]);
+
+  const handleClose = () => {
+    settimeoutalert(false);
+  };
+  
+
   return (
     <div>
-    {/* <Text/> */}
-       <Modal
+      {/* <Text/> */}
+      <Modal
         show={timeoutalert}
         onHide={handleClose}
         backdrop="static"
@@ -49,15 +59,15 @@ const DiatRouter = () => {
         <Modal.Header closeButton>
           <Modal.Title>Session Time Out</Modal.Title>
         </Modal.Header>
-       
-        <Modal.Footer> 
-         
-          <Button onClick={handleClose} variant="primary">Login Again</Button>
+
+        <Modal.Footer>
+          <Button onClick={handleClose} variant="primary">
+            Login Again
+          </Button>
         </Modal.Footer>
       </Modal>
       <BrowserRouter>
-      
-        <AuthListener/>
+        <AuthListener />
         <Routes>
           <Route
             path="/"
@@ -69,7 +79,8 @@ const DiatRouter = () => {
           />
           <Route
             path="/course"
-            exact element={
+            exact
+            element={
               <>
                 <SelectCourse />
               </>
@@ -80,7 +91,7 @@ const DiatRouter = () => {
             path="/course/:c_id"
             element={
               <>
-                <CourseOpt/>
+                <CourseOpt />
               </>
             }
           />
@@ -89,7 +100,7 @@ const DiatRouter = () => {
             path="/course/:c_id/register"
             element={
               <>
-                <StudentRegistration/>
+                <StudentRegistration />
               </>
             }
           />
@@ -97,7 +108,7 @@ const DiatRouter = () => {
             path="/course/:c_id/list"
             element={
               <>
-                <StudentTable/>
+                <StudentTable />
               </>
             }
           />
@@ -105,7 +116,7 @@ const DiatRouter = () => {
             path="/course/:c_id/student/:s_id"
             element={
               <>
-                <StudentDetails/>
+                <StudentDetails />
               </>
             }
           />
@@ -114,7 +125,7 @@ const DiatRouter = () => {
             element={
               <>
                 {/* <InsightPage/> */}
-                <InsightPage2/>
+                <InsightPage2 />
               </>
             }
           />
@@ -122,7 +133,7 @@ const DiatRouter = () => {
             path="/course/:c_id/student/:s_id/edit"
             element={
               <>
-                <EditRegistration/>
+                <EditRegistration />
               </>
             }
           />

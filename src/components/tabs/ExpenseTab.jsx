@@ -71,7 +71,7 @@ const ExpenseTab = () => {
       <h4 style={{ position: "absolute", left: "30px", marginTop:"10px" ,color:"rgb(200,200,200)" ,textShadow:"1px 2px 5px rgb(210,210,210)"}}>EXPENSE TAB</h4>
 
       <div className="firstexpdiv">
-        <img src={expensesvg} height={350} width={350} alt="" />
+        <img className="mt-2" src={expensesvg} height={350} width={350} alt="" />
         <div className="insightDiv">
           <Form onSubmit={handleSubmit} className="Formdiv">
             <h6>Add Bill</h6>
@@ -80,7 +80,7 @@ const ExpenseTab = () => {
               as={Row}
               controlId="validationCustom01"
             >
-              <p>Amount : </p>
+              <p>Amount </p>
               <Form.Control
                 required
                 type="text"
@@ -100,7 +100,7 @@ const ExpenseTab = () => {
               as={Row}
               controlId="validationCustom01"
             >
-              <p>Description : </p>
+              <p>Description  </p>
               <Form.Control
                 style={{ height: "62px" }}
                 required
@@ -116,7 +116,7 @@ const ExpenseTab = () => {
               as={Row}
               controlId="validationCustom01"
             >
-              <p>Invoice Number : </p>
+              <p>Invoice Number  </p>
               <Form.Control
                 type="text"
                 value={invoiceNo}

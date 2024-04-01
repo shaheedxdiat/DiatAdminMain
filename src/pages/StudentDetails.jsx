@@ -64,7 +64,6 @@ const StudentDetails = () => {
         }
 
         if (data.length > 0) {
-          // console.log("data",data)
           setcoursefee(data[0].fee);
           setcoursename(data[0].course_name);
         }
@@ -138,7 +137,7 @@ const StudentDetails = () => {
   const handleShow_delete = () => setshowDeleteConfirm(true);
 
   const handleDeleteData = async () => {
-    const { data, error } = await supabase
+    const {  error } = await supabase
       .from("students")
       .update({ course_status: 3 })
       .eq("student_id", s_id);
@@ -148,7 +147,7 @@ const StudentDetails = () => {
       return;
     }
     alert("student deleted");
-    console.log(data);
+    
     navigate(-1);
   };
 
@@ -158,7 +157,7 @@ const StudentDetails = () => {
   const handleShow_drop = () => setshowDropConfirm(true);
 
   const handledropout = async () => {
-    const { data, error } = await supabase
+    const {  error } = await supabase
       .from("students")
       .update({ course_status: 2 })
       .eq("student_id", s_id);
@@ -168,7 +167,7 @@ const StudentDetails = () => {
       return;
     }
     alert("student set as droped");
-    console.log(data);
+    
     navigate(0);
   };
 
@@ -178,7 +177,7 @@ const StudentDetails = () => {
   const handleClose_complete = () => setshowCompleteConfirm(false);
   const handleShow_complete = () => setshowCompleteConfirm(true);
   const handeleCourseComplete = async () => {
-    const { data, error } = await supabase
+    const {  error } = await supabase
       .from("students")
       .update({ course_status: 1 })
       .eq("student_id", s_id);
@@ -188,7 +187,7 @@ const StudentDetails = () => {
       return;
     }
     alert("student set as course completed");
-    console.log(data);
+   
     navigate(0);
   };
 
@@ -602,6 +601,7 @@ const StudentDetails = () => {
             )}
           </div>
           <PaymentLog student_id={s_id} />
+          
         </div>
       </div>
 

@@ -22,6 +22,7 @@
     width: 100%;
     /* justify-content: space-around; */
     gap: 10px;
+    
 }
 .Formdiv{
     display: flex;
@@ -30,8 +31,10 @@
     gap: 20px;
 }
 .inputandlable p{
-    width: 200px;
+  padding-right: 20px;
     text-align: left;
+    min-width: 100px;
+    /* background-color: red; */
 }
 .tablediv{
     background-color: rgba(162, 219, 161, 0.251);
@@ -50,7 +53,7 @@
     margin-top: -80px;
 }
 
-@media screen and (max-width:600px) {
+@media screen and (max-width:850px) {
     .firstexpdiv{
       
         flex-direction: column;
@@ -67,5 +70,10 @@
         /* background-color: rgba(162, 219, 161, 0.251); */
         width: "20px";
         overflow: scroll;
+    }
+}
+@media screen and (max-width:1000px) {
+    .optionradiogroup{
+        flex-direction: column;
     }
 }

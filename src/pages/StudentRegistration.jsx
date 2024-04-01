@@ -49,7 +49,6 @@ const StudentRegistration = () => {
   const [coursefee, setcoursefee] = useState();
   const [class_start, setclass_start] = useState("");
   const admission_date = new Date();
- 
 
   useEffect(() => {
     setfeedue(coursefee - discount);
@@ -166,7 +165,9 @@ const StudentRegistration = () => {
     }
 
     if (data) {
-      navigate(`/course/${course.c_id}/student/${GenaratedID}` ,{ replace: true });
+      navigate(`/course/${course.c_id}/student/${GenaratedID}`, {
+        replace: true,
+      });
     }
   };
 
@@ -291,17 +292,7 @@ const StudentRegistration = () => {
                   />
                   <Form.Label style={{ marginTop: "" }}>Male</Form.Label>{" "}
                 </div>
-                {/* <div className="d-flex  gap-2 ">
-      <Form.Check
-        type="radio"
-        onChange={() => setgender("female")}
-        className=""
-        aria-label="radio 1"
-        name="gender"
-        value="Other"
-      />{" "}
-      <Form.Label style={{ marginTop: "" }}>Other</Form.Label>{" "}
-    </div> */}
+
                 <div className="d-flex  gap-2">
                   <Form.Check
                     type="radio"
@@ -645,7 +636,6 @@ const StudentRegistration = () => {
                     setdiscount(value);
                   } else {
                     setdiscount("");
-                  
                   }
                 }}
               />

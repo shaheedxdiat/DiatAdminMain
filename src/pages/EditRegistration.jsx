@@ -11,7 +11,7 @@ import NavBar from "../components/NavBar";
 import AdminTitle from "../components/AdminTitle";
 const EditRegistration = () => {
   const [Details, setDetails] = useState([]);
-  console.log(Details);
+  
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -24,12 +24,10 @@ const EditRegistration = () => {
 
   const navigate = useNavigate();
   const params = useParams();
-  console.log("params", params);
 
   const stateNames = states.states.map((stateObj) => stateObj.state);
 
   const [name, setName] = useState("");
-  console.log("name",name)
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
   const [adhar, setadhar] = useState("");
@@ -173,7 +171,6 @@ const EditRegistration = () => {
       return;
     }
     if (data) {
-      console.log("editedData",data)
       navigate(`/course/${params.c_id}/student/${ID}`, { replace: true });
     }
   };

@@ -21,7 +21,7 @@ const AdminLogin = ({setautotimeout}) => {
       console.log("error:", error);
       return;
     } 
-    console.log("admin@context", data.user.email);
+  
     localStorage.setItem("admin", data.user.email);
   };
 

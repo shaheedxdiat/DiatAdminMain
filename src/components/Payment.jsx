@@ -90,7 +90,7 @@ const Payment = ({ student_id, due, setreloader }) => {
     setreloader(true);
     handleClose();
     if (due - amount === 0) {
-      const { data, error } = await supabase
+      const {  error } = await supabase
         .from("students")
         .update({ payment_completed: true })
         .eq("student_id", student_id)
@@ -99,7 +99,7 @@ const Payment = ({ student_id, due, setreloader }) => {
       if (error) {
         console.log(error);
       }
-      console.log(data[0]);
+   
       alert("Payment_completed");
     }
     return;
@@ -195,6 +195,13 @@ const Payment = ({ student_id, due, setreloader }) => {
                 onChange={(e) => {
                   setpasscode(e.target.value);
                 }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    // Trigger your action here
+                    // For example, you might want to submit the form or validate the passcode
+                    // In this case, I'm just logging a message to the console
+                    verifypasscode()
+                  }}}
                 placeholder="Enter the passcode for verification"
                 type="password"
               />

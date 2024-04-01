@@ -12,6 +12,7 @@ const IncomeTab = () => {
   const [data, setData] = useState([]);
   const [income, setincome] = useState(0);
   const [count1, setcount1] = useState(0);
+  const [showcustom, setshowcustom] = useState(false) 
 
 
   const fetchIncome = async () => {
@@ -26,11 +27,9 @@ const IncomeTab = () => {
       }
       return;
     }
-    console.log("income data from api",data) 
     setData(data);
 
     const totalAmount = data.reduce((acc, curr) => acc + curr.amount, 0);
-    console.log("totalAmount-income",totalAmount);
     setincome(totalAmount);
    
   };
@@ -70,16 +69,16 @@ const IncomeTab = () => {
       <h4 style={{ position: "absolute", left: "30px", marginTop:"10px" ,color:"rgb(200,200,200)" ,textShadow:"1px 2px 5px rgb(210,210,210)"}}>INCOME TAB</h4>
 
       <div className="firstexpdiv">
-        <img src={expensesvg} height={350} width={350} alt="" />
+        <img className="mt-2"   src={expensesvg} height={350} width={350} alt="" />
         <div className="insightDiv">
           <Form onSubmit={handleSubmit} className="Formdiv">
-            <h6>Add Bill</h6>
+            <h6>Add Income</h6>
             <div
               className="inputandlable"
               as={Row}
               controlId="validationCustom01"
             >
-              <p>Amount : </p>
+              <p>Amount </p>
               <Form.Control
                 required
                 type="text"
@@ -99,9 +98,60 @@ const IncomeTab = () => {
               as={Row}
               controlId="validationCustom01"
             >
-              <p>Description : </p>
+              <p>Description</p>
+              <div>
+              <div className=" d-flex   gap-4 optionradiogroup">
+                <div className="d-flex gap-2">
+                  <Form.Check
+                    type="radio"
+                    onChange={() => {setDescription("option 1");setshowcustom(false)}}
+                    className=""
+                    aria-label="radio 1"
+                    name="description"
+                    value="option 1"
+                  />
+                  <Form.Label style={{ marginTop: "" }}>option 1</Form.Label>{" "}
+                </div>
+
+                <div className="d-flex  gap-2">
+                  <Form.Check
+                    type="radio"
+                    onChange={() => {setDescription("option 2");setshowcustom(false)}}
+                    className=""
+                    aria-label="radio 1"
+                    name="description"
+                    value="option 2"
+                  />{" "}
+                  <Form.Label style={{ marginTop: "" }}>option 2</Form.Label>{" "}
+                </div>
+                <div className="d-flex  gap-2">
+                  <Form.Check
+                    type="radio"
+                    onChange={() => {setDescription("option 3");setshowcustom(false)}}
+                    className=""
+                    aria-label="radio 1"
+                    name="description"
+                    value="option 3"
+                  />{" "}
+                  <Form.Label style={{ marginTop: "" }}>option 3</Form.Label>{" "}
+                </div>
+                <div className="d-flex  gap-2">
+                  <Form.Check
+                    type="radio"
+                    
+                    onChange={() =>{ setDescription("");setshowcustom(true)}}
+                    className=""
+                    aria-label="radio 1"
+                    name="description"
+                    value="other"
+                  />{" "}
+                  <Form.Label style={{ marginTop: "" }}>other</Form.Label>{" "}
+                </div>
+              </div>
+              
               <Form.Control
-                style={{ height: "62px" }}
+              disabled={!showcustom}
+                className="mt-3"
                 required
                 type="text"
                 value={description}
@@ -109,6 +159,9 @@ const IncomeTab = () => {
                   setDescription(e.target.value);
                 }}
               />
+              </div>
+          
+
             </div>
             
             <Button variant="success" type="submit">Add Bill</Button>
