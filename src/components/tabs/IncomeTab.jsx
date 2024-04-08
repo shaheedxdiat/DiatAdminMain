@@ -12,7 +12,6 @@ const IncomeTab = () => {
   const [income, setincome] = useState(0);
   const [count1, setcount1] = useState(0);
 
-
   const fetchIncome = async () => {
     const { data, error } = await supabase
       .from("other_income")
@@ -20,8 +19,8 @@ const IncomeTab = () => {
     setcount1(count1 + 1);
     if (error) {
       console.log("error in fetching income", error);
-      if (error.code==="") {
-        alert("Check your internet Connection")
+      if (error.code === "") {
+        alert("Check your internet Connection");
       }
       return;
     }
@@ -29,13 +28,9 @@ const IncomeTab = () => {
 
     const totalAmount = data.reduce((acc, curr) => acc + curr.amount, 0);
     setincome(totalAmount);
-   
   };
-  if (data.length === 0&&count1<5) {
-
-  
-   fetchIncome();
-  
+  if (data.length === 0 && count1 < 5) {
+    fetchIncome();
   }
 
   const handleSubmit = async (e) => {
@@ -53,7 +48,6 @@ const IncomeTab = () => {
       fetchIncome();
       setAmount("");
       setDescription("");
-    
 
       if (error) {
         alert("Error in adding expense");
@@ -64,10 +58,26 @@ const IncomeTab = () => {
 
   return (
     <div>
-      <h4 style={{ position: "absolute", left: "30px", marginTop:"10px" ,color:"rgb(200,200,200)" ,textShadow:"1px 2px 5px rgb(210,210,210)"}}>INCOME TAB</h4>
+      <h4
+        style={{
+          position: "absolute",
+          left: "30px",
+          marginTop: "10px",
+          color: "rgb(200,200,200)",
+          textShadow: "1px 2px 5px rgb(210,210,210)",
+        }}
+      >
+        INCOME TAB
+      </h4>
 
       <div className="firstexpdiv">
-        <img className="mt-2"   src={expensesvg} height={350} width={350} alt="" />
+        <img
+          className="mt-2"
+          src={expensesvg}
+          height={350}
+          width={350}
+          alt=""
+        />
         <div className="insightDiv">
           <Form onSubmit={handleSubmit} className="Formdiv">
             <h6>Add Income</h6>
@@ -97,10 +107,8 @@ const IncomeTab = () => {
               controlId="validationCustom01"
             >
               <p>Description</p>
-             
-              
+
               <Form.Control
-            
                 required
                 type="text"
                 value={description}
@@ -108,12 +116,11 @@ const IncomeTab = () => {
                   setDescription(e.target.value);
                 }}
               />
-         
-          
-
             </div>
-            
-            <Button variant="success" type="submit">Enter</Button>
+
+            <Button variant="success" type="submit">
+              Enter
+            </Button>
           </Form>
         </div>
       </div>
@@ -123,7 +130,14 @@ const IncomeTab = () => {
 
       <div className="secexpdiv">
         <div>
-          <LogTable data={data} total={income} theme={"success"} heading={"INCOME_LOG"} title={"INCOME_LOG"} color={"green"} />
+          <LogTable
+            data={data}
+            total={income}
+            theme={"success"}
+            heading={"INCOME_LOG"}
+            title={"INCOME_LOG"}
+            color={"green"}
+          />
         </div>
       </div>
     </div>

@@ -14,17 +14,16 @@ const ExpenseTab = () => {
   const [expense, setexpense] = useState(0);
   const [count1, setcount1] = useState(0);
 
-
   const fetchexpense = async () => {
     const { data, error } = await supabase
       .from("expense_chart")
       .select("amount,date,description,invoice_number,cashier");
     setcount1(count1 + 1);
-   
+
     if (error) {
       console.log("expense fetch error", error);
-      if (error.code==="") {
-        alert("Check your internet Connection")
+      if (error.code === "") {
+        alert("Check your internet Connection");
       }
       return;
     }
@@ -33,10 +32,10 @@ const ExpenseTab = () => {
     const totalAmount = data.reduce((acc, curr) => acc + curr.amount, 0);
     setexpense(totalAmount);
   };
-  if (data.length === 0&&count1<10) {
-    if (count1>=10) {
-      alert("check connection")
-      return
+  if (data.length === 0 && count1 < 10) {
+    if (count1 >= 10) {
+      alert("check connection");
+      return;
     }
     fetchexpense();
   }
@@ -65,13 +64,29 @@ const ExpenseTab = () => {
       }
     }
   };
- 
+
   return (
     <div>
-      <h4 style={{ position: "absolute", left: "30px", marginTop:"10px" ,color:"rgb(200,200,200)" ,textShadow:"1px 2px 5px rgb(210,210,210)"}}>EXPENSE TAB</h4>
+      <h4
+        style={{
+          position: "absolute",
+          left: "30px",
+          marginTop: "10px",
+          color: "rgb(200,200,200)",
+          textShadow: "1px 2px 5px rgb(210,210,210)",
+        }}
+      >
+        EXPENSE TAB
+      </h4>
 
       <div className="firstexpdiv">
-        <img className="mt-2" src={expensesvg} height={350} width={350} alt="" />
+        <img
+          className="mt-2"
+          src={expensesvg}
+          height={350}
+          width={350}
+          alt=""
+        />
         <div className="insightDiv">
           <Form onSubmit={handleSubmit} className="Formdiv">
             <h6>Add Bill</h6>
@@ -100,23 +115,23 @@ const ExpenseTab = () => {
               as={Row}
               controlId="validationCustom01"
             >
-              <p>Description  </p>
-              <Form.Select 
-              required
-              onChange={(e)=>setDescription(e.target.value)}
+              <p>Description </p>
+              <Form.Select
+                required
+                onChange={(e) => setDescription(e.target.value)}
               >
                 {/* <option >Select</option> */}
                 <option value="Electricity Bill">Electricity Bill</option>
                 <option value="Internet Bill">Internet Bill</option>
                 <option value="Room rent">Room rent</option>
                 <option value="Salary">Salary</option>
-                <option value="Class room maintenance">Class room maintenance</option>
+                <option value="Class room maintenance">
+                  Class room maintenance
+                </option>
                 <option value="Travel expense">Travel expense</option>
                 <option value="Purchase">Purchase</option>
               </Form.Select>
               <Form.Control
-                // style={{ height: "62px" }}
-
                 required
                 type="text"
                 value={description}
@@ -130,7 +145,7 @@ const ExpenseTab = () => {
               as={Row}
               controlId="validationCustom01"
             >
-              <p>Invoice No  </p>
+              <p>Invoice No </p>
               <Form.Control
                 type="text"
                 value={invoiceNo}
@@ -139,7 +154,9 @@ const ExpenseTab = () => {
                 }}
               />
             </div>
-            <Button variant="danger" type="submit">Add Bill</Button>
+            <Button variant="danger" type="submit">
+              Add Bill
+            </Button>
           </Form>
         </div>
       </div>
@@ -149,7 +166,13 @@ const ExpenseTab = () => {
 
       <div className="secexpdiv">
         <div>
-          <LogTable data={data} total={expense} theme={""} title={"EXPENSE_LOG"} color={"red"}/>
+          <LogTable
+            data={data}
+            total={expense}
+            theme={""}
+            title={"EXPENSE_LOG"}
+            color={"red"}
+          />
         </div>
       </div>
     </div>
