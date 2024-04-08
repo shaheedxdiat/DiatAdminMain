@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Form, Row, Button } from "react-bootstrap";
 import { supabase } from "../../SupaBase";
-// import { Table } from "react-bootstrap";
 
 import expensesvg from "../../assests/images/income.svg";
 import LogTable from "./LogTable";
@@ -12,7 +11,6 @@ const IncomeTab = () => {
   const [data, setData] = useState([]);
   const [income, setincome] = useState(0);
   const [count1, setcount1] = useState(0);
-  const [showcustom, setshowcustom] = useState(false) 
 
 
   const fetchIncome = async () => {
@@ -99,59 +97,10 @@ const IncomeTab = () => {
               controlId="validationCustom01"
             >
               <p>Description</p>
-              <div>
-              <div className=" d-flex   gap-4 optionradiogroup">
-                <div className="d-flex gap-2">
-                  <Form.Check
-                    type="radio"
-                    onChange={() => {setDescription("option 1");setshowcustom(false)}}
-                    className=""
-                    aria-label="radio 1"
-                    name="description"
-                    value="option 1"
-                  />
-                  <Form.Label style={{ marginTop: "" }}>option 1</Form.Label>{" "}
-                </div>
-
-                <div className="d-flex  gap-2">
-                  <Form.Check
-                    type="radio"
-                    onChange={() => {setDescription("option 2");setshowcustom(false)}}
-                    className=""
-                    aria-label="radio 1"
-                    name="description"
-                    value="option 2"
-                  />{" "}
-                  <Form.Label style={{ marginTop: "" }}>option 2</Form.Label>{" "}
-                </div>
-                <div className="d-flex  gap-2">
-                  <Form.Check
-                    type="radio"
-                    onChange={() => {setDescription("option 3");setshowcustom(false)}}
-                    className=""
-                    aria-label="radio 1"
-                    name="description"
-                    value="option 3"
-                  />{" "}
-                  <Form.Label style={{ marginTop: "" }}>option 3</Form.Label>{" "}
-                </div>
-                <div className="d-flex  gap-2">
-                  <Form.Check
-                    type="radio"
-                    
-                    onChange={() =>{ setDescription("");setshowcustom(true)}}
-                    className=""
-                    aria-label="radio 1"
-                    name="description"
-                    value="other"
-                  />{" "}
-                  <Form.Label style={{ marginTop: "" }}>other</Form.Label>{" "}
-                </div>
-              </div>
+             
               
               <Form.Control
-              disabled={!showcustom}
-                className="mt-3"
+            
                 required
                 type="text"
                 value={description}
@@ -159,12 +108,12 @@ const IncomeTab = () => {
                   setDescription(e.target.value);
                 }}
               />
-              </div>
+         
           
 
             </div>
             
-            <Button variant="success" type="submit">Add Bill</Button>
+            <Button variant="success" type="submit">Enter</Button>
           </Form>
         </div>
       </div>

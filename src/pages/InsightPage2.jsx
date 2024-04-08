@@ -10,7 +10,7 @@ import ExpenseTab from "../components/tabs/ExpenseTab";
 import IncomeTab from "../components/tabs/IncomeTab";
 
 const InsightPage2 = () => {
-  const [activeTab, setActiveTab] = useState("income");
+  const [activeTab, setActiveTab] = useState("expense");
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -23,19 +23,19 @@ const InsightPage2 = () => {
       <ul className="nav nav-tabs">
       <li className="nav-item">
           <button
-            className={`nav-link  ${activeTab === "income" ? "active" : ""} ` }
-            onClick={() => handleTabChange("income")}
+            className={`nav-link  ${activeTab === "expense" ? "active" : ""} ` }
+            onClick={() => handleTabChange("expense")}
           >
-            Income
+            Expense
           </button>
         </li>
         <li className="nav-item">
           <button
           
-            className={`nav-link ${activeTab === "expense" ? "active" : ""}`}
-            onClick={() => handleTabChange("expense")}
+            className={`nav-link ${activeTab === "income" ? "active" : ""}`}
+            onClick={() => handleTabChange("income")}
           >
-            Expense
+            Income
           </button>
         </li>
       

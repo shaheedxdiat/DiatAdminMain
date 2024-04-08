@@ -101,8 +101,22 @@ const ExpenseTab = () => {
               controlId="validationCustom01"
             >
               <p>Description  </p>
+              <Form.Select 
+              required
+              onChange={(e)=>setDescription(e.target.value)}
+              >
+                {/* <option >Select</option> */}
+                <option value="Electricity Bill">Electricity Bill</option>
+                <option value="Internet Bill">Internet Bill</option>
+                <option value="Room rent">Room rent</option>
+                <option value="Salary">Salary</option>
+                <option value="Class room maintenance">Class room maintenance</option>
+                <option value="Travel expense">Travel expense</option>
+                <option value="Purchase">Purchase</option>
+              </Form.Select>
               <Form.Control
-                style={{ height: "62px" }}
+                // style={{ height: "62px" }}
+
                 required
                 type="text"
                 value={description}
@@ -116,7 +130,7 @@ const ExpenseTab = () => {
               as={Row}
               controlId="validationCustom01"
             >
-              <p>Invoice Number  </p>
+              <p>Invoice No  </p>
               <Form.Control
                 type="text"
                 value={invoiceNo}
