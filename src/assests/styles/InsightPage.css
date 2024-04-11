@@ -49,9 +49,11 @@
 .tablediv div{
     gap: 20px;
 }
+
 .firstexpdiv img{
     margin-top: -80px;
 }
+
 
 @media screen and (max-width:850px) {
     .firstexpdiv{
@@ -72,6 +74,7 @@
         overflow: scroll;
     }
 }
+
 @media screen and (max-width:1000px) {
     .optionradiogroup{
         flex-direction: column;
