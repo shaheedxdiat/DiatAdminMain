@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import StatementGenerator from "../../functions/StatementGenarator";
+import Loader from "../Loader";
 
 const LogTable = ({ data ,theme,title}) => {
   const [columns, setColumns] = useState([]);
@@ -14,14 +15,16 @@ const LogTable = ({ data ,theme,title}) => {
   }, [data]);
 
   return (
+
     <div className="tablediv">
+      
       <div className="w-100 d-flex g-5">
         {/* <div className="d-flex">
           <p className="danger" style={{ color:color}}>{heading} </p>
           <p style={{ color: color }}>{total}</p>
         </div> */}
       </div>
-      <Table striped bordered hover variant={theme}>
+      {data.length===0?<><Loader/></>:<Table striped bordered hover variant={theme}>
         <thead>
          
           <tr>
@@ -42,6 +45,8 @@ const LogTable = ({ data ,theme,title}) => {
           ))}
         </tbody>
       </Table>
+      
+      }
       
       <StatementGenerator  logs={data} heading={title}/>
     </div>

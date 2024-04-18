@@ -1,7 +1,7 @@
 .progress-loader {
   top: 50%;
   left: 50%;
-  position: absolute;
+  position: relative;
   transform: translate(-50%, -50%);
   width: 150px;
     background: rgb(210, 210, 210);
