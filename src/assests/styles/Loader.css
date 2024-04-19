@@ -4,7 +4,7 @@
   position: relative;
   transform: translate(-50%, -50%);
   width: 150px;
-    background: rgb(210, 210, 210);
+  background: rgb(210, 210, 210);
   height: 5px;
   border-radius: 7px;
   margin: 10px;
@@ -17,7 +17,7 @@
   background: rgba(180, 180, 180);
 
   transition: 0.5s;
-  animation: loading_44 3s cubic-bezier(.4,1.01,1,1) infinite;
+  animation: loading_44 3s cubic-bezier(0.4, 1.01, 1, 1) infinite;
 }
 
 @keyframes loading_44 {
