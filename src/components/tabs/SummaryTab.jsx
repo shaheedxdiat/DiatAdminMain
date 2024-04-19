@@ -28,7 +28,7 @@ const SummaryTab = () => {
       getTotal("payment_log", "amount").then((total) => settotalFee(total));
 
     }
-  }, []);
+  }, [totalExpense,totalIncome]);
 
   return (
     <div>
