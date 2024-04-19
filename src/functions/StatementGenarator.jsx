@@ -62,7 +62,7 @@ const StatementGenarator = ({ logs, heading, id, title }) => {
 
   return (
     <div>
-      <button
+      {logs&&<button
         style={{
           border: "none",
           padding: "5px 15px",
@@ -73,7 +73,7 @@ const StatementGenarator = ({ logs, heading, id, title }) => {
         onClick={handleClick}
       >
         Save <img src={pdficon} alt="" height={20} />
-      </button>
+      </button>}
     </div>
   );
 };

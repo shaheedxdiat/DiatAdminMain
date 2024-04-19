@@ -17,7 +17,7 @@
   background: rgba(180, 180, 180);
 
   transition: 0.5s;
-  animation: loading_44 3s cubic-bezier(0.4, 1.01, 1, 1) infinite;
+  animation: loading_44 2.5s cubic-bezier(0.4, 1.01, 1, 1) infinite;
 }
 
 @keyframes loading_44 {

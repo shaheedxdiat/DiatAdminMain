@@ -48,7 +48,7 @@ const LogTable = ({ data ,theme,title}) => {
       
       }
       
-      <StatementGenerator  logs={data} heading={title}/>
+     {data.length===0?<></>: <StatementGenerator  logs={data} heading={title}/>}
     </div>
   ); 
 };
