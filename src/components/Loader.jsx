@@ -5,7 +5,7 @@ const Loader = () => {
   return (
     <div>
       <div class="progress-loader">
-        
+
         <div class="progress"></div>
       </div>
     </div>
@@ -13,3 +13,4 @@ const Loader = () => {
 };
 
 export default Loader;
+  
