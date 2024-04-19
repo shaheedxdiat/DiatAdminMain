@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Row, Button } from "react-bootstrap";
 import { supabase } from "../../SupaBase";
-// import { Table } from "react-bootstrap";
 
 import expensesvg from "../../assests/images/expense.svg";
 import LogTable from "./LogTable";
@@ -12,33 +11,25 @@ const ExpenseTab = () => {
   const [invoiceNo, setInvoiceNo] = useState("");
   const [data, setData] = useState([]);
   const [expense, setexpense] = useState(0);
-  const [count1, setcount1] = useState(0);
 
   const fetchexpense = async () => {
+    console.log("fetching expense");
     const { data, error } = await supabase
       .from("expense_chart")
       .select("amount,date,description,invoice_number,cashier");
-    setcount1(count1 + 1);
 
     if (error) {
       console.log("expense fetch error", error);
-      if (error.code === "") {
-        alert("Check your internet Connection");
-      }
       return;
     }
     setData(data);
-
     const totalAmount = data.reduce((acc, curr) => acc + curr.amount, 0);
     setexpense(totalAmount);
   };
-  if (data.length === 0 && count1 < 10) {
-    if (count1 >= 10) {
-      alert("check connection");
-      return;
-    }
+
+  useEffect(() => {
     fetchexpense();
-  }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -120,7 +111,7 @@ const ExpenseTab = () => {
                 required
                 onChange={(e) => setDescription(e.target.value)}
               >
-                {/* <option >Select</option> */}
+                <option>Select</option>
                 <option value="Electricity Bill">Electricity Bill</option>
                 <option value="Internet Bill">Internet Bill</option>
                 <option value="Room rent">Room rent</option>

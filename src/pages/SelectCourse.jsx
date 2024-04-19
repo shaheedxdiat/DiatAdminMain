@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "../SupaBase";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import { Form,  Row, Col,  Button,Modal } from "react-bootstrap";
+import { Form, Row, Col, Button, Modal } from "react-bootstrap";
 import lxlogo from "../assests/images/DIAT_20240307_213038-removebg-preview.png";
 import AdminTitle from "../components/AdminTitle";
-
 
 const SelectCourse = () => {
   const [course, setcourse] = useState([]);
@@ -18,9 +17,9 @@ const SelectCourse = () => {
       let { data: courses, error } = await supabase.from("courses").select("*");
       if (error) {
         console.log(error);
-        if (error.code==="") {
-          alert("Check your internet Connection")
-        }
+        // if (error.code==="") {
+        //   alert("Check your internet Connection")
+        // }
         return;
       }
       setcourse(courses);
@@ -30,7 +29,7 @@ const SelectCourse = () => {
   }, []);
 
   const handleNextClick = () => {
-    if (selectedCourse === ""||selectedCourse==="Select a Course") {
+    if (selectedCourse === "" || selectedCourse === "Select a Course") {
       setShowWarning(true);
     } else {
       setShowWarning(false);
@@ -38,63 +37,55 @@ const SelectCourse = () => {
     }
   };
 
-  
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  
-    useEffect(() => {
-      supabase.auth.getSession().then(({ data: { session } }) => {
-       
-      })
 
-      const {
-        data: { subscription },
-      } = supabase.auth.onAuthStateChange((_event, session) => {
-      })
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {});
 
-      return () => subscription.unsubscribe()
-    }, [])
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {});
 
-    const handleAdminClick=()=>{
-      navigate("/insight")
-    }
+    return () => subscription.unsubscribe();
+  }, []);
 
+  const handleAdminClick = () => {
+    navigate("/insight");
+  };
 
   return (
-    <div style={{height:"100vh",width:"100%",overflow:"hidden" }}>
+    <div style={{ height: "100vh", width: "100%", overflow: "hidden" }}>
       <div className="nav_container">
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Login Out</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Confirm Logout</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button
+              variant="danger"
+              onClick={() => {
+                supabase.auth.signOut();
+                localStorage.removeItem("admin");
+              }}
+            >
+              Logout
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        <div style={{ width: "100px" }}></div>
 
-<Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Login Out</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo,Confirm Logout</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="danger" onClick={()=>{
-            supabase.auth.signOut();
-            localStorage.removeItem("admin")
-
-          }}>
-            Logout
-          </Button>
-        </Modal.Footer>
-      </Modal>
-      <div style={{width:"100px"}}></div>
-         
-     
-      <Button variant="danger"
-   
-        onClick={handleShow}
-      >
-        Logout
-      </Button>
-    </div>
-    <AdminTitle/>
+        <Button variant="danger" onClick={handleShow}>
+          Logout
+        </Button>
+      </div>
+      <AdminTitle />
       <Row
         style={{
           borderRadius: "15px",
@@ -108,7 +99,7 @@ const SelectCourse = () => {
           md={4}
           xs={6}
           style={{
-            display: "flex", 
+            display: "flex",
             justifyContent: "center",
             alignItems: "center",
           }}
@@ -119,7 +110,7 @@ const SelectCourse = () => {
           <Form.Select
             onChange={(e) => {
               setselectedCourse(e.target.value);
-              setShowWarning(false); 
+              setShowWarning(false);
             }}
             aria-label="Default select example"
             style={{ maxWidth: "300px" }}
@@ -151,11 +142,22 @@ const SelectCourse = () => {
               <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
             </svg>
           </Button>
-          <Button variant="secondary" style={{position:"fixed", bottom:"40px" ,left:"40px" ,fontSize:"18px"}} onClick={handleAdminClick}>Admin</Button>
+          <Button
+            variant="secondary"
+            style={{
+              position: "fixed",
+              bottom: "40px",
+              left: "40px",
+              fontSize: "18px",
+            }}
+            onClick={handleAdminClick}
+          >
+            Admin
+          </Button>
         </Col>
       </Row>
     </div>
-  ); 
+  );
 };
 
 export default SelectCourse;

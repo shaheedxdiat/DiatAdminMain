@@ -38,7 +38,7 @@ const NavBar = () => {
         <Modal.Header closeButton>
           <Modal.Title>Login Out</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo,Confirm Logout</Modal.Body>
+        <Modal.Body>Confirm Logout</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close

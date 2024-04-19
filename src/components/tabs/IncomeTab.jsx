@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Row, Button } from "react-bootstrap";
 import { supabase } from "../../SupaBase";
 
@@ -10,18 +10,14 @@ const IncomeTab = () => {
   const [description, setDescription] = useState("");
   const [data, setData] = useState([]);
   const [income, setincome] = useState(0);
-  const [count1, setcount1] = useState(0);
 
   const fetchIncome = async () => {
     const { data, error } = await supabase
       .from("other_income")
       .select("amount,date,description,cashier");
-    setcount1(count1 + 1);
+
     if (error) {
       console.log("error in fetching income", error);
-      if (error.code === "") {
-        alert("Check your internet Connection");
-      }
       return;
     }
     setData(data);
@@ -29,9 +25,10 @@ const IncomeTab = () => {
     const totalAmount = data.reduce((acc, curr) => acc + curr.amount, 0);
     setincome(totalAmount);
   };
-  if (data.length === 0 && count1 < 5) {
+
+  useEffect(() => {
     fetchIncome();
-  }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
