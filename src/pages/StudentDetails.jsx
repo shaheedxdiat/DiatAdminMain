@@ -51,30 +51,6 @@ const StudentDetails = () => {
   const [confirmID, setconfirmID] = useState("");
 
   useEffect(() => {
-    const getFee = async () => {
-      try {
-        const { data, error } = await supabase
-          .from("courses")
-          .select("fee,course_name")
-          .eq("courses_id", c_id);
-
-        if (error) {
-          console.error("Error fetching course fee:", error.message);
-          return;
-        }
-
-        if (data.length > 0) {
-          setcoursefee(data[0].fee);
-          setcoursename(data[0].course_name);
-        }
-      } catch (error) {
-        console.error("Error fetching course fee:", error.message);
-      }
-    };
-    getFee();
-  }, [c_id]);
-
-  useEffect(() => {
     const getStudent = async () => {
       const { data, error } = await supabase
         .from("students")
@@ -86,7 +62,8 @@ const StudentDetails = () => {
       if (data.length === 0) {
         console.log(error);
         alert("Invalid Student ID");
-        navigate(`/course/${c_id}`);
+        navigate(`/course/${c_id}`,{replace:true});
+
       } else {
         setreloader(false);
 
@@ -126,6 +103,32 @@ const StudentDetails = () => {
     };
     getStudent();
   }, [s_id, c_id, navigate, reloader]);
+
+  
+  useEffect(() => {
+    const getFee = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("courses")
+          .select("fee,course_name")
+          .eq("courses_id", c_id);
+
+        if (error) {
+          console.error("Error fetching course fee:", error.message);
+          return;
+        }
+
+        if (data.length > 0) {
+          setcoursefee(data[0].fee);
+          setcoursename(data[0].course_name);
+        }
+      } catch (error) {
+        console.error("Error fetching course fee:", error.message);
+      }
+    };
+    getFee();
+  }, [c_id]);
+
   const downloadPDF = () => {
     generatePDF(s_id);
   };
