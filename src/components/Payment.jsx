@@ -9,8 +9,8 @@ const Payment = ({ student_id, due, setreloader }) => {
   const [remark, setremark] = useState("Fee Installment");
   const [showConfirm, setshowConfirm] = useState(false);
   const [unvalid, setunvalid] = useState(false);
-  const [passcode, setpasscode] = useState("")
- 
+  const [passcode, setpasscode] = useState("");
+
   useEffect(() => {
     const getAdmin = async () => {
       const { data, error } = await supabase.auth.getUser();
@@ -24,25 +24,21 @@ const Payment = ({ student_id, due, setreloader }) => {
 
   // ----------------------------------------------------------
 
-
-  const verifypasscode=()=>{
-      if (passcode===process.env.REACT_APP_PASS_CODE) {
-        handlePayment()
-      }
-      else{
-        setunvalid(true);
-        setTimeout(() => {
-          setshowConfirm(false);
-          setShow(false);
-          setunvalid(false);
-          setamount(null)
-          setpasscode("")
-          alert("payment canceled")
-        }, 1000);
-      }
-  }
-
-
+  const verifypasscode = () => {
+    if (passcode === process.env.REACT_APP_PASS_CODE) {
+      handlePayment();
+    } else {
+      setunvalid(true);
+      setTimeout(() => {
+        setshowConfirm(false);
+        setShow(false);
+        setunvalid(false);
+        setamount(null);
+        setpasscode("");
+        alert("payment canceled");
+      }, 1000);
+    }
+  };
 
   const handlePayment = async () => {
     if (!amount || amount > due) {
@@ -52,8 +48,7 @@ const Payment = ({ student_id, due, setreloader }) => {
         setshowConfirm(false);
         setShow(false);
         setunvalid(false);
-        setamount(null)
-
+        setamount(null);
       }, 1000);
 
       return;
@@ -69,13 +64,12 @@ const Payment = ({ student_id, due, setreloader }) => {
         },
       ])
       .select("*");
-      setamount(null)
+    setamount(null);
 
     if (error) {
       console.log("error in adding payment", error);
       return;
     }
-
 
     const { data: student_data, error: error1 } = await supabase
       .from("students")
@@ -90,7 +84,7 @@ const Payment = ({ student_id, due, setreloader }) => {
     setreloader(true);
     handleClose();
     if (due - amount === 0) {
-      const {  error } = await supabase
+      const { error } = await supabase
         .from("students")
         .update({ payment_completed: true })
         .eq("student_id", student_id)
@@ -99,7 +93,7 @@ const Payment = ({ student_id, due, setreloader }) => {
       if (error) {
         console.log(error);
       }
-   
+
       alert("Payment_completed");
     }
     return;
@@ -113,8 +107,8 @@ const Payment = ({ student_id, due, setreloader }) => {
   // ----------------------------------------------------------
   const [show, setShow] = useState(false);
   const handleClose = () => {
-    setamount(null)
-    setpasscode(null)
+    setamount(null);
+    setpasscode(null);
     setShow(false);
     setshowConfirm(false);
   };
@@ -124,7 +118,6 @@ const Payment = ({ student_id, due, setreloader }) => {
       <Button variant="success" onClick={handleShow}>
         Payment
       </Button>
-      
 
       <Modal
         style={{ marginTop: "150px" }}
@@ -133,8 +126,6 @@ const Payment = ({ student_id, due, setreloader }) => {
         backdrop="static"
         keyboard={false}
       >
-
-        
         <Modal.Header>
           <Modal.Title style={{ color: "green" }}>
             Fee Payment{" "}
@@ -161,10 +152,10 @@ const Payment = ({ student_id, due, setreloader }) => {
               <Form.Control
                 style={{ color: "orangered", fontSize: "20px" }}
                 required
-                value={amount} 
+                value={amount}
                 onChange={(e) => {
                   let value = e.target.value;
-                  if (value < due+1 && value.match(/^\d+$/)) {
+                  if (value < due + 1 && value.match(/^\d+$/)) {
                     setamount(value);
                   } else {
                     setamount("");
@@ -174,7 +165,7 @@ const Payment = ({ student_id, due, setreloader }) => {
                 placeholder="₹ "
               />
             </div>
-           
+
             <div style={{ display: "flex", gap: "31px", marginTop: "10px" }}>
               <Form.Label style={{ marginTop: "10px" }}>Remark</Form.Label>
               <Form.Control
@@ -182,30 +173,32 @@ const Payment = ({ student_id, due, setreloader }) => {
                 onChange={(e) => {
                   setremark(e.target.value);
                 }}
-                
                 type="text"
               />
             </div>
 
-           {showConfirm&& <div style={{ display: "flex", gap: "21px", marginTop: "10px" }}>
-              <Form.Label style={{ marginTop: "10px" }}>Pass Code</Form.Label>
-              <Form.Control
-              autoComplete="off" 
-                value={passcode}
-                onChange={(e) => {
-                  setpasscode(e.target.value);
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    // Trigger your action here
-                    // For example, you might want to submit the form or validate the passcode
-                    // In this case, I'm just logging a message to the console
-                    verifypasscode()
-                  }}}
-                placeholder="Enter the passcode for verification"
-                type="password"
-              />
-            </div>}
+            {showConfirm && (
+              <div style={{ display: "flex", gap: "21px", marginTop: "10px" }}>
+                <Form.Label style={{ marginTop: "10px" }}>Pass Code</Form.Label>
+                <Form.Control
+                  autoComplete="off"
+                  value={passcode}
+                  onChange={(e) => {
+                    setpasscode(e.target.value);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      // Trigger your action here
+                      // For example, you might want to submit the form or validate the passcode
+                      // In this case, I'm just logging a message to the console
+                      verifypasscode();
+                    }
+                  }}
+                  placeholder="Enter the passcode for verification"
+                  type="password"
+                />
+              </div>
+            )}
             {unvalid && (
               <p style={{ color: "tomato", paddingLeft: "100px" }}>
                 Incorrect Pass Code
