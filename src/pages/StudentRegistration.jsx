@@ -3,6 +3,7 @@ import { Form, Row, Button, Col, InputGroup, Modal } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { supabase } from "../SupaBase";
 import { genarateStudentId } from "../functions/genarateID";
+import { MoonLoader } from "react-spinners";
 
 import "react-image-crop/dist/ReactCrop.css";
 
@@ -11,7 +12,7 @@ import NavBar from "../components/NavBar";
 import AdminTitle from "../components/AdminTitle";
 
 const StudentRegistration = () => {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -49,6 +50,8 @@ const StudentRegistration = () => {
   const [coursefee, setcoursefee] = useState();
   const [class_start, setclass_start] = useState("");
   const admission_date = new Date();
+
+  const [loading, setloading] = useState(false);
 
   useEffect(() => {
     setfeedue(coursefee - discount);
@@ -102,9 +105,6 @@ const StudentRegistration = () => {
       alert("Photo must be less than 150 kB");
       return;
     }
-
-    console.log(parseInt(File.size / 1024), "KB");
-
     const { data, error } = await supabase.storage
       .from("student_photos")
       .upload(`${name}_${Date.now()}.jpeg`, File);
@@ -121,6 +121,7 @@ const StudentRegistration = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setloading(true);
 
     if (File && !uploaded) {
       alert("upload the photo to sava details");
@@ -159,12 +160,14 @@ const StudentRegistration = () => {
       .select();
 
     if (error) {
+      setloading(false)
       alert(error.message);
       console.log("error in registration", error);
       return;
     }
 
     if (data) {
+      setloading(false)
       navigate(`/course/${course.c_id}/student/${GenaratedID}`, {
         replace: true,
       });
@@ -196,8 +199,8 @@ const StudentRegistration = () => {
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="success" onClick={handleSubmit}>
-            Register
+          <Button style={{width:"100px",height:"38px",display:"flex",justifyContent:"center",alignItems:"center"}} variant="success" onClick={handleSubmit}>
+            {loading ? <MoonLoader size={16} color="white" /> : "Register"}
           </Button>
         </Modal.Footer>
       </Modal>
