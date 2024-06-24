@@ -36,7 +36,7 @@ const NavBar = () => {
     <div className="nav_container">
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Login Out</Modal.Title>
+          <Modal.Title>Log Out</Modal.Title>
         </Modal.Header>
         <Modal.Body>Confirm Logout</Modal.Body>
         <Modal.Footer>
