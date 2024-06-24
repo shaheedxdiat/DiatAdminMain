@@ -4,7 +4,7 @@ import { supabase } from "../SupaBase";
 import generateINVOICE from "../functions/INVOIVEGenarator";
 import { MoonLoader } from "react-spinners";
 
-const Payment = ({ student_id, due, setreloader }) => {
+const Payment = ({ student_id, due }) => {
   const [admin, setadmin] = useState("");
   const [amount, setamount] = useState();
   const [remark, setremark] = useState("Fee Installment");
@@ -29,24 +29,21 @@ const Payment = ({ student_id, due, setreloader }) => {
   const verifypasscode = () => {
     setloading(true)
 
+
     if (passcode === process.env.REACT_APP_PASS_CODE) {
       handlePayment();
     } else {
-      setloading(false)
       setunvalid(true);
-      setTimeout(() => {
-        setloading(false)
-        setshowConfirm(false);
-        setShow(false);
-        setunvalid(false);
-        setamount(null);
-        setpasscode("");
-        alert("payment canceled");
-      }, 1000);
+      setloading(false)
+      setpasscode("");
+      setloading(false)
+
+     
     }
   };
 
   const handlePayment = async () => {
+   
     setloading(true)
     if (!amount || amount > due) {
       setunvalid(true);
@@ -75,6 +72,7 @@ const Payment = ({ student_id, due, setreloader }) => {
 
     if (error) {
       console.log("error in adding payment", error);
+      alert("something went wrong ! login again")
       return;
     }
 
@@ -85,6 +83,8 @@ const Payment = ({ student_id, due, setreloader }) => {
       .select("*");
     if (error) {
       console.log("error updating due", error1);
+      alert("something went wrong !! login again")
+
       return;
     }
     generateINVOICE(payment_data, student_data);
@@ -193,6 +193,7 @@ const Payment = ({ student_id, due, setreloader }) => {
                   value={passcode}
                   onChange={(e) => {
                     setpasscode(e.target.value);
+                    setunvalid(false)
                   }}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {

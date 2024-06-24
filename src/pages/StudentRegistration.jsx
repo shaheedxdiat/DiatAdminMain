@@ -12,7 +12,7 @@ import NavBar from "../components/NavBar";
 import AdminTitle from "../components/AdminTitle";
 
 const StudentRegistration = () => {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
