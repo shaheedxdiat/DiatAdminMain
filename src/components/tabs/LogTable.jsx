@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
+import { format } from 'date-fns'; // Import date-fns format function
 import StatementGenerator from "../../functions/StatementGenarator";
 import Loader from "../Loader";
 
-const LogTable = ({ data ,theme,title}) => {
+const LogTable = ({ data, theme, title, currentPage, itemsPerPage }) => {
   const [columns, setColumns] = useState([]);
 
   useEffect(() => {
@@ -15,42 +16,43 @@ const LogTable = ({ data ,theme,title}) => {
   }, [data]);
 
   return (
-
     <div className="tablediv">
-      
       <div className="w-100 d-flex g-5">
-        {/* <div className="d-flex">
-          <p className="danger" style={{ color:color}}>{heading} </p>
-          <p style={{ color: color }}>{total}</p>
-        </div> */}
+        {/* Other controls or headers can be here */}
       </div>
-      {data.length===0?<><Loader/></>:<Table striped bordered hover variant={theme}>
-        <thead>
-         
-          <tr>
-            <th>S.No</th>
-            {columns.map((column, index) => (
-              <th key={index}>{column}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data?.map((log, index) => (
-            <tr key={index}>
-              <td>{index + 1}</td> {/* Dynamically generate S.No */}
-              {columns.map((column, columnIndex) => (
-                <td key={columnIndex}>{log[column]}</td>
+      {data.length === 0 ? (
+        <Loader />
+      ) : (
+        <Table striped bordered hover variant={theme}>
+          <thead>
+            <tr>
+              <th>S.No</th>
+              {columns.map((column, index) => (
+                <th key={index}>{column}</th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </Table>
-      
-      }
-      
-     {data.length===0?<></>: <StatementGenerator  logs={data} heading={title}/>}
+          </thead>
+          <tbody>
+            {data?.map((log, index) => (
+              <tr key={index}>
+                <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>{" "}
+                {columns.map((column, columnIndex) => (
+                  <td key={columnIndex}>
+                    {column === 'date' ? format(new Date(log[column]), 'dd-MM-yyyy HH:mm') : log[column]} {/* Format date */}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      )}
+      {data.length === 0 ? (
+        <></>
+      ) : (
+        <StatementGenerator logs={data} heading={title} />
+      )}
     </div>
-  ); 
+  );
 };
 
 export default LogTable;

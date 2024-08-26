@@ -5,7 +5,7 @@ const Loader = () => {
   const [noData, setnoData] = useState(false)
   setTimeout(() => {
     setnoData(true)
-  }, 4000);
+  }, 3000);
   return (
     <div>
      {noData?<>No Data Found</>: <div class="progress-loader">

@@ -108,6 +108,7 @@ const SelectCourse = () => {
         </Col>
         <Col md={4} xs={6}>
           <Form.Select
+          name="course"
             onChange={(e) => {
               setselectedCourse(e.target.value);
               setShowWarning(false);

@@ -11,10 +11,7 @@ const StudentTable = () => {
   const c_id = useParams();
 
   const [students, setstudents] = useState([]);
-  // console.log(students.length);
- 
- 
- 
+  // console.log(students.length); 
   useEffect(() => {
     const getStudents = async () => {
       const { data, error } = await supabase

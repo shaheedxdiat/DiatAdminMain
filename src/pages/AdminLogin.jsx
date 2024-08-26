@@ -47,7 +47,7 @@ const AdminLogin = ({setautotimeout}) => {
       if (error) {
         throw error;
       }
-      // console.log("Login successful", data.user.email);
+      // console.log("Login succ/ssful", data.user.email);
       setError("");
       navigate("/course");
       setautotimeout(true)

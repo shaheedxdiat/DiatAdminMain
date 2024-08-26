@@ -197,9 +197,6 @@ const Payment = ({ student_id, due }) => {
                   }}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
-                      // Trigger your action here
-                      // For example, you might want to submit the form or validate the passcode
-                      // In this case, I'm just logging a message to the console
                       verifypasscode();
                     }
                   }}

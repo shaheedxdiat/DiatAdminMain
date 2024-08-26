@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Form, Row, Button } from "react-bootstrap";
+import { Form, Row, Button, Pagination, Dropdown } from "react-bootstrap";
 import { supabase } from "../../SupaBase";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { addDays } from "date-fns";
 
 import expensesvg from "../../assests/images/expense.svg";
 import LogTable from "./LogTable";
@@ -10,26 +13,55 @@ const ExpenseTab = () => {
   const [description, setDescription] = useState("");
   const [invoiceNo, setInvoiceNo] = useState("");
   const [data, setData] = useState([]);
-  const [expense, setexpense] = useState(0);
+  const [expense, setExpense] = useState(0);
 
-  const fetchexpense = async () => {
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
+  const [sortOrder, setSortOrder] = useState("desc"); // "desc" for newest, "asc" for oldest
+  const [startDate, setStartDate] = useState(null);
+  const itemsPerPage = 10;
+
+  const fetchexpense = async (page) => {
     console.log("fetching expense");
-    const { data, error } = await supabase
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage - 1;
+
+    let query = supabase
       .from("expense_chart")
-      .select("amount,date,description,invoice_number,cashier");
+      .select("amount,date,description,invoice_number,cashier", {
+        count: "exact",
+      })
+      .order("date", { ascending: sortOrder === "asc" })
+      .range(start, end);
+
+    if (startDate) {
+      const startOfDay = new Date(startDate);
+      startOfDay.setHours(0, 0, 0, 0); // Start of the day
+      const endOfDay = new Date(startDate);
+      endOfDay.setHours(23, 59, 59, 999); // End of the day
+
+      query = query
+        .gte("date", startOfDay.toISOString())
+        .lte("date", endOfDay.toISOString());
+    }
+
+    const { data, error, count } = await query;
 
     if (error) {
       console.log("expense fetch error", error);
       return;
     }
+
     setData(data);
     const totalAmount = data.reduce((acc, curr) => acc + curr.amount, 0);
-    setexpense(totalAmount);
+    setExpense(totalAmount);
+    setTotalCount(count);
   };
 
   useEffect(() => {
-    fetchexpense();
-  }, []);
+    fetchexpense(currentPage);
+  }, [currentPage, sortOrder, startDate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,8 +75,7 @@ const ExpenseTab = () => {
           cashier: localStorage.getItem("admin"),
         },
       ]);
-      console.log(_);
-      fetchexpense();
+      fetchexpense(currentPage);
       setAmount("");
       setDescription("");
       setInvoiceNo("");
@@ -55,6 +86,16 @@ const ExpenseTab = () => {
       }
     }
   };
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const handleSortChange = (order) => {
+    setSortOrder(order);
+  };
+
+  const totalPages = Math.ceil(totalCount / itemsPerPage);
 
   return (
     <div>
@@ -122,14 +163,6 @@ const ExpenseTab = () => {
                 <option value="Travel expense">Travel expense</option>
                 <option value="Purchase">Purchase</option>
               </Form.Select>
-              <Form.Control
-                required
-                type="text"
-                value={description}
-                onChange={(e) => {
-                  setDescription(e.target.value);
-                }}
-              />
             </div>
             <div
               className="inputandlable"
@@ -156,15 +189,98 @@ const ExpenseTab = () => {
       </div>
 
       <div className="secexpdiv">
-        <div>
-          <LogTable
-            data={data}
-            total={expense}
-            theme={""}
-            title={"EXPENSE_LOG"}
-            color={"red"}
-          />
+        <div className="d-flex justify-content-between mx-3 my-2">
+          <div className="d-flex align-items-center">
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => {
+                setStartDate(date);
+                setCurrentPage(1); 
+                
+              }}
+              dateFormat="dd-MM-yyy"
+              placeholderText="Select Date"
+              className="form-control"
+              maxDate={new Date()}
+            />
+          </div>
+          <Dropdown>
+            <Dropdown.Toggle variant="outline" id="dropdown-basic">
+              Sort by {sortOrder === "asc" ? "Oldest" : "Newest"}
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item href="#" onClick={() => handleSortChange("desc")}>
+                Newest
+              </Dropdown.Item>
+              <Dropdown.Item href="#" onClick={() => handleSortChange("asc")}>
+                Oldest
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
+        <LogTable
+          data={data}
+          total={expense}
+          theme={""}
+          title={"EXPENSE_LOG"}
+          color={"red"}
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+        />
+      </div>
+
+      <div className="d-flex flex-column justify-content-center mt-4">
+        <Pagination className="justify-content-center">
+          <Pagination.Prev
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          />
+          {totalPages > 1 && (
+            <>
+              {currentPage > 4 && (
+                <>
+                  <Pagination.Item onClick={() => handlePageChange(1)}>
+                    1
+                  </Pagination.Item>
+                  <Pagination.Ellipsis />
+                </>
+              )}
+              {Array.from({ length: totalPages }, (_, index) => {
+                const pageNumber = index + 1;
+                return (
+                  (pageNumber <= 4 ||
+                    pageNumber >= totalPages - 2 ||
+                    (pageNumber >= currentPage - 1 &&
+                      pageNumber <= currentPage + 1)) && (
+                    <Pagination.Item
+                      key={pageNumber}
+                      onClick={() => handlePageChange(pageNumber)}
+                      active={currentPage === pageNumber}
+                    >
+                      {pageNumber}
+                    </Pagination.Item>
+                  )
+                );
+              })}
+              {currentPage < totalPages - 3 && (
+                <>
+                  <Pagination.Ellipsis />
+                  <Pagination.Item onClick={() => handlePageChange(totalPages)}>
+                    {totalPages}
+                  </Pagination.Item>
+                </>
+              )}
+            </>
+          )}
+          <Pagination.Next
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          />
+        </Pagination>
+        <p style={{ color: "gray", fontSize: "13px" }}>
+          showing result from {totalCount} data
+        </p>
       </div>
     </div>
   );
