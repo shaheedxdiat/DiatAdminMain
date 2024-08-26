@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { supabase } from "../SupaBase";
 import generateINVOICE from "../functions/INVOIVEGenarator";
+import { MoonLoader } from "react-spinners";
 
-const Payment = ({ student_id, due, setreloader }) => {
+const Payment = ({ student_id, due }) => {
   const [admin, setadmin] = useState("");
   const [amount, setamount] = useState();
   const [remark, setremark] = useState("Fee Installment");
   const [showConfirm, setshowConfirm] = useState(false);
   const [unvalid, setunvalid] = useState(false);
   const [passcode, setpasscode] = useState("");
+  const [loading, setloading] = useState(false);
 
   useEffect(() => {
     const getAdmin = async () => {
@@ -25,22 +27,24 @@ const Payment = ({ student_id, due, setreloader }) => {
   // ----------------------------------------------------------
 
   const verifypasscode = () => {
+    setloading(true)
+
+
     if (passcode === process.env.REACT_APP_PASS_CODE) {
       handlePayment();
     } else {
       setunvalid(true);
-      setTimeout(() => {
-        setshowConfirm(false);
-        setShow(false);
-        setunvalid(false);
-        setamount(null);
-        setpasscode("");
-        alert("payment canceled");
-      }, 1000);
+      setloading(false)
+      setpasscode("");
+      setloading(false)
+
+     
     }
   };
 
   const handlePayment = async () => {
+   
+    setloading(true)
     if (!amount || amount > due) {
       setunvalid(true);
 
@@ -68,6 +72,7 @@ const Payment = ({ student_id, due, setreloader }) => {
 
     if (error) {
       console.log("error in adding payment", error);
+      alert("something went wrong ! login again")
       return;
     }
 
@@ -78,10 +83,11 @@ const Payment = ({ student_id, due, setreloader }) => {
       .select("*");
     if (error) {
       console.log("error updating due", error1);
+      alert("something went wrong !! login again")
+
       return;
     }
     generateINVOICE(payment_data, student_data);
-    setreloader(true);
     handleClose();
     if (due - amount === 0) {
       const { error } = await supabase
@@ -91,10 +97,11 @@ const Payment = ({ student_id, due, setreloader }) => {
         .select("student_id,payment_completed");
 
       if (error) {
+        setloading(false);
         console.log(error);
       }
-
       alert("Payment_completed");
+
     }
     return;
   };
@@ -107,6 +114,7 @@ const Payment = ({ student_id, due, setreloader }) => {
   // ----------------------------------------------------------
   const [show, setShow] = useState(false);
   const handleClose = () => {
+    setloading(false);
     setamount(null);
     setpasscode(null);
     setShow(false);
@@ -185,6 +193,7 @@ const Payment = ({ student_id, due, setreloader }) => {
                   value={passcode}
                   onChange={(e) => {
                     setpasscode(e.target.value);
+                    setunvalid(false)
                   }}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
@@ -214,8 +223,25 @@ const Payment = ({ student_id, due, setreloader }) => {
                   Recieved
                 </Button>
               ) : (
-                <Button variant="danger" onClick={verifypasscode}>
-                  Confirm And Get Invoice
+                // <Button variant="danger" onClick={verifypasscode}>
+                //   Confirm And Get Invoice
+                // </Button>
+                <Button
+                  style={{
+                    width: "200px",
+                    height: "38px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                  variant="success"
+                  onClick={verifypasscode}
+                >
+                  {loading ? (
+                    <MoonLoader size={16} color="white" />
+                  ) : (
+                    " Confirm And Get Invoice"
+                  )}
                 </Button>
               )}
             </div>
